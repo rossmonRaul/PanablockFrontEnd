@@ -13,3 +13,18 @@ H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.pdb
 H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Dominio.dll
 H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Dominio.pdb
 H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.CopyComplete
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.AssemblyReference.cache
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.AssemblyInfoInputs.cache
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.AssemblyInfo.cs
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.CoreCompileInputs.cache
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\bin\Debug\net5.0\Aplicacion.deps.json
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\bin\Debug\net5.0\Aplicacion.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\bin\Debug\net5.0\Aplicacion.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\bin\Debug\net5.0\Dominio.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\bin\Debug\net5.0\Dominio.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.CopyComplete
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\refint\Aplicacion.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\Aplicacion.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Aplicacion\obj\Debug\net5.0\ref\Aplicacion.dll

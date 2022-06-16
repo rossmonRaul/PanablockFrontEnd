@@ -1,4 +1,5 @@
-﻿using Dominio.Entiti;
+﻿using Dominio.Dto;
+using Dominio.Entiti;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,14 @@ namespace Dominio.Interfaces.Aplicacion.Planta
 {
     public interface IServicioPlanta
     {
-        Task<bool> AgregarPlanta(EntitiPlanta entitiPlanta);
+        Task<DtoDatosSP> InsertarPlanta(EntitiPlanta entitiPlanta);
+
+        Task<DtoDatosSP> ActualizarPlanta(EntitiPlanta entitiPlanta);
+
+        Task<DtoDatosSP> EliminarPlanta(EntitiPlanta entitiPlanta);
+
+        Task<DtoPlanta> ObtenerDetallePlanta(EntitiPlanta entitiPlanta);
+
+        Task<List<DtoPlanta>> ObtenerPlantas();
     }
 }

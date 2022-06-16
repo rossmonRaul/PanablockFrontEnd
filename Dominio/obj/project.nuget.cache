@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Cvd+XdX5gnumYIdzKVcrxB6gA/v7AjjBU+CCyxTmkXcxpFG8Ktzscei17aukjWjS1pwkYXblV6BvqbEBfboB5g==",
+  "dgSpecHash": "1IyaU78FwD8bT4Nn2NOA9ns4MsyGesOAT2ughOMnwjrGXZ2tbBHi4CDQGU1qsBdOsNkgR3ylpFL4I19dM8Ps2Q==",
   "success": true,
-  "projectFilePath": "H:\\Proyecto Raul\\PanaBlock\\Dominio\\Dominio.csproj",
+  "projectFilePath": "C:\\Users\\Pablo-PC\\source\\repos\\PanablockFrontEnd\\Dominio\\Dominio.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

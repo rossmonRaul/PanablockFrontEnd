@@ -8,7 +8,7 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 {
     public interface IContextoBD
     {
-        Task<bool> EjecutarSP(string query, Dictionary<string, object> data);
+        Task<T> EjecutarSP<T>(string query, Dictionary<string, object> data = null);
         Task<T> ObtenerDato<T>(string sqlQuery, Dictionary<string, object> data = null);
         Task<List<T>> ObtenerListaDeDatos<T>(string sqlQuery, Dictionary<string, object> data = null);
     }

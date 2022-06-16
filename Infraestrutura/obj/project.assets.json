@@ -642,40 +642,42 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mirandasd\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Pablo-PC\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Proyecto Raul\\PanaBlock\\Infraestrutura\\Infraestrutura.csproj",
+      "projectUniqueName": "C:\\Users\\Pablo-PC\\source\\repos\\PanablockFrontEnd\\Infraestrutura\\Infraestrutura.csproj",
       "projectName": "Infraestrutura",
-      "projectPath": "H:\\Proyecto Raul\\PanaBlock\\Infraestrutura\\Infraestrutura.csproj",
-      "packagesPath": "C:\\Users\\mirandasd\\.nuget\\packages\\",
-      "outputPath": "H:\\Proyecto Raul\\PanaBlock\\Infraestrutura\\obj\\",
+      "projectPath": "C:\\Users\\Pablo-PC\\source\\repos\\PanablockFrontEnd\\Infraestrutura\\Infraestrutura.csproj",
+      "packagesPath": "C:\\Users\\Pablo-PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pablo-PC\\Source\\Repos\\PanablockFrontEnd\\Infraestrutura\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\mirandasd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Pablo-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://pachuca:8080/tfs/Institucional/_packaging/Institucional/nuget/v3/index.json": {},
-        "http://pachuca:8080/tfs/institucional/_packaging/WebApi/nuget/v3/index.json": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "H:\\Proyecto Raul\\PanaBlock\\Dominio\\Dominio.csproj": {
-              "projectPath": "H:\\Proyecto Raul\\PanaBlock\\Dominio\\Dominio.csproj"
+            "C:\\Users\\Pablo-PC\\source\\repos\\PanablockFrontEnd\\Dominio\\Dominio.csproj": {
+              "projectPath": "C:\\Users\\Pablo-PC\\source\\repos\\PanablockFrontEnd\\Dominio\\Dominio.csproj"
             }
           }
         }
@@ -722,7 +724,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -18,9 +18,33 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<JsonResult> AgregarPlanta(EntitiPlanta entitiPlanta)
+        public async Task<JsonResult> InsertarPlanta(EntitiPlanta entitiPlanta)
         {
-            return Json(await this.servicioPlanta.AgregarPlanta(entitiPlanta));
+            return Json(await this.servicioPlanta.InsertarPlanta(entitiPlanta));
+        }
+
+        [HttpPut("[action]")]
+        public async Task<JsonResult> ActualizarPlanta(EntitiPlanta entitiPlanta)
+        {
+            return Json(await this.servicioPlanta.ActualizarPlanta(entitiPlanta));
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<JsonResult>EliminarPlanta(EntitiPlanta entitiPlanta)
+        {
+            return Json(await this.servicioPlanta.EliminarPlanta(entitiPlanta));
+        }
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> ObtenerDetallePlanta(EntitiPlanta entitiPlanta)
+        {
+            return Json(await this.servicioPlanta.ObtenerDetallePlanta(entitiPlanta));
+        }
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> ObtenerPlantas()
+        {
+            return Json(await this.servicioPlanta.ObtenerPlantas());
         }
     }
 }

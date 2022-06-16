@@ -13,3 +13,18 @@ H:\Proyecto Raul\PanaBlock\Infraestrutura\obj\Debug\net5.0\Infraestrutura.csproj
 H:\Proyecto Raul\PanaBlock\Infraestrutura\obj\Debug\net5.0\Infraestrutura.dll
 H:\Proyecto Raul\PanaBlock\Infraestrutura\obj\Debug\net5.0\ref\Infraestrutura.dll
 H:\Proyecto Raul\PanaBlock\Infraestrutura\obj\Debug\net5.0\Infraestrutura.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.csproj.AssemblyReference.cache
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.AssemblyInfoInputs.cache
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.AssemblyInfo.cs
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.csproj.CoreCompileInputs.cache
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\bin\Debug\net5.0\Infraestrutura.deps.json
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\bin\Debug\net5.0\Infraestrutura.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\bin\Debug\net5.0\Infraestrutura.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\bin\Debug\net5.0\Dominio.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\bin\Debug\net5.0\Dominio.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.csproj.CopyComplete
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\refint\Infraestrutura.dll
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\Infraestrutura.pdb
+C:\Users\Pablo-PC\source\repos\PanablockFrontEnd\Infraestrutura\obj\Debug\net5.0\ref\Infraestrutura.dll

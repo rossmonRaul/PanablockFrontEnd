@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Dominio.Entiti;
 using Dominio.Interfaces.Infraestrutura.BaseDatos;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -28,21 +29,26 @@ namespace Infraestrutura.BaseDatos
             return Configuration[$"ConnectionStrings:BD"];
         }
 
-        public async Task<bool> EjecutarSP(string query, Dictionary<string, object> data)
+        public async Task<T> EjecutarSP<T>(string query, Dictionary<string, object> data)
         {
+            object value = new object();
+
             try
             {
-                this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
-                this.sqlConnection.Open();
-                this.sqlCommand = new SqlCommand(query, this.sqlConnection);
-                this.sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                foreach (var item in data)
-                {
-                    sqlCommand.Parameters.AddWithValue(item.Key, item.Value);
-                }
-                await sqlCommand.ExecuteNonQueryAsync();
+                    this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
+                    this.sqlConnection.Open();
+                    DynamicParameters queryParameters = new DynamicParameters();
+                    this.PrepararConsultaDapper(ref query, ref queryParameters, data);
+                    foreach (var item in data)
+                    {
+                            sqlCommand.Parameters.AddWithValue(item.Key, item.Value);
+                    }
+
+                    var result = await this.sqlConnection.QueryAsync<T>(query, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
+                    value = result.FirstOrDefault();
+                
             }
-            catch (SqlException)
+            catch (Exception)
             {
                 throw;
             }
@@ -50,7 +56,7 @@ namespace Infraestrutura.BaseDatos
             {
                 this.sqlConnection.Close();
             }
-            return true;
+            return (T)Convert.ChangeType(value, typeof(T));
         }
 
         public async Task<T> ObtenerDato<T>(string sqlQuery, Dictionary<string, object> data = null)
