@@ -1,0 +1,12 @@
+H:\Proyecto Raul\PanaBlock\Dominio\bin\Debug\net5.0\Dominio.deps.json
+H:\Proyecto Raul\PanaBlock\Dominio\bin\Debug\net5.0\Dominio.dll
+H:\Proyecto Raul\PanaBlock\Dominio\bin\Debug\net5.0\ref\Dominio.dll
+H:\Proyecto Raul\PanaBlock\Dominio\bin\Debug\net5.0\Dominio.pdb
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.csproj.AssemblyReference.cache
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.GeneratedMSBuildEditorConfig.editorconfig
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.AssemblyInfoInputs.cache
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.AssemblyInfo.cs
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.csproj.CoreCompileInputs.cache
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.dll
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\ref\Dominio.dll
+H:\Proyecto Raul\PanaBlock\Dominio\obj\Debug\net5.0\Dominio.pdb

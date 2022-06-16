@@ -1,0 +1,15 @@
+H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Aplicacion.deps.json
+H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Aplicacion.dll
+H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\ref\Aplicacion.dll
+H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Aplicacion.pdb
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.AssemblyReference.cache
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.AssemblyInfoInputs.cache
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.AssemblyInfo.cs
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.CoreCompileInputs.cache
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.dll
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\ref\Aplicacion.dll
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.pdb
+H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Dominio.dll
+H:\Proyecto Raul\PanaBlock\Aplicacion\bin\Debug\net5.0\Dominio.pdb
+H:\Proyecto Raul\PanaBlock\Aplicacion\obj\Debug\net5.0\Aplicacion.csproj.CopyComplete
