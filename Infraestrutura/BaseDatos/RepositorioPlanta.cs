@@ -32,5 +32,21 @@ namespace Infraestrutura.BaseDatos
                 throw;
             }
         }
+
+        public async Task<List<EntitiPlanta>> ObtenerDatos()
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("idPlanta", 1);
+                string query = "SPObtenerPlanta";
+
+                return await this.contextoBD.ObtenerListaDeDatos<EntitiPlanta>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }   
 }
