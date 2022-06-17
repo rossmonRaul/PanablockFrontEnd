@@ -22,13 +22,14 @@ namespace Infraestrutura.BaseDatos
         {
             try
             {
+
+
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("NombrePlanta", entitiPlanta.nombrePlanta);
-                data.Add("Estado", entitiPlanta.estado);
                 data.Add("Ubicacion", entitiPlanta.ubicacion);
                 string query = "SPInsertarPlanta";
 
-                return await this.contextoBD.EjecutarSP<DtoDatosSP>(query, data);
+                return await this.contextoBD.EjecutarSP(query, data);
             }
             catch (Exception)
             {
@@ -37,8 +38,8 @@ namespace Infraestrutura.BaseDatos
         }
 
         public async Task<DtoDatosSP> ActualizarPlanta(EntitiPlanta entitiPlanta)
-        { 
-       
+        {
+
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
@@ -49,7 +50,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("Ubicacion", entitiPlanta.ubicacion);
                 string query = "SPActualizarPlanta";
 
-                return await this.contextoBD.EjecutarSP<DtoDatosSP>(query, data); 
+                return await this.contextoBD.EjecutarSP(query, data);
             }
             catch (Exception)
             {
@@ -62,10 +63,10 @@ namespace Infraestrutura.BaseDatos
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdPlanta", entitiPlanta.idPlanta);              
+                data.Add("IdPlanta", entitiPlanta.idPlanta);
                 string query = "SPEliminarPlanta";
 
-                return await this.contextoBD.EjecutarSP<DtoDatosSP>(query, data);
+                return await this.contextoBD.EjecutarSP(query, data);
             }
             catch (Exception)
             {
@@ -73,39 +74,39 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-      
-            public async Task<DtoPlanta> ObtenerDetallePlanta(EntitiPlanta entitiPlanta)
+
+        public async Task<DtoPlanta> ObtenerDetallePlanta(EntitiPlanta entitiPlanta)
+        {
+            try
             {
-                try
-                {
-                    Dictionary<string, object> data = new Dictionary<string, object>();
-                    data.Add("IdPlanta", entitiPlanta.idPlanta);
-                    string query = "SPObtenerDetallePlanta";
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdPlanta", entitiPlanta.idPlanta);
+                string query = "SPObtenerDetallePlanta";
 
-                    return await this.contextoBD.ObtenerDato<DtoPlanta>(query, data);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                return await this.contextoBD.ObtenerDato<DtoPlanta>(query, data);
             }
-
-            public async Task<List<DtoPlanta>> ObtenerPlantas()
+            catch (Exception)
             {
-                try
-                {
-                    string query = "SPObtenerPlantas";
-                    var result =  await this.contextoBD.ObtenerListaDeDatos<DtoPlanta>(query);
-
-                    return result;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                throw;
             }
+        }
 
-        }   
+        public async Task<List<DtoPlanta>> ObtenerPlantas()
+        {
+            try
+            {
+                string query = "SPObtenerPlantas";
+                var result = await this.contextoBD.ObtenerListaDeDatos<DtoPlanta>(query);
 
-    }   
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+    }
+
+}
 

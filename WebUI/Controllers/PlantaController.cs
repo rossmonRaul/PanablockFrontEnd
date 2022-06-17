@@ -22,9 +22,14 @@ namespace WebUI.Controllers
             this.servicioPlanta = servicioPlanta;
         }
 
-        [HttpPost("[action]")]
-        public async Task<JsonResult> InsertarPlanta(EntitiPlanta entitiPlanta)
+        [HttpGet("[action]")]
+        public async Task<JsonResult> InsertarPlanta()
         {
+            EntitiPlanta entitiPlanta = new EntitiPlanta()
+            {
+                nombrePlanta = "prueba",
+                ubicacion = "prueba"
+            };
             return Json(await this.servicioPlanta.InsertarPlanta(entitiPlanta));
         }
 

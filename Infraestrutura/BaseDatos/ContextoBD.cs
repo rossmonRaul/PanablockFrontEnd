@@ -1,9 +1,11 @@
 ﻿using Dapper;
+using Dominio.Dto;
 using Dominio.Entiti;
 using Dominio.Interfaces.Infraestrutura.BaseDatos;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -29,24 +31,31 @@ namespace Infraestrutura.BaseDatos
             return Configuration[$"ConnectionStrings:BD"];
         }
 
-        public async Task<T> EjecutarSP<T>(string query, Dictionary<string, object> data)
+        public async Task<DtoDatosSP> EjecutarSP(string query, Dictionary<string, object> data)
         {
-            object value = new object();
-
+            DtoDatosSP dtoDatosSP = new DtoDatosSP();
             try
             {
-                    this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
-                    this.sqlConnection.Open();
-                    DynamicParameters queryParameters = new DynamicParameters();
-                    this.PrepararConsultaDapper(ref query, ref queryParameters, data);
-                    foreach (var item in data)
-                    {
-                            sqlCommand.Parameters.AddWithValue(item.Key, item.Value);
-                    }
+                this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
+                this.sqlConnection.Open();
+                this.sqlCommand = new SqlCommand(query, this.sqlConnection);
+                this.sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                foreach (var item in data)
+                {
+                    sqlCommand.Parameters.AddWithValue(item.Key, item.Value);
+                }
 
-                    var result = await this.sqlConnection.QueryAsync<T>(query, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
-                    value = result.FirstOrDefault();
-                
+                sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
+                sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
+                sqlCommand.Parameters["@INDICADOR"].Direction = ParameterDirection.Output;
+                sqlCommand.Parameters["@MENSAJE"].Direction = ParameterDirection.Output;
+
+                await sqlCommand.ExecuteNonQueryAsync();
+                dtoDatosSP = new DtoDatosSP
+                {
+                    indicador = Convert.ToInt32(sqlCommand.Parameters["@INDICADOR"].Value),
+                    mensaje = sqlCommand.Parameters["@MENSAJE"].Value.ToString()
+                };
             }
             catch (Exception)
             {
@@ -56,7 +65,7 @@ namespace Infraestrutura.BaseDatos
             {
                 this.sqlConnection.Close();
             }
-            return (T)Convert.ChangeType(value, typeof(T));
+            return dtoDatosSP;
         }
 
         public async Task<T> ObtenerDato<T>(string sqlQuery, Dictionary<string, object> data = null)
@@ -67,7 +76,8 @@ namespace Infraestrutura.BaseDatos
                 this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
                 this.sqlConnection.Open();
                 DynamicParameters queryParameters = new DynamicParameters();
-                this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);
+                if(data != null)
+                    this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);
                 var result = await this.sqlConnection.QueryAsync<T>(sqlQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
             }
@@ -90,7 +100,8 @@ namespace Infraestrutura.BaseDatos
                 this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
                 this.sqlConnection.Open();
                 DynamicParameters queryParameters = new DynamicParameters();
-                this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);
+                if (data != null)
+                    this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);
                 var result = await this.sqlConnection.QueryAsync<T>(sqlQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 lista = result.ToList();
             }
@@ -105,6 +116,7 @@ namespace Infraestrutura.BaseDatos
             return lista;
         }
 
+ 
         private void PrepararConsultaDapper(ref string NombreProcedimientoAlmacenado, ref DynamicParameters parameters,
             Dictionary<string, object> Parametros)
         {
