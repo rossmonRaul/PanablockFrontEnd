@@ -36,36 +36,26 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-<<<<<<< HEAD
         public async Task<DtoDatosSP> ActualizarPlanta(EntitiPlanta entitiPlanta)
-=======
-        public async Task<List<EntitiPlanta>> ObtenerDatos()
->>>>>>> b5f18b9e7fe0f7056b1c1412a97320d1f44053d6
-        {
+        { 
+       
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-<<<<<<< HEAD
+
                 data.Add("IdPlanta", entitiPlanta.idPlanta);
                 data.Add("NombrePlanta", entitiPlanta.nombrePlanta);
                 data.Add("Estado", entitiPlanta.estado);
                 data.Add("Ubicacion", entitiPlanta.ubicacion);
                 string query = "SPActualizarPlanta";
 
-                return await this.contextoBD.EjecutarSP<DtoDatosSP>(query, data);
-=======
-                data.Add("idPlanta", 1);
-                string query = "SPObtenerPlanta";
-
-                return await this.contextoBD.ObtenerListaDeDatos<EntitiPlanta>(query, data);
->>>>>>> b5f18b9e7fe0f7056b1c1412a97320d1f44053d6
+                return await this.contextoBD.EjecutarSP<DtoDatosSP>(query, data); 
             }
             catch (Exception)
             {
                 throw;
             }
         }
-<<<<<<< HEAD
 
         public async Task<DtoDatosSP> EliminarPlanta(EntitiPlanta entitiPlanta)
         {
