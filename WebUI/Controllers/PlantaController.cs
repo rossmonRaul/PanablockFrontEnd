@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace WebUI.Controllers
 {
+
+    [Route("{controller}")]
+    [ApiController]
+
     public class PlantaController : Controller
     {
+      
         private readonly IServicioPlanta servicioPlanta;
 
         public PlantaController(IServicioPlanta servicioPlanta)
