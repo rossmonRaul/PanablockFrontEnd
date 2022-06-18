@@ -22,34 +22,42 @@ namespace WebUI.Controllers
             this.servicioPlanta = servicioPlanta;
         }
 
-        [HttpGet("[action]")]
-        public async Task<JsonResult> InsertarPlanta()
+        [HttpPost("[action]")]
+        public async Task<JsonResult> InsertarPlanta(EntitiPlanta entitiPlanta)
         {
-            EntitiPlanta entitiPlanta = new EntitiPlanta()
+            /*EntitiPlanta entitiPlanta = new EntitiPlanta()
             {
-                nombrePlanta = "prueba",
-                ubicacion = "prueba"
-            };
+                nombrePlanta = "prueba2",
+                ubicacion = "prueba2"
+            };*/
             return Json(await this.servicioPlanta.InsertarPlanta(entitiPlanta));
         }
 
         [HttpPut("[action]")]
         public async Task<JsonResult> ActualizarPlanta(EntitiPlanta entitiPlanta)
         {
+           
             return Json(await this.servicioPlanta.ActualizarPlanta(entitiPlanta));
         }
 
-        [HttpDelete("[action]")]
-        public async Task<JsonResult>EliminarPlanta(EntitiPlanta entitiPlanta)
+        [HttpDelete("[action]/{idPlanta}")]
+        public async Task<JsonResult>EliminarPlanta(int idPlanta)
         {
-            return Json(await this.servicioPlanta.EliminarPlanta(entitiPlanta));
+            return Json(await this.servicioPlanta.EliminarPlanta(idPlanta));
         }
 
-        [HttpGet("[action]")]
-        public async Task<JsonResult> ObtenerDetallePlanta(EntitiPlanta entitiPlanta)
+        [HttpGet("[action]/{idPlanta}")]
+        public async Task<JsonResult> ObtenerDetallePlantaID(int idPlanta)
         {
-            return Json(await this.servicioPlanta.ObtenerDetallePlanta(entitiPlanta));
+            return Json(await this.servicioPlanta.ObtenerDetallePlantaID(idPlanta));
         }
+
+        [HttpGet("[action]/{nombre}")]
+        public async Task<JsonResult> ObtenerDetallePlantaNombre(string nombre)
+        {
+            return Json(await this.servicioPlanta.ObtenerDetallePlantaNombre(nombre));
+        }
+
 
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerPlantas()

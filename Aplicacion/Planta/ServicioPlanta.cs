@@ -29,14 +29,19 @@ namespace Aplicacion.Planta
             return await this.repositorioPlanta.ActualizarPlanta(entitiPlanta);
         }
 
-        public async Task<DtoDatosSP> EliminarPlanta(EntitiPlanta entitiPlanta)
+        public async Task<DtoDatosSP> EliminarPlanta(int idPlanta )
         {
-            return await this.repositorioPlanta.EliminarPlanta(entitiPlanta);
+            return await this.repositorioPlanta.EliminarPlanta(idPlanta);
         }
 
-        public async Task<DtoPlanta> ObtenerDetallePlanta(EntitiPlanta entitiPlanta)
+        public async Task<DtoPlanta> ObtenerDetallePlantaID(int idPlanta)
         {
-            return await this.repositorioPlanta.ObtenerDetallePlanta(entitiPlanta);
+            return await this.repositorioPlanta.ObtenerDetallePlantaID(idPlanta);
+        }
+
+        public async Task<DtoPlanta> ObtenerDetallePlantaNombre(string nombre)
+        {
+            return await this.repositorioPlanta.ObtenerDetallePlantaNombre(nombre);
         }
 
         public async Task<List<DtoPlanta>> ObtenerPlantas()

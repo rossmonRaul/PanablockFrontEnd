@@ -1,4 +1,6 @@
-﻿using Dominio.Interfaces.Aplicacion.Usuario;
+﻿using Dominio.Dto;
+using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Usuario;
 using Dominio.Interfaces.Infraestrutura.BaseDatos;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,36 @@ namespace Aplicacion.Usuario
         public ServicioUsuario(IRepositorioUsuario repositorioUsuario)
         {
             this.repositorioUsuario = repositorioUsuario;
+        }
+
+        public async Task<DtoDatosSP> InsertarUsuario(EntitiUsuario entitiUsuario)
+        {
+            return await this.repositorioUsuario.InsertarUsuario(entitiUsuario);
+        }
+
+        public async Task<DtoDatosSP> ActualizarUsuario(EntitiUsuario entitiUsuario)
+        {
+            return await this.repositorioUsuario.ActualizarUsuario(entitiUsuario);
+        }
+
+        public async Task<DtoDatosSP> EliminarUsuario(int idUsuario)
+        {
+            return await this.repositorioUsuario.EliminarUsuario(idUsuario);
+        }
+
+        public async Task<DtoUsuario> ObtenerDetalleUsuarioID(int idUsuario)
+        {
+            return await this.repositorioUsuario.ObtenerDetalleUsuarioID(idUsuario);
+        }
+
+        public async Task<DtoUsuario> ObtenerDetalleUsuarioNombre(string nombre)
+        {
+            return await this.repositorioUsuario.ObtenerDetalleUsuarioNombre(nombre);
+        }
+
+        public async Task<List<DtoUsuario>> ObtenerUsuarios()
+        {
+            return await this.repositorioUsuario.ObtenerUsuarios();
         }
 
     }

@@ -14,7 +14,7 @@ namespace Dominio.Entiti
 
         public int idRol { get; set; }
 
-        public string correoElectronico { get; set; }
+        public string coreoElectronico { get; set; }
 
         public string contrasenaTemporal { get; set; }
 

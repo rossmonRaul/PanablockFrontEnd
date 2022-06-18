@@ -22,8 +22,6 @@ namespace Infraestrutura.BaseDatos
         {
             try
             {
-
-
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("NombrePlanta", entitiPlanta.nombrePlanta);
                 data.Add("Ubicacion", entitiPlanta.ubicacion);
@@ -58,12 +56,12 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<DtoDatosSP> EliminarPlanta(EntitiPlanta entitiPlanta)
+        public async Task<DtoDatosSP> EliminarPlanta(int idPlanta)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdPlanta", entitiPlanta.idPlanta);
+                data.Add("IdPlanta", idPlanta);
                 string query = "SPEliminarPlanta";
 
                 return await this.contextoBD.EjecutarSP(query, data);
@@ -75,13 +73,29 @@ namespace Infraestrutura.BaseDatos
         }
 
 
-        public async Task<DtoPlanta> ObtenerDetallePlanta(EntitiPlanta entitiPlanta)
+        public async Task<DtoPlanta> ObtenerDetallePlantaID(int idPlanta)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdPlanta", entitiPlanta.idPlanta);
-                string query = "SPObtenerDetallePlanta";
+                data.Add("IdPlanta", idPlanta);
+                string query = "SPObtenerDetallePlantaID";
+
+                return await this.contextoBD.ObtenerDato<DtoPlanta>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<DtoPlanta> ObtenerDetallePlantaNombre(string nombre)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("Nombre", nombre);
+                string query = "SPObtenerDetallePlantaNombre";
 
                 return await this.contextoBD.ObtenerDato<DtoPlanta>(query, data);
             }

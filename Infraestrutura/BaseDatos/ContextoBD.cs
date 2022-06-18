@@ -76,8 +76,10 @@ namespace Infraestrutura.BaseDatos
                 this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
                 this.sqlConnection.Open();
                 DynamicParameters queryParameters = new DynamicParameters();
-                if(data != null)
-                    this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);
+                queryParameters.Add("@IdUsuario", "2"); //datos de prueba borrar
+                /*if (data != null)
+                    this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);*/
+
                 var result = await this.sqlConnection.QueryAsync<T>(sqlQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
             }

@@ -14,9 +14,11 @@ namespace Dominio.Interfaces.Aplicacion.Planta
 
         Task<DtoDatosSP> ActualizarPlanta(EntitiPlanta entitiPlanta);
 
-        Task<DtoDatosSP> EliminarPlanta(EntitiPlanta entitiPlanta);
+        Task<DtoDatosSP> EliminarPlanta(int idPlanta);
 
-        Task<DtoPlanta> ObtenerDetallePlanta(EntitiPlanta entitiPlanta);
+        Task<DtoPlanta> ObtenerDetallePlantaID(int idPlanta);
+
+        Task<DtoPlanta> ObtenerDetallePlantaNombre(string nombre);
 
         Task<List<DtoPlanta>> ObtenerPlantas();
     }
