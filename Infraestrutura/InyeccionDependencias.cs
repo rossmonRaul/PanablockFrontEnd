@@ -23,6 +23,7 @@ namespace Infraestrutura
             services.AddScoped<IRepositorioTiposIdentificacion, RepositorioTiposIdentificacion>();
             services.AddScoped<IRepositorioTurno, RepositorioTurno>();
             services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
+            services.AddScoped<IRepositorioTipoMaterial, RepositorioTipoMaterial>();
 
 
 

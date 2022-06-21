@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Dominio.Dto
 {
-    public class DtoProducto
+    public class DtoTipoMaterial
     {
-        public int idProducto { get; set; }
 
-        public string nombreProducto { get; set; }
+        public int idTipoMaterial { get; set; }
 
-        public string descripcionProducto { get; set; }
+        public string nombre { get; set; }
 
-        public decimal factor { get; set; }
+        public string descripcion { get; set; }
+
+        public int idGrupoMaterial { get; set; }
+
+        public decimal unidadMedida { get; set; }
 
         public bool estado { get; set; }
 

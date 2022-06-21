@@ -13,6 +13,8 @@ namespace Dominio.Entiti
 
         public string nombreProducto { get; set; }
 
+        public string descripcionProducto { get; set; }
+
         public decimal factor { get; set; }
 
         public bool estado { get; set; }
