@@ -25,11 +25,6 @@ namespace WebUI.Controllers
         [HttpPost("[action]")]
         public async Task<JsonResult> InsertarPlanta(EntitiPlanta entitiPlanta)
         {
-            /*EntitiPlanta entitiPlanta = new EntitiPlanta()
-            {
-                nombrePlanta = "prueba2",
-                ubicacion = "prueba2"
-            };*/
             return Json(await this.servicioPlanta.InsertarPlanta(entitiPlanta));
         }
 
@@ -40,7 +35,7 @@ namespace WebUI.Controllers
             return Json(await this.servicioPlanta.ActualizarPlanta(entitiPlanta));
         }
 
-        [HttpDelete("[action]/{idPlanta}")]
+        [HttpDelete("[action]")]
         public async Task<JsonResult>EliminarPlanta(int idPlanta)
         {
             return Json(await this.servicioPlanta.EliminarPlanta(idPlanta));
@@ -49,7 +44,16 @@ namespace WebUI.Controllers
         [HttpGet("[action]/{idPlanta}")]
         public async Task<JsonResult> ObtenerDetallePlantaID(int idPlanta)
         {
-            return Json(await this.servicioPlanta.ObtenerDetallePlantaID(idPlanta));
+            try
+            {
+                return Json(await this.servicioPlanta.ObtenerDetallePlantaID(idPlanta));
+            }
+            catch (Exception ex)
+            {
+
+                return Json($"Error: {ex.Message}");
+            }
+            
         }
 
         [HttpGet("[action]/{nombre}")]

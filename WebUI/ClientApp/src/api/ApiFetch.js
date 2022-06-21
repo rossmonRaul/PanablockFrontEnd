@@ -1,50 +1,22 @@
 ﻿
-
-export const GetApi = async (url) => {
+export const ProcesarDatosApi = async (method, url, data) => {
     //const { token } = ObtenerTokenUsuario();
-
     const myInit = {
-        method: 'GET',
+        method: method,
         headers: {
             "Content-type": "application/json;charset=UTF-8",
-            //'Authorization': `Bearer ${token}`
-        },
-        mode: 'cors',
-        cache: 'default'
-    };
-    const myRequest = new Request(url, myInit);
-
-    const response = await fetch(myRequest);
-    let datos;
-    if (response.status == 200) {
-        datos = await response.json();
-    } else {
-        console.log(response)
-    }
-    return datos;
-}
-
-export const PostApi = async (url, data) => {
-    //const { token } = ObtenerTokenUsuario();
-
-    const myInit = {
-        method: 'POST',
-        headers: {
-            "Content-type": "application/json;charset=UTF-8",
+            'Accept': 'application/json',
             //'Authorization': `Bearer ${token}`
         },
         mode: 'cors',
         cache: 'default',
-        body: data
+        body: JSON.stringify(data)
     };
     const myRequest = new Request(url, myInit);
-
     const response = await fetch(myRequest);
-    let datos;
-    if (response.status == 200) {
-        datos = await response.json();
+    if (response.ok) {
+        return await response.json();
     } else {
-        console.log(response)
+        return {indicador: 500, mensaje: 'Ocurrio un error en el proceso!'}
     }
-    return datos;
 }

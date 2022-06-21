@@ -1,30 +1,124 @@
-﻿import React from 'react';
-import Banner from '../../components/banner'
-import Formulario from './formulario'
+﻿import React, { useEffect, useState } from 'react';
 
+import { Button } from 'react-bootstrap';
 
-import { AgregarPlanta } from '../../servicios/ServicioPlanta'
+import Formulario from './formulario';
+import { FormularioModal } from '../../components/ventanaModal';
+import { Grid } from '../../components/grid';
+import { AgregarPlanta, ActualizarPlanta, InactivarPlanta, ObtenerPlantas, ObtenerPlantaPorId } from '../../servicios/ServicioPlanta';
 
 const Planta = () => {
-    
-    const mostrarMensaje = () => {
-        alert("hola mundo")
+    const [proceso, setProceso] = useState(1);
+    const [modal, setModal] = useState(false);
+    const [modalTitulo, setModalTitulo] = useState("Registrar planta");
+    const [labelButton, setLabelButton] = useState("Registrar");
+    const [mensajeFormulario, setMensajeFormulario] = useState("");
+    const [mensajeRespuesta, setMensajeRespuesta] = useState({});
+
+    const [listaPlantas, setListaPlantas] = useState([]);
+    const [pendiente, setPendiente] = useState(false);
+    const [filaSeleccionada, setFilaSeleccionada] = useState({});
+    const [data, setData] = useState({});
+    const [bloquearBoton, setBloquearBoton] = useState(true);
+    const [textoBotonInactivar, setTextoBotonInactivar] = useState("Inactivar");
+
+    const encabezado = [
+        { id: 'id', name: 'id', selector: row => row.id, head:"id", omit: true },
+        { id: 'nombrePlanta', name: 'Planta', selector: row => row.nombrePlanta, head:"Planta" },
+        { id: 'ubicacion', name: 'Ubicación', selector: row => row.ubicacion, head:"Ubicación" },
+        { id: 'fechaCreacion', name: 'F. Creación', selector: row => row.fechaCreacion, head:"F. Creación" },
+        { id: 'estado', name: 'Estado', selector: row => row.estado, head:"Estado" },
+        { id: 'accion', name: 'Acción', selector: row => row.accion, head:"Acción" },
+    ]
+
+    useEffect(() => {
+        ObtenerListadoDePlantas();
+    }, []);
+
+    const onClickProcesarPlanta = async(data) => {
+        let respuesta = {};
+        if(proceso === 1)
+            respuesta = await AgregarPlanta(data);
+        else{
+            data.idPlanta = filaSeleccionada.idPlanta;
+            data.estado = true;
+            respuesta = await ActualizarPlanta(data);
+        }
+
+        if(respuesta.indicador == 0){
+            setModal(false);
+            ObtenerListadoDePlantas();
+            setMensajeRespuesta(respuesta);
+        }else{     
+            setMensajeFormulario(respuesta.mensaje);  
+        }             
     }
 
-    const onClickAgregarPlanta = () => {
-        const data = {
-            dato1: "dato1",
-            dato2: "dato2"
-        }
-        AgregarPlanta(data)
+    const ObtenerListadoDePlantas = async() => {
+        setPendiente(true);
+        setListaPlantas(await ObtenerPlantas());
+        setPendiente(false);
     }
-    onClickAgregarPlanta()
+
+    const onClickNuevaPlanta = () => {
+        setProceso(1);
+        setModal(!modal);
+        setLabelButton("Registrar");
+        setModalTitulo("Registrar planta");
+    }
+
+    const onClickActualizarPlanta = async() => {
+        setData(await ObtenerPlantaPorId(filaSeleccionada.idPlanta));
+        setProceso(2);
+        setModal(!modal);
+        setLabelButton("Actualizar");
+        setModalTitulo("Actualizar planta");
+    }
+
+    const onClickInactivarPlanta = async() => {
+        const respuesta = await InactivarPlanta(filaSeleccionada.idPlanta)
+        if(respuesta.indicador === 0)
+            ObtenerListadoDePlantas();
+        setMensajeRespuesta(respuesta);
+        setTextoBotonInactivar("Activar");
+    }
+
+    const onClickSeleccionarFila = (fila) => {
+        const filaValida = ValidarSiFilaFueSeleccionada(fila);
+        setBloquearBoton(!filaValida);
+        setTextoBotonInactivar(!filaValida ? "Inactivar" : (fila.estado ? "Inactivar" : "Activar"));
+        setFilaSeleccionada(fila);
+    }
+
+    const onClickCerrarModal = () => {
+        setModal(false);
+        setMensajeFormulario("");   
+    }
+
+    const ValidarSiFilaFueSeleccionada = (fila) => Object.entries(fila).length === 0 ? false : true;    
+
     return (
-        <>
-            <h1>index de plantas</h1>
-            <Banner titulo={"Titulo 1"} texto={"texto 1"} ><Formulario mostrarMensaje={mostrarMensaje}/></Banner>
-            <Banner titulo={"Titulo 2"} texto={"texto 2"}/>
-            <Banner titulo={"Titulo 3"} texto={"texto 3"}/>
+        <>            
+            <div className="container-fluid">
+                <h1>Mantenimiento de plantas</h1>
+                <hr />
+                <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaPlanta()}>Registrar</Button>{' '}
+                <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarPlanta()} disabled={bloquearBoton}>Actualizar</Button>{' '}
+                <Button variant="primary" type="submit" size="sm" onClick={() => onClickInactivarPlanta()} disabled={bloquearBoton}>{textoBotonInactivar}</Button>
+                <br/><br/>   
+                {mensajeRespuesta.mensaje !== "" ? 
+                <>                   
+                    <span className={mensajeRespuesta.indicador === 0 ? "text-success" : "text-danger"}>{mensajeRespuesta.mensaje}</span>
+                    <br/>  
+                </>                
+                : ''}    
+                <span>Listado de todas las plantas registradas</span>    
+                <Grid gridHeading={encabezado} gridData={listaPlantas} selectableRows={true} pending={pendiente} 
+                    setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idPlanta"/>                
+            </div>
+            <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className=''>
+                <Formulario labelButton={labelButton} data={data} proceso={proceso} onClickProcesarPlanta={onClickProcesarPlanta} mensaje={mensajeFormulario}/>
+            </FormularioModal>
         </>
         )
 }

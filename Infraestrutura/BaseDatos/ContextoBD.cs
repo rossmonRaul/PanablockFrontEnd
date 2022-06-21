@@ -76,9 +76,8 @@ namespace Infraestrutura.BaseDatos
                 this.sqlConnection.ConnectionString = this.ObtenerConnectionString();
                 this.sqlConnection.Open();
                 DynamicParameters queryParameters = new DynamicParameters();
-                queryParameters.Add("@IdUsuario", "2"); //datos de prueba borrar
-                /*if (data != null)
-                    this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);*/
+                if (data != null)
+                    this.PrepararConsultaDapper(ref queryParameters, data);
 
                 var result = await this.sqlConnection.QueryAsync<T>(sqlQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
@@ -103,7 +102,7 @@ namespace Infraestrutura.BaseDatos
                 this.sqlConnection.Open();
                 DynamicParameters queryParameters = new DynamicParameters();
                 if (data != null)
-                    this.PrepararConsultaDapper(ref sqlQuery, ref queryParameters, data);
+                    this.PrepararConsultaDapper(ref queryParameters, data);
                 var result = await this.sqlConnection.QueryAsync<T>(sqlQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 lista = result.ToList();
             }
@@ -119,24 +118,15 @@ namespace Infraestrutura.BaseDatos
         }
 
  
-        private void PrepararConsultaDapper(ref string NombreProcedimientoAlmacenado, ref DynamicParameters parameters,
-            Dictionary<string, object> Parametros)
+        private void PrepararConsultaDapper(ref DynamicParameters parameters, Dictionary<string, object> Parametros)
         {
             int numeroParametros = 0;
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(NombreProcedimientoAlmacenado);
             foreach (var item in Parametros)
             {
                 parameters.Add("@" + item.Key, item.Value);
-                if (numeroParametros > 0)
-                {
-                    stringBuilder.Append(",");
-                }
-                stringBuilder.Append(" @");
-                stringBuilder.Append(item.Key);
                 numeroParametros++;
             }
-            NombreProcedimientoAlmacenado = stringBuilder.ToString();
         }
     }
 }
