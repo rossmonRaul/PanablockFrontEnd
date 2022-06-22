@@ -115,6 +115,7 @@ const Planta = () => {
                 <span>Listado de todas las plantas registradas</span>    
                 <Grid gridHeading={encabezado} gridData={listaPlantas} selectableRows={true} pending={pendiente} 
                     setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idPlanta"/>                
+                <br/><br/>
             </div>
             <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className=''>
                 <Formulario labelButton={labelButton} data={data} proceso={proceso} onClickProcesarPlanta={onClickProcesarPlanta} mensaje={mensajeFormulario}/>
