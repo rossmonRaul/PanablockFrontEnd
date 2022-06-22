@@ -18,5 +18,7 @@ namespace Dominio.Entiti
         public decimal factor { get; set; }
 
         public bool estado { get; set; }
+
+        public List<int> tipoMateriales { get; set; }
     }
 }

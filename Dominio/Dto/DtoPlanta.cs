@@ -8,12 +8,11 @@ namespace Dominio.Dto
 {
     public class DtoPlanta
     {
-
         public int idPlanta { get; set; }
 
         public string nombrePlanta { get; set; }
 
-        public bool estado { get; set; }
+        public string estado { get; set; }
 
         public string ubicacion { get; set; }
 

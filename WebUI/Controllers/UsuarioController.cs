@@ -18,15 +18,9 @@ namespace WebUI.Controllers
             this.servicioUsuario = servicioUsuario;
         }
 
-
         [HttpPost("[action]")]
         public async Task<JsonResult> InsertarUsuario(EntitiUsuario entitiUsuario)
         {
-            /*EntitiPlanta entitiPlanta = new EntitiPlanta()
-            {
-                nombrePlanta = "prueba2",
-                ubicacion = "prueba2"
-            };*/
             return Json(await this.servicioUsuario.InsertarUsuario(entitiUsuario));
         }
 

@@ -7,6 +7,8 @@ using Dominio.Interfaces.Aplicacion.TipoMaterial;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Dominio.Interfaces.Aplicacion.Producto;
+using Aplicacion.Producto;
 
 namespace Aplicacion
 {
@@ -17,6 +19,7 @@ namespace Aplicacion
 
             services.AddScoped<IServicioPlanta, ServicioPlanta>();
             services.AddScoped<IServicioUsuario, ServicioUsuario>();
+            services.AddScoped<IServicioProducto, ServicioProducto>();
             services.AddScoped<IServicioTipoMaterial, ServicioTipoMaterial>();
 
             return services;
