@@ -1,23 +1,12 @@
-﻿import { ProcesarDatosApi, ObtenerDatosApi } from "../api/ApiFetch";
+﻿import { ProcesarDatosApi } from "../api/ApiFetch";
 const controlador = "planta";
 
-const ValidarDatosVacios = (data) => {
-    if(data.nombrePlanta == '' || data.ubicacion == '')
-        return false;
-    return true;
-}
-
 export const AgregarPlanta = async (data) => {
-    if(!ValidarDatosVacios(data))
-        return {indicador: 1, mensaje: 'El formulario contiene datos vacios!'};
-
     const url = `${controlador}/insertarplanta`;
     return await ProcesarDatosApi('POST', url, data);
 }
 
 export const ActualizarPlanta = async (data) => {
-    if(!ValidarDatosVacios(data))
-        return {indicador: 1, mensaje: 'El formulario contiene datos vacios!'};
     const url = `${controlador}/actualizarplanta`;
     return await ProcesarDatosApi('PUT', url, data);
 }
