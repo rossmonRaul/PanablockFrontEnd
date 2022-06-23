@@ -19,12 +19,14 @@ namespace Dominio.Interfaces.Aplicacion.Producto
 
         Task<DtoDatosSP> ActualizarProducto(EntitiProducto entitiProducto);
 
+        Task<DtoDatosSP> ActualizarTipoMaterialProducto(int idTipoMaterialProducto, int estado);
+
         Task<DtoDatosSP> EliminarProducto(int idProducto);
 
         Task<DtoProducto> ObtenerDetalleProductoID(int idProducto);
 
-        Task<DtoProducto> ObtenerDetalleProductoNombre(string nombre);
-
         Task<List<DtoProducto>> ObtenerProductos();
+
+        Task<List<DtoTipoMaterialProducto>> ObtenerTipoMaterialProducto(int idProducto);
     }
 }

@@ -35,7 +35,7 @@ namespace WebUI.Controllers
             return Json(await this.servicioPlanta.ActualizarPlanta(entitiPlanta));
         }
 
-        [HttpDelete("[action]/{idPlanta}")]
+        [HttpDelete("[action]")]
         public async Task<JsonResult>EliminarPlanta(int idPlanta)
         {
             return Json(await this.servicioPlanta.EliminarPlanta(idPlanta));

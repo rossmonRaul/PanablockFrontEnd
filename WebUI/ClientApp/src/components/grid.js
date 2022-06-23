@@ -40,6 +40,7 @@ export const Grid = ({gridHeading, gridData, selectableRows, pending, setFilaSel
         }      
     }
 
+
     return(
         <>
             <DataTable className='table table-sm'
@@ -62,6 +63,7 @@ export const Grid = ({gridHeading, gridData, selectableRows, pending, setFilaSel
                 progressComponent={<><Spinner animation="border" variant="primary" />&nbsp;Cargando...</>}
                 selectableRowSelected={(row) => row[idBuscar] == id}  
                 allowRowEvents
+
             />
         </>
     )

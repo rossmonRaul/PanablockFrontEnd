@@ -104,6 +104,25 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
+        public async Task<DtoDatosSP> ActualizarTipoMaterialProducto(int idTipoMaterialProducto, int estado)
+        {
+
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+
+                data.Add("IdTipoMaterialProducto", idTipoMaterialProducto);
+                data.Add("Estado",estado);
+                string query = "SPActualizarTiposMaterialesProducto";
+
+                return await this.contextoBD.EjecutarSP(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<DtoDatosSP> EliminarProducto(int idProducto)
         {
             try
@@ -126,7 +145,7 @@ namespace Infraestrutura.BaseDatos
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdUsuario", idProducto);
+                data.Add("IdProducto", idProducto);
                 string query = "SPObtenerDetalleProductoID";
 
                 return await this.contextoBD.ObtenerDato<DtoProducto>(query, data);
@@ -137,15 +156,15 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<DtoProducto> ObtenerDetalleProductoNombre(string nombre)
+
+        public async Task<List<DtoProducto>> ObtenerProductos()
         {
             try
             {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("Nombre", nombre);
-                string query = "SPObtenerDetalleProductoNombre";
+                string query = "SPObtenerProducto";
+                var result = await this.contextoBD.ObtenerListaDeDatos<DtoProducto>(query);
 
-                return await this.contextoBD.ObtenerDato<DtoProducto>(query, data);
+                return result;
             }
             catch (Exception)
             {
@@ -153,14 +172,15 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<List<DtoProducto>> ObtenerProductos()
+        public async Task<List<DtoTipoMaterialProducto>> ObtenerTipoMaterialProducto(int idProducto)
         {
             try
             {
-                string query = "SPObtenerProductos";
-                var result = await this.contextoBD.ObtenerListaDeDatos<DtoProducto>(query);
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdProducto", idProducto);
+                string query = "SPObtenerTiposMaterialesProducto";
 
-                return result;
+                return await this.contextoBD.ObtenerListaDeDatos<DtoTipoMaterialProducto>(query, data);
             }
             catch (Exception)
             {

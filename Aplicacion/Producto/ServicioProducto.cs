@@ -34,11 +34,15 @@ namespace Aplicacion.Producto
             return await this.repositorioProducto.InsertarTipoMaterialProducto(idProducto, item);
 
         }
-
         
         public async Task<DtoDatosSP> ActualizarProducto(EntitiProducto entitiProducto)
         {
-            throw new NotImplementedException();
+            return await this.repositorioProducto.ActualizarProducto(entitiProducto);
+        }
+
+        public async Task<DtoDatosSP> ActualizarTipoMaterialProducto(int idTipoMaterialProducto, int estado)
+        {
+            return await this.repositorioProducto.ActualizarTipoMaterialProducto(idTipoMaterialProducto, estado);
         }
 
         public async Task<DtoDatosSP> EliminarProducto(int idProducto)
@@ -48,17 +52,18 @@ namespace Aplicacion.Producto
 
         public async Task<DtoProducto> ObtenerDetalleProductoID(int idProducto)
         {
-            throw new NotImplementedException();
-        }
+            return await this.repositorioProducto.ObtenerDetalleProductoID(idProducto);
 
-        public async Task<DtoProducto> ObtenerDetalleProductoNombre(string nombre)
-        {
-            throw new NotImplementedException();
         }
-
         public async Task<List<DtoProducto>> ObtenerProductos()
         {
-            throw new NotImplementedException();
+            return await this.repositorioProducto.ObtenerProductos();
+        }
+
+        public async Task<List<DtoTipoMaterialProducto>> ObtenerTipoMaterialProducto(int idProducto)
+        {
+            return await this.repositorioProducto.ObtenerTipoMaterialProducto(idProducto);
+
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Dominio.Dto
 {
     public class DtoPlanta
     {
+
+
         public int idPlanta { get; set; }
 
         public string nombrePlanta { get; set; }
@@ -16,7 +18,7 @@ namespace Dominio.Dto
 
         public string ubicacion { get; set; }
 
-        public DateTime? fechaCreacion{ get; set; }
+        public DateTime? fechaCreacion { get; set; }
 
         public DateTime? fechaModificacion { get; set; }
 

@@ -26,9 +26,8 @@ const Planta = () => {
         { id: 'id', name: 'id', selector: row => row.id, head:"id", omit: true },
         { id: 'nombrePlanta', name: 'Planta', selector: row => row.nombrePlanta, head:"Planta" },
         { id: 'ubicacion', name: 'Ubicación', selector: row => row.ubicacion, head:"Ubicación" },
-        { id: 'fechaCreacion', name: 'F. Creación', selector: row => row.fechaCreacion, head:"F. Creación" },
-        { id: 'estado', name: 'Estado', selector: row => row.estado, head:"Estado" },
-        { id: 'accion', name: 'Acción', selector: row => row.accion, head:"Acción" },
+        { id: 'fechaCreacion', name: 'F. Creación', selector: row => row.fechaCreacion.split('T')[0], head:"F. Creación" },
+        { id: 'estado', name: 'Estado', selector: row => row.estado , head:"Estado" },
     ]
 
     useEffect(() => {
@@ -86,7 +85,7 @@ const Planta = () => {
     const onClickSeleccionarFila = (fila) => {
         const filaValida = ValidarSiFilaFueSeleccionada(fila);
         setBloquearBoton(!filaValida);
-        setTextoBotonInactivar(!filaValida ? "Inactivar" : (fila.estado ? "Inactivar" : "Activar"));
+        setTextoBotonInactivar(!filaValida ? "Inactivar" : (fila.estado == "Activo" ? "Inactivar" : "Activar"));
         setFilaSeleccionada(fila);
     }
 
@@ -100,7 +99,7 @@ const Planta = () => {
     return (
         <>            
             <div className="container-fluid">
-                <h1>Mantenimiento de plantas</h1>
+                <h1>Catálogo de plantas</h1>
                 <hr />
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaPlanta()}>Registrar</Button>{' '}
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarPlanta()} disabled={bloquearBoton}>Actualizar</Button>{' '}

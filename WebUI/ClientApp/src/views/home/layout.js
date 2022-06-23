@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom";
+import logo from '../../images/logo.webp';
 //import { IoIosHome, IoIosDocument, IoIosCopy, IoIosPerson, IoMdArchive } from "react-icons/io";
 //import { IoEnterOutline } from "react-icons/io5";
 
@@ -16,7 +17,7 @@ const Layout = () => {
                 <div className="body-overlay"></div>
                 <nav id="sidebar">
                     <div className="sidebar-header">
-                        <h3><img src="img/logo.png" className="img-fluid" /><span>Panablock</span></h3>
+                        <h3><img src={logo} className="img-fluid" style={{width: "150px"}} /><span></span></h3>
                     </div>
                     <ul className="list-unstyled components">
                         <li className={linkActive === 'home' ? 'active' : ''}>
@@ -60,10 +61,8 @@ const Layout = () => {
                     <div className="top-navbar">
                         <nav className="navbar navbar-expand-lg">
                             <div className="container-fluid">
-                                <button type="button" id="sidebarCollapse" className="d-xl-block d-lg-block d-md-mone d-none">
-                                    <span className="material-icons">arrow_back_ios</span>
-                                </button>
-                                <a className="navbar-brand" href="#"> abc</a>
+                               
+                                <a className="navbar-brand" href="#"></a>
                                 <button className="d-inline-block d-lg-none ml-auto more-button" type="button"
                                     data-toggle="collapse" data-target="#navbarSupportedContent"
                                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,14 +72,15 @@ const Layout = () => {
                                 <div className="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
                                             id="navbarSupportedContent">
                                             <ul className="nav navbar-nav ml-auto">
-                                                <NavDropdown title="Persona" id="navbarScrollingDropdown">
-                                                    <NavDropdown.Item href="#action3">Rol de usuario</NavDropdown.Item>
+                                            <li style={{color : "black"}}>Usuario</li>
+                                                {/*<NavDropdown title="Usuario" id="navbarScrollingDropdown">
+                                                   <NavDropdown.Item href="#action3">Rol de usuario</NavDropdown.Item>
                                                     <NavDropdown.Item href="#action4">Nombre de usuario</NavDropdown.Item>
                                                     <NavDropdown.Divider />
-                                                    <NavDropdown.Item href="#action5">Cerrar sesión</NavDropdown.Item>
-                                                </NavDropdown>
+    <NavDropdown.Item href="#action5">Cerrar sesión</NavDropdown.Item>
+                                                </NavDropdown>*/}
                                             </ul>
-                                        </div>
+                                  </div>
                             </div>
                         </nav>
                     </div>
