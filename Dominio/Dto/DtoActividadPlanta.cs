@@ -12,9 +12,9 @@ namespace Dominio.Dto
 
         public string observacion { get; set; }
 
-        public bool estado { get; set; }
+        public string nombrePlanta { get; set; }
 
-        public int idPlanta { get; set; }
+        public string estado { get; set; }
 
         public DateTime? fechaCreacion { get; set; }
 

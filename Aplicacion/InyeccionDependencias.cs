@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Dominio.Interfaces.Aplicacion.Producto;
 using Aplicacion.Producto;
+using Dominio.Interfaces.Aplicacion.ActividadPlanta;
+using Aplicacion.ActividadPlanta;
 
 namespace Aplicacion
 {
@@ -21,6 +23,7 @@ namespace Aplicacion
             services.AddScoped<IServicioUsuario, ServicioUsuario>();
             services.AddScoped<IServicioProducto, ServicioProducto>();
             services.AddScoped<IServicioTipoMaterial, ServicioTipoMaterial>();
+            services.AddScoped<IServicioActividadPlanta, ServicioActividadPlanta>();
 
             return services;
         }

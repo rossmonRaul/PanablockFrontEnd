@@ -23,9 +23,9 @@ const Planta = () => {
     const [textoBotonInactivar, setTextoBotonInactivar] = useState("Inactivar");
 
     const encabezado = [
-        { id: 'id', name: 'id', selector: row => row.id, head:"id", omit: true },
-        { id: 'nombrePlanta', name: 'Planta', selector: row => row.nombrePlanta, head:"Planta" },
-        { id: 'ubicacion', name: 'Ubicación', selector: row => row.ubicacion, head:"Ubicación" },
+        { id: 'ubicacion', name: 'Ubicación', selector: row => row.ubicacion, head: "Ubicación" },
+        { id: 'nombrePlanta', name: 'Planta Modelo', selector: row => row.nombrePlanta, head: "Planta" },     
+        { id: 'id', name: 'Serie', selector: row => row.idPlanta, head: "id", },         
         { id: 'fechaCreacion', name: 'F. Creación', selector: row => row.fechaCreacion.split('T')[0], head:"F. Creación" },
         { id: 'estado', name: 'Estado', selector: row => row.estado , head:"Estado" },
     ]
@@ -98,8 +98,8 @@ const Planta = () => {
 
     return (
         <>            
-            <div className="container-fluid">
-                <h1>Catálogo de plantas</h1>
+            <div className="container-fluid text-no">
+                <h1>Catálogo de Ubicaciones de Plantas</h1>
                 <hr />
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaPlanta()}>Registrar</Button>{' '}
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarPlanta()} disabled={bloquearBoton}>Actualizar</Button>{' '}
