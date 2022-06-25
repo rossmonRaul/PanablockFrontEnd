@@ -24,7 +24,7 @@ const Planta = () => {
 
     const encabezado = [
         { id: 'ubicacion', name: 'Ubicación', selector: row => row.ubicacion, head: "Ubicación" },
-        { id: 'nombrePlanta', name: 'Planta Modelo', selector: row => row.nombrePlanta, head: "Planta" },     
+        { id: 'nombrePlanta', name: 'Planta', selector: row => row.nombrePlanta, head: "Planta" },     
         { id: 'id', name: 'Serie', selector: row => row.idPlanta, head: "id", },         
         { id: 'fechaCreacion', name: 'F. Creación', selector: row => row.fechaCreacion.split('T')[0], head:"F. Creación" },
         { id: 'estado', name: 'Estado', selector: row => row.estado , head:"Estado" },

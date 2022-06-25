@@ -20,7 +20,7 @@ namespace Dominio.Dto
 
         public string contrasena { get; set; }
 
-        public bool estado { get; set; }
+        public string estado { get; set; }
 
         public int idPlanta { get; set; }
 

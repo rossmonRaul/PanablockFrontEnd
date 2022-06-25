@@ -43,8 +43,8 @@ const Layout = () => {
                         <li>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Control de calidad</span></Link>
                         </li>
-                        <li>
-                            <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Tipos de materiales</span></Link>
+                        <li className={linkActive === 'tipomaterial' ? 'active' : ''}>
+                            <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>
                         </li>
                         <li>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Usuarios</span></Link>
@@ -71,21 +71,20 @@ const Layout = () => {
 
                                 <div className="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
                                             id="navbarSupportedContent">
-                                            <ul className="nav navbar-nav ml-auto">
-                                            <li style={{color : "black"}}>Usuario</li>
-                                                {/*<NavDropdown title="Usuario" id="navbarScrollingDropdown">
+                                            <ul className="nav navbar-nav ml-auto">   
+                                                <NavDropdown title="Usuario" id="navbarScrollingDropdown">
                                                    <NavDropdown.Item href="#action3">Rol de usuario</NavDropdown.Item>
                                                     <NavDropdown.Item href="#action4">Nombre de usuario</NavDropdown.Item>
                                                     <NavDropdown.Divider />
     <NavDropdown.Item href="#action5">Cerrar sesión</NavDropdown.Item>
-                                                </NavDropdown>*/}
+                                                </NavDropdown>
                                             </ul>
                                   </div>
                             </div>
                         </nav>
                     </div>
 
-                    <div className="main-content">
+                    <div className="main-content" style={{height : "100%"} }>
                         <Outlet />
                     </div>
                 </div>

@@ -11,8 +11,14 @@ namespace Dominio.Entiti
 
         public int idCalidad { get; set; }
 
-        public string descripcion { get; set; }
-
         public int idProducto { get; set; }
+
+        public string observaciones { get; set; }
+
+        public string turno { get; set; }
+
+        public bool estatus { get; set; }
+
+        public bool estado { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Dominio.Dto
 
         public decimal unidadMedida { get; set; }
 
-        public bool estado { get; set; }
+        public string estado { get; set; }
 
         public DateTime? fechaCreacion { get; set; }
 
