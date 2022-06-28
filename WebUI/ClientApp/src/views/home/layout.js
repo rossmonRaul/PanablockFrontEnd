@@ -47,7 +47,7 @@ const Layout = () => {
                             <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>
                         </li>
                         <li>
-                            <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Usuarios</span></Link>
+                            <Link className={`dashboard`} to="/usuarios" onClick={() => ActivarLink('home')}>{' '}<span>Usuarios</span></Link>
                         </li>
                         <li>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Reportes</span></Link>

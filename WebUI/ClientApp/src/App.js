@@ -5,6 +5,7 @@ import Layout from './views/home/layout'
 import Home from './views/home/'
 import Planta from './views/planta'
 import TipoMaterial from './views/tipomateriales'
+import Usuarios from './views/usuarios';
 
 import './custom.css'
 
@@ -17,6 +18,7 @@ const App = () => {
               <Route index element={<Home/>} /> 
               <Route path="planta" element={<Planta />} /> 
               <Route path="tipomaterial" element={<TipoMaterial />} />
+              <Route path="usuarios" element={<Usuarios />} />
               <Route path="*" element={<Navigate to="/" replace />} />           
             </Route>
           </Routes>
