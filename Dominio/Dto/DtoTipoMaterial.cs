@@ -15,7 +15,7 @@ namespace Dominio.Dto
 
         public string descripcion { get; set; }
 
-        public int idGrupoMaterial { get; set; }
+        public string grupoTipoMaterial { get; set; }
 
         public decimal unidadMedida { get; set; }
 

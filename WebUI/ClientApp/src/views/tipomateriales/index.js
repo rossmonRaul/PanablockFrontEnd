@@ -23,13 +23,12 @@ const TipoMaterial = () => {
     const [textoBotonInactivar, setTextoBotonInactivar] = useState("Inactivar");
 
     const encabezado = [
-        { id: 'idtipomaterial', name: 'Serie', selector: row => row.idTipoMaterial, head: "Serie" },
-        { id: 'nombretipomaterial', name: 'Nombre Tipo Material', selector: row => row.nombre, head: "Nombre Tipo Material" },
+        { id: 'idtipomaterial', name: 'Código', selector: row => row.idTipoMaterial, head: "Serie" },
+        /*{ id: 'nombretipomaterial', name: 'Nombre', selector: row => row.nombre, head: "Nombre Tipo Material" },*/
         { id: 'descripcion', name: 'Descripción', selector: row => row.descripcion, head: "Descripción", },
         { id: 'unidadmedida', name: 'Unidad de Medida', selector: row => row.unidadMedida, head: "Unidad Medida" },
-        { id: 'idgrupomaterial', name: 'Grupo de Material', selector: row => row.idGrupoMaterial, head: "Grupo Material" },
-        { id: 'fechacreacion', name: 'F. Creación', selector: row => row.fechaCreacion.split('T')[0], head: "F. Creación" },
-        { id: 'estado', name: 'Estado', selector: row => row.estado, head: "Estado" },
+        { id: 'grupotipomaterial', name: 'Grupo', selector: row => row.grupoTipoMaterial, head: "Grupo Material" },
+       
     ]
 
     useEffect(() => {
@@ -113,7 +112,7 @@ const TipoMaterial = () => {
                         <br />
                     </>
                     : ''}
-                <span>Listado de todas los tipos de material registrados</span>
+                <span>Listado de todos los tipos de material registrados</span>
                 <Grid gridHeading={encabezado} gridData={listaTipoMateriales} selectableRows={true} pending={pendiente}
                     setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idTipoMaterial" />
                 <br /><br />

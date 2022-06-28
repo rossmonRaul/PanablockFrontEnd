@@ -7,7 +7,7 @@ export const AgregarTipoMateriales = async (data) => {
 }
 
 export const ActualizarTipoMateriales = async (data) => {
-    console.log(data)
+   
     const url = `${controlador}/ActualizarTipoMaterial`;
     return await ProcesarDatosApi('PUT', url, data);
 }

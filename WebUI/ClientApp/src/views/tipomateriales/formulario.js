@@ -43,7 +43,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMaterial, m
                     text='Descripción Tipo de Material.' onChange={onChangeDescripcion} mensajeValidacion="La descripción es requerida" />
 
 
-                <InputText id='txt-unidadmedida' label='Unidad de Medida:' type='text' placeholder='Ingrese la unidad de medida' value={unidadMedida}
+                <InputText id='txt-unidadmedida' label='Unidad de Medida:' type='number' placeholder='Ingrese la unidad de medida' value={unidadMedida}
                     text='Unidad de medida del Tipo de Material.' onChange={onChangeUnidadMedida} mensajeValidacion="La unidad de medida es requerida" />
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
