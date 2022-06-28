@@ -6,6 +6,7 @@ import Home from './views/home/'
 import Planta from './views/planta'
 import TipoMaterial from './views/tipomateriales'
 import ActividadPlanta from './views/actividadesplanta'
+import Usuarios from './views/usuarios';
 
 import './custom.css'
 
@@ -17,8 +18,10 @@ const App = () => {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home/>} /> 
               <Route path="planta" element={<Planta />} /> 
-               <Route path="tipomaterial" element={<TipoMaterial />} />
-               <Route path="actividadplanta" element={<ActividadPlanta />} />
+                      <Route path="tipomaterial" element={<TipoMaterial />} />
+                      <Route path="actividadplanta" element={<ActividadPlanta />} />
+                      <Route path="usuarios" element={<Usuarios />} />
+
               <Route path="*" element={<Navigate to="/" replace />} />           
             </Route>
           </Routes>
