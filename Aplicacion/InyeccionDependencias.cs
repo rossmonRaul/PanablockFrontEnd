@@ -1,9 +1,11 @@
 ﻿using Aplicacion.Planta;
 using Aplicacion.Usuario;
 using Aplicacion.TipoMaterial;
+using Aplicacion.EncabezadoProduccionDiaria;
 using Dominio.Interfaces.Aplicacion.Planta;
 using Dominio.Interfaces.Aplicacion.Usuario;
 using Dominio.Interfaces.Aplicacion.TipoMaterial;
+using Dominio.Interfaces.Aplicacion.EncabezadoProduccionDiaria;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -34,6 +36,7 @@ namespace Aplicacion
             services.AddScoped<IServicioControlDeCalidad, ServicioControlDeCalidad>();
             services.AddScoped<IServicioRol, ServicioRol>();
             services.AddScoped<IServicioTiposIdentificacion, ServicioTiposIdentificacion>();
+            services.AddScoped<IServicioEncabezadoProduccionDiaria, ServicioEncabezadoProduccionDiaria>();
 
 
             return services;
