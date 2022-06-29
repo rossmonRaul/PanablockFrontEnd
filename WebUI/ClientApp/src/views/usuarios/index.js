@@ -64,6 +64,7 @@ const Usuarios = () => {
     }
 
     const onClickProcesarUsuario = async(data) => {
+        console.log(data);
         let respuesta = {};
         if(proceso === 1)
             respuesta = await AgregarUsuario(data);

@@ -28,14 +28,13 @@ namespace Infraestrutura.BaseDatos
                 data.Add("ContrasenaTemporal", entitiUsuario.contrasenaTemporal);
                 data.Add("IdPlanta", entitiUsuario.idPlanta);
                 data.Add("Identificacion", entitiUsuario.identificacion);
-                data.Add("IdTipoIdenficacion", entitiUsuario.idTipoIdentificacion);
+                data.Add("IdTipoIdentificacion", entitiUsuario.idTipoIdentificacion);
                 data.Add("Nombre", entitiUsuario.nombre);
                 data.Add("PrimerApellido", entitiUsuario.primerApellido);
                 data.Add("SegundoApellido", entitiUsuario.segundoApellido);
                 data.Add("FechaNacimiento", entitiUsuario.fechaNacimiento);
                 data.Add("Direccion", entitiUsuario.direccion);
                 data.Add("Telefono", entitiUsuario.telefono);
-                data.Add("Estado", entitiUsuario.estado);
                 string query = "SPInsertarUsuario";
 
                 return await this.contextoBD.EjecutarSP(query, data);
