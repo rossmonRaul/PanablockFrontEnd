@@ -12,18 +12,7 @@ namespace Dominio.Dto
 
         public string descripcion { get; set; }
 
-        public bool estado { get; set; }
-
-        public DateTime? fechaCreacion { get; set; }
-
-        public DateTime? fechaModificacion { get; set; }
-
-        public string? usuarioCreacion { get; set; }
-
-        public string? usuarioModificacion { get; set; }
-
-        public string? accion { get; set; }
-
+        public string estado { get; set; }     
 
     }
 }

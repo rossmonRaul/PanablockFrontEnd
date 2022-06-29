@@ -21,7 +21,6 @@ const App = () => {
                       <Route path="tipomaterial" element={<TipoMaterial />} />
                       <Route path="actividadplanta" element={<ActividadPlanta />} />
                       <Route path="usuarios" element={<Usuarios />} />
-
               <Route path="*" element={<Navigate to="/" replace />} />           
             </Route>
           </Routes>

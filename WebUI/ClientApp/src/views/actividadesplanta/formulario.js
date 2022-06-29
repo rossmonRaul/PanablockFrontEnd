@@ -1,15 +1,28 @@
-﻿import React, { useState } from 'react'
+﻿import React, { useEffect,useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-
-import { InputText } from '../../components/inputs'
+import { InputSelect, InputText } from '../../components/inputs';
+import { ObtenerPlantas } from '../../servicios/ServicioPlanta';
 import { TextArea } from '../../components/textarea';
 import { ComboBox } from '../../components/combobox';
 
 const Formulario = ({ labelButton, data, proceso, onClickProcesarActividadPlanta, mensaje }) => {
     const [Observacion, setObservacion] = useState(proceso == 2 ? data.observacion  : '');
-    const [idPlanta, setidPlanta] = useState(proceso == 2 ? data.idPlanta : '');
-    const [Plantas, setPlantas] = useState( data );
+    const [idPlanta, setidPlanta] = useState(0);
+    const [listaPlantas, setListaPlantas] = useState([]);
     const [validated, setValidated] = useState(false);
+
+
+    useEffect(() => {
+        ObtenerListadoDePlantas();
+    }, []);
+
+    const ObtenerListadoDePlantas = async () => {
+        const plantas = await ObtenerPlantas();
+        if (plantas !== undefined) {
+            setListaPlantas(plantas);
+            setidPlanta(plantas[0].idPlanta);
+        }
+    }
 
     const onClickAceptar = (event) => {
         const form = event.currentTarget;
@@ -21,14 +34,19 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarActividadPlanta
                 observacion: Observacion,
                 idPlanta: idPlanta
             }
+            console.log(data);
             onClickProcesarActividadPlanta(data);
         }
         setValidated(true);
         event.preventDefault();
     }
 
+
     const onChangeObservacion = (e) => setObservacion(e.target.value);
     const onChangeidPlanta = (e) => setidPlanta(e.target.value);
+    /*const onChangeidPlanta = (id) => {
+        setidPlanta(id);
+    }*/
 
     return (
         <>
@@ -36,10 +54,9 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarActividadPlanta
                 <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese la observación' value={Observacion}
                     text='Observación.' onChange={onChangeObservacion} mensajeValidacion="La observación es requerida" />
                 
-                <ComboBox id='cbx-idplanta' label='Id Planta:' type='text' data={Plantas} value={idPlanta }
-                    text='Datos de planta.' onChange={onChangeidPlanta} mensajeValidacion="La planta es requerida" indicacion="Elija una planta" />
-
-                {Observacion}
+                <InputSelect className="form-control" controlId="sel-idPlanta" label="Id Planta" data={listaPlantas} onChange={onChangeidPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" />
+                <br />
+                {idPlanta }
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <div className='text-right'>
                     <Button variant="primary" type="submit" size="sm">{labelButton}</Button>

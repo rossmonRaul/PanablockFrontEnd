@@ -12,6 +12,6 @@ namespace Dominio.Dto
 
         public string descripcion { get; set; }
 
-        public bool estado { get; set; }
+        public string estado { get; set; }
     }
 }

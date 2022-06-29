@@ -13,6 +13,10 @@ using Dominio.Interfaces.Aplicacion.ActividadPlanta;
 using Aplicacion.ActividadPlanta;
 using Dominio.Interfaces.Aplicacion.ControlDeCalidad;
 using Aplicacion.ControlDeCalidad;
+using Dominio.Interfaces.Aplicacion.Rol;
+using Aplicacion.Rol;
+using Aplicacion.TiposIdentificacion;
+using Dominio.Interfaces.Aplicacion.TiposIdentificacion;
 
 namespace Aplicacion
 {
@@ -27,6 +31,10 @@ namespace Aplicacion
             services.AddScoped<IServicioTipoMaterial, ServicioTipoMaterial>();
             services.AddScoped<IServicioActividadPlanta, ServicioActividadPlanta>();
             services.AddScoped<IServicioControlDeCalidad, ServicioControlDeCalidad>();
+            services.AddScoped<IServicioControlDeCalidad, ServicioControlDeCalidad>();
+            services.AddScoped<IServicioRol, ServicioRol>();
+            services.AddScoped<IServicioTiposIdentificacion, ServicioTiposIdentificacion>();
+
 
             return services;
         }

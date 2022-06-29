@@ -116,8 +116,8 @@ const Usuarios = () => {
                     setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idUsuario"/>                
                 <br/><br/>
             </div>
-            <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className=''>
-                <Formulario labelButton={labelButton} data={data} proceso={proceso} onClickProcesarUsuario={onClickProcesarUsuario} mensaje={mensajeFormulario}/>
+            <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className='' tamano="lg">
+                <Formulario labelButton={labelButton} data={data} proceso={proceso} onClickProcesarUsuario={onClickProcesarUsuario} mensaje={mensajeFormulario} />
             </FormularioModal>
         </>
     )

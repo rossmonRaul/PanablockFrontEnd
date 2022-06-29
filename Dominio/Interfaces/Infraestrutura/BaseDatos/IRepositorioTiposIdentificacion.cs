@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 {
     public interface IRepositorioTiposIdentificacion
     {
+
+        Task<List<DtoTiposIdentificacion>> ObtenerTiposIdentificacion();
+
     }
 }

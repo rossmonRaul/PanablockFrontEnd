@@ -7,7 +7,7 @@ import { FormularioModal } from '../../components/ventanaModal';
 import { Grid } from '../../components/grid';
 import { ObtenerActividadesPlantas, ObtenerPlantas, InactivarActividadPlanta, ObtenerActividadPlantaPorId, ActualizarActividadPlanta, AgregarActividadPlanta } from '../../servicios/ServicioActividadPlanta';
 
-const TipoMaterial = () => {
+const ActividadPlanta = () => {
     const [proceso, setProceso] = useState(1);
     const [modal, setModal] = useState(false);
     const [modalTitulo, setModalTitulo] = useState("Registrar Actividad de Planta");
@@ -61,7 +61,6 @@ const TipoMaterial = () => {
     }
 
     const onClickNuevaActividadPlanta = async () => {
-        setData(await ObtenerPlantas());
         setProceso(1);
         setModal(!modal);
         setLabelButton("Registrar");
@@ -69,8 +68,7 @@ const TipoMaterial = () => {
     }
 
     const onClickActualizarActividadPlanta = async () => {
-        setData(await ObtenerActividadPlantaPorId(filaSeleccionada.idActividadPlanta));
-        setData(await ObtenerPlantas());
+        setData(await ObtenerActividadPlantaPorId(filaSeleccionada.idActividadPlanta));  
         setProceso(2);
         setModal(!modal);
         setLabelButton("Actualizar");
@@ -126,4 +124,4 @@ const TipoMaterial = () => {
     )
 }
 
-export default TipoMaterial;
+export default ActividadPlanta;
