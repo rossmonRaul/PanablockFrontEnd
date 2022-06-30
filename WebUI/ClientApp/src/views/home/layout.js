@@ -40,8 +40,8 @@ const Layout = () => {
                         <li>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Productos</span></Link>
                         </li>
-                        <li>
-                            <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Control de calidad</span></Link>
+                        <li className={linkActive === 'controldecalidad' ? 'active' : ''}>
+                            <Link className={`dashboard`} to="/controldecalidad" onClick={() => ActivarLink('controldecalidad')}>{' '}<span>Control de calidad</span></Link>
                         </li>
                         <li className={linkActive === 'tipomaterial' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>

@@ -25,10 +25,15 @@ namespace Infraestrutura.BaseDatos
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdProducto", entitiControlDeCalidad.idProducto);
-                data.Add("Observaciones", entitiControlDeCalidad.observaciones);
+                data.Add("IdPlanta", entitiControlDeCalidad.idPlanta);
+                data.Add("Peso1", entitiControlDeCalidad.peso1);
+                data.Add("Peso2", entitiControlDeCalidad.peso2);
+                data.Add("Peso3", entitiControlDeCalidad.peso3);
+                data.Add("Largo", entitiControlDeCalidad.largo);
+                data.Add("Ancho", entitiControlDeCalidad.ancho);
+                data.Add("Espesor", entitiControlDeCalidad.espesor);
                 data.Add("Turno", entitiControlDeCalidad.turno);
                 data.Add("Estatus", entitiControlDeCalidad.estatus);
-                data.Add("Estado", entitiControlDeCalidad.estado);
                 string query = "SPInsertarControldeCalidad";
 
                 return await this.contextoBD.EjecutarSP(query, data);
@@ -47,8 +52,14 @@ namespace Infraestrutura.BaseDatos
                 Dictionary<string, object> data = new Dictionary<string, object>();
 
                 data.Add("IdCalidad", entitiControlDeCalidad.idCalidad);
+                data.Add("IdPlanta", entitiControlDeCalidad.idPlanta);
                 data.Add("IdProducto", entitiControlDeCalidad.idProducto);
-                data.Add("Observaciones", entitiControlDeCalidad.observaciones);
+                data.Add("Peso1", entitiControlDeCalidad.peso1);
+                data.Add("Peso2", entitiControlDeCalidad.peso2);
+                data.Add("Peso3", entitiControlDeCalidad.peso3);
+                data.Add("Largo", entitiControlDeCalidad.largo);
+                data.Add("Ancho", entitiControlDeCalidad.ancho);
+                data.Add("Espesor", entitiControlDeCalidad.espesor);
                 data.Add("Turno", entitiControlDeCalidad.turno);
                 data.Add("Estatus", entitiControlDeCalidad.estatus);
                 data.Add("Estado", entitiControlDeCalidad.estado);

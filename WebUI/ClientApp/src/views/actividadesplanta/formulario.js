@@ -34,7 +34,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarActividadPlanta
                 observacion: Observacion,
                 idPlanta: idPlanta
             }
-            console.log(data);
             onClickProcesarActividadPlanta(data);
         }
         setValidated(true);
