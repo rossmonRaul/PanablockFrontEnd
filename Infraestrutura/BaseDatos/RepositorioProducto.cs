@@ -27,7 +27,8 @@ namespace Infraestrutura.BaseDatos
                 data.Add("NombreProducto", entitiProducto.nombreProducto);
                 data.Add("DescripcionProducto", entitiProducto.descripcionProducto);
                 data.Add("Factor", entitiProducto.factor);
-                data.Add("Estado", entitiProducto.estado);
+                data.Add("UnidadMedida", entitiProducto.unidadMedida);
+                data.Add("IdGrupoProducto", entitiProducto.idGrupoProducto);
 
                 //se inserta el producto normal sin los tipos de materiales
                 string query = "SPInsertarProducto";
@@ -93,7 +94,9 @@ namespace Infraestrutura.BaseDatos
                 data.Add("NombreProducto", entitiProducto.nombreProducto);
                 data.Add("DescripcionProducto", entitiProducto.descripcionProducto);
                 data.Add("Factor", entitiProducto.factor);
-                data.Add("Estado", entitiProducto.estado);
+                data.Add("UnidadMedida", entitiProducto.unidadMedida);
+                data.Add("IdGrupoProducto", entitiProducto.idGrupoProducto);
+
                 string query = "SPActualizarProducto";
 
                 return await this.contextoBD.EjecutarSP(query, data);

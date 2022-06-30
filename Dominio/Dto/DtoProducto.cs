@@ -11,10 +11,12 @@ namespace Dominio.Dto
         public int idProducto { get; set; }
 
         public string nombreProducto { get; set; }
+        public string grupoProducto { get; set; }
 
         public string descripcionProducto { get; set; }
 
         public decimal factor { get; set; }
+        public string unidadMedida { get; set; }
 
         public string estado { get; set; }
 

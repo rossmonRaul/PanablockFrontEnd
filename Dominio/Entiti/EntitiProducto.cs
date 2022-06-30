@@ -12,13 +12,10 @@ namespace Dominio.Entiti
         public int idProducto { get; set; }
 
         public string nombreProducto { get; set; }
-
         public string descripcionProducto { get; set; }
-
         public decimal factor { get; set; }
+        public string unidadMedida { get; set; }
+        public int idGrupoProducto { get; set; }
 
-        public bool estado { get; set; }
-
-        public List<int> tipoMateriales { get; set; }
     }
 }
