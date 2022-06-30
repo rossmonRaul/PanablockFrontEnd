@@ -15,7 +15,7 @@ namespace Dominio.Entiti
 
         public string descripcion { get; set; }
 
-        public decimal unidadMedida { get; set; }
+        public string unidadMedida { get; set; }
 
         public bool estado { get; set; }
 
