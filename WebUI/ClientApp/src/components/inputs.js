@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from "react-bootstrap"
 
-export const InputText = ({id, label, type, placeholder, value, text, onChange, mensajeValidacion, className}) => {
+export const InputText = ({id, label, type, placeholder, value, text, onChange, mensajeValidacion, className, disabled}) => {
     return(
         <Form.Group className={"mb-3 " + className} controlId={id}>
             <Form.Label>{label}</Form.Label>

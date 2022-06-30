@@ -37,8 +37,8 @@ const Layout = () => {
                         <li className={linkActive === 'actividadplanta' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/actividadplanta" onClick={() => ActivarLink('actividadplanta')}>{' '}<span>Actividad de plantas</span></Link>
                         </li>
-                        <li>
-                            <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Productos</span></Link>
+                        <li className={linkActive === 'producto' ? 'active' : ''}>
+                            <Link className={`dashboard`} to="/producto" onClick={() => ActivarLink('producto')}>{' '}<span>Productos</span></Link>
                         </li>
                         <li className={linkActive === 'controldecalidad' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/controldecalidad" onClick={() => ActivarLink('controldecalidad')}>{' '}<span>Control de calidad</span></Link>

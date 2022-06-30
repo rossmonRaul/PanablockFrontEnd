@@ -1,5 +1,6 @@
 ﻿import { ProcesarDatosApi } from "../api/ApiFetch";
 const controlador = "tipomaterial";
+const controladorGrupo = "grupotipomaterial";
 
 export const AgregarTipoMateriales = async (data) => {
     const url = `${controlador}/InsertarTipoMaterial`;
@@ -19,6 +20,11 @@ export const InactivarTipoMateriales = async (id) => {
 
 export const ObtenerTipoMateriales = async () => {
     const url = `${controlador}/ObtenerTipoMateriales`;
+    return await ProcesarDatosApi('GET', url);
+}
+
+export const ObtenerGrupoMateriales = async () => {
+    const url = `${controladorGrupo}/ObtenerGrupoTiposMaterial`;
     return await ProcesarDatosApi('GET', url);
 }
 

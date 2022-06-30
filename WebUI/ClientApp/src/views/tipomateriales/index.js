@@ -10,7 +10,7 @@ import { AgregarTipoMateriales, ActualizarTipoMateriales, InactivarTipoMateriale
 const TipoMaterial = () => {
     const [proceso, setProceso] = useState(1);
     const [modal, setModal] = useState(false);
-    const [modalTitulo, setModalTitulo] = useState("Registrar Tipo de Material");
+    const [modalTitulo, setModalTitulo] = useState("Registrar Material");
     const [labelButton, setLabelButton] = useState("Registrar");
     const [mensajeFormulario, setMensajeFormulario] = useState("");
     const [mensajeRespuesta, setMensajeRespuesta] = useState({});
@@ -25,7 +25,7 @@ const TipoMaterial = () => {
     const encabezado = [
         { id: 'idtipomaterial', name: 'Código', selector: row => row.idTipoMaterial, head: "Serie" },
         /*{ id: 'nombretipomaterial', name: 'Nombre', selector: row => row.nombre, head: "Nombre Tipo Material" },*/
-        { id: 'descripcion', name: 'Descripción', selector: row => row.descripcion, head: "Descripción", },
+        { id: 'nombre', name: 'Nombre', selector: row => row.nombre, head: "Nombre", },
         { id: 'unidadmedida', name: 'Unidad de Medida', selector: row => row.unidadMedida, head: "Unidad Medida" },
         { id: 'grupotipomaterial', name: 'Grupo', selector: row => row.grupoTipoMaterial, head: "Grupo Material" },
        
@@ -64,7 +64,7 @@ const TipoMaterial = () => {
         setProceso(1);
         setModal(!modal);
         setLabelButton("Registrar");
-        setModalTitulo("Registrar Tipo de Material");
+        setModalTitulo("Registrar Material");
     }
 
     const onClickActualizarTipoMaterial = async () => {
@@ -72,7 +72,7 @@ const TipoMaterial = () => {
         setProceso(2);
         setModal(!modal);
         setLabelButton("Actualizar");
-        setModalTitulo("Actualizar Tipo de Material");
+        setModalTitulo("Actualizar Material");
     }
 
     const onClickInactivarTipoMaterial = async () => {
@@ -100,7 +100,7 @@ const TipoMaterial = () => {
     return (
         <>
             <div className="container-fluid text-no">
-                <h1>Catálogo de Tipo de Materiales</h1>
+                <h1>Catálogo de Materiales</h1>
                 <hr />
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaTipoMaterial()}>Registrar</Button>{' '}
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarTipoMaterial()} disabled={bloquearBoton}>Actualizar</Button>{' '}
@@ -112,7 +112,7 @@ const TipoMaterial = () => {
                         <br />
                     </>
                     : ''}
-                <span>Listado de todos los tipos de material registrados</span>
+                <span>Listado de todos materiales registrados</span>
                 <Grid gridHeading={encabezado} gridData={listaTipoMateriales} selectableRows={true} pending={pendiente}
                     setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idTipoMaterial" />
                 <br /><br />

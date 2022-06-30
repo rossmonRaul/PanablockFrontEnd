@@ -8,6 +8,7 @@ import TipoMaterial from './views/tipomateriales'
 import ActividadPlanta from './views/actividadesplanta'
 import Usuarios from './views/usuarios';
 import ControlDeCalidad from './views/controldecalidad';
+import Producto from './views/producto';
 
 import './custom.css'
 
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path="actividadplanta" element={<ActividadPlanta />} />
                       <Route path="usuarios" element={<Usuarios />} />
                       <Route path="controldecalidad" element={<ControlDeCalidad />} />
+                      <Route path="producto" element={<Producto />} />
               <Route path="*" element={<Navigate to="/" replace />} />           
             </Route>
           </Routes>
