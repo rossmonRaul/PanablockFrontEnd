@@ -49,5 +49,9 @@ namespace Aplicacion.Usuario
             return await this.repositorioUsuario.ObtenerUsuarios();
         }
 
+        public async Task<DtoDatosSP> ActualizarContrasenhaTemporal(EntitiUsuario entitiUsuario)
+        {
+            return await this.repositorioUsuario.ActualizarContrasenhaTemporal(entitiUsuario);
+        }
     }
 }

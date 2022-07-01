@@ -56,14 +56,14 @@ namespace Infraestrutura.BaseDatos
                 data.Add("IdPersona", entitiUsuario.idPersona);
                 data.Add("IdRol", entitiUsuario.idRol);
                 data.Add("CoreoElectronico", entitiUsuario.coreoElectronico);
-                data.Add("ContrasenaTemporal", entitiUsuario.contrasenaTemporal);
                 data.Add("IdPlanta", entitiUsuario.idPlanta);
                 data.Add("Identificacion", entitiUsuario.identificacion);
-                data.Add("IdTipoIdenficacion", entitiUsuario.idTipoIdentificacion);
+                data.Add("IdTipoIdentificacion", entitiUsuario.idTipoIdentificacion);
                 data.Add("Nombre", entitiUsuario.nombre);
                 data.Add("PrimerApellido", entitiUsuario.primerApellido);
                 data.Add("SegundoApellido", entitiUsuario.segundoApellido);
                 data.Add("FechaNacimiento", entitiUsuario.fechaNacimiento);
+                data.Add("Direccion", entitiUsuario.direccion);
                 data.Add("Telefono", entitiUsuario.telefono);
 
                 string query = "SPActualizarUsuario";
@@ -133,6 +133,25 @@ namespace Infraestrutura.BaseDatos
                 var result = await this.contextoBD.ObtenerListaDeDatos<DtoUsuario>(query);
 
                 return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<DtoDatosSP> ActualizarContrasenhaTemporal(EntitiUsuario entitiUsuario)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+
+                data.Add("IdUsuario", entitiUsuario.idUsuario);
+                data.Add("ContrasenaTemporal", entitiUsuario.contrasenaTemporal);
+
+                string query = "SPActualizarContrasenaTemporal";
+
+                return await this.contextoBD.EjecutarSP(query, data);
             }
             catch (Exception)
             {

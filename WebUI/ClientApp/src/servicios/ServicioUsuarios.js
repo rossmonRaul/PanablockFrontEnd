@@ -19,12 +19,12 @@ export const InactivarUsuario = async (id) => {
     return await ProcesarDatosApi('DELETE', url);
 }
 
-export const ObtenerUsuarios = async() => {
+export const ObtenerUsuarios = async () => {
     const url = `${controlador}/ObtenerUsuarios`;
     return await ProcesarDatosApi('GET', url);
 }
 
-export const ObtenerUsuarioPorId = async(id) => {
+export const ObtenerUsuarioPorId = async (id) => {
     const url = `${controlador}/ObtenerDetalleUsuarioId/${id}`;
     return await ProcesarDatosApi('GET', url);
 }
@@ -46,4 +46,7 @@ export const ObtenerTiposIdentificacion = async () => {
     return await ProcesarDatosApi('GET', url);
 }
 
-
+export const ActualizarContrasenhaTemporal = async (data) => {
+    const url = `${controlador}/actualizarcontrasenhatemporal`;
+    return await ProcesarDatosApi('PUT', url, data);
+}
