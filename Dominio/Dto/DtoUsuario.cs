@@ -8,31 +8,6 @@ namespace Dominio.Dto
 {
     public class DtoUsuario
     {
-        //public int idUsuario { get; set; }
-
-        //public int idPersona { get; set; }
-
-        //public int idRol { get; set; }
-
-        //public string correoElectronico { get; set; }
-
-        //public string contrasenaTemporal { get; set; }
-
-        //public string contrasena { get; set; }
-
-        //public string estado { get; set; }
-
-        //public int idPlanta { get; set; }
-
-        //public DateTime? fechaCreacion{ get; set; }
-
-        //public DateTime? fechaModificacion { get; set; }
-
-        //public string? usuarioCreacion { get; set; }
-
-        //public string? usuarioModificacion { get; set; }
-
-        //public string? accion { get; set; }
 
         public int idUsuario { get; set; }
         public int idPersona { get; set; }
@@ -47,8 +22,9 @@ namespace Dominio.Dto
         public string segundoApellido { get; set; }
         public DateTime? fechaNacimiento { get; set; }
         public string direccion { get; set; }
-        public DateTime? fechaCreacion{ get; set; }
+        public DateTime? fechaCreacion { get; set; }
         public string descripcion { get; set; }
         public string nombrePlanta { get; set; }
+        public string estado { get; set; }
     }
 }

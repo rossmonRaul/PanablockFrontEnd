@@ -21,17 +21,33 @@ namespace WebUI.Controllers
         [HttpPost("[action]")]
         public async Task<JsonResult> InsertarUsuario(EntitiUsuario entitiUsuario)
         {
-            return Json(await this.servicioUsuario.InsertarUsuario(entitiUsuario));
+            try
+            {
+                return Json(await this.servicioUsuario.InsertarUsuario(entitiUsuario));
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         [HttpPut("[action]")]
         public async Task<JsonResult> ActualizarUsuario(EntitiUsuario entitiPlanta)
         {
+            try
+            {
+                return Json(await this.servicioUsuario.ActualizarUsuario(entitiPlanta));
+            }
+            catch (System.Exception ex)
+            {
 
-            return Json(await this.servicioUsuario.ActualizarUsuario(entitiPlanta));
+                throw ex;
+            }
+
         }
 
-        [HttpDelete("[action]/{idUsuario}")]
+        [HttpDelete("[action]")]
         public async Task<JsonResult> EliminarUsuario(int idUsuario)
         {
             return Json(await this.servicioUsuario.EliminarUsuario(idUsuario));
@@ -54,6 +70,20 @@ namespace WebUI.Controllers
         public async Task<JsonResult> ObtenerUsuarios()
         {
             return Json(await this.servicioUsuario.ObtenerUsuarios());
+        }
+
+        [HttpPut("[action]")]
+        public async Task<JsonResult> ActualizarContrasenhaTemporal(EntitiUsuario entitiPlanta)
+        {
+            try
+            {
+                return Json(await this.servicioUsuario.ActualizarContrasenhaTemporal(entitiPlanta));
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
     }

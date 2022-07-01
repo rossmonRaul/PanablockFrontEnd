@@ -21,5 +21,6 @@ namespace Dominio.Interfaces.Aplicacion.Usuario
         Task<DtoUsuario> ObtenerDetalleUsuarioNombre(string nombre);
 
         Task<List<DtoUsuario>> ObtenerUsuarios();
+        Task<DtoDatosSP> ActualizarContrasenhaTemporal(EntitiUsuario entitiUsuario);
     }
 }
