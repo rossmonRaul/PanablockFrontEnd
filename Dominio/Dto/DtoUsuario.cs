@@ -24,6 +24,8 @@ namespace Dominio.Dto
         public string direccion { get; set; }
         public DateTime? fechaCreacion { get; set; }
         public string descripcion { get; set; }
+
+        public string telefono { get; set; }
         public string nombrePlanta { get; set; }
         public string estado { get; set; }
     }

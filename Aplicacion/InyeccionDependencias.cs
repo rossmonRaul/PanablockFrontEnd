@@ -23,6 +23,10 @@ using Dominio.Interfaces.Aplicacion.GrupoTipoMaterial;
 using Aplicacion.GrupoTipoMaterial;
 using Dominio.Interfaces.Aplicacion.GrupoProducto;
 using Aplicacion.GrupoProducto;
+using Dominio.Interfaces.Aplicacion.Login;
+using Aplicacion.Login;
+using Aplicacion.ObservacionMantenimiento;
+using Dominio.Interfaces.Aplicacion.ObservacionMantenimiento;
 
 namespace Aplicacion
 {
@@ -43,6 +47,9 @@ namespace Aplicacion
             services.AddScoped<IServicioEncabezadoProduccionDiaria, ServicioEncabezadoProduccionDiaria>();
             services.AddScoped<IServicioGrupoTipoMaterial, ServicioGrupoTipoMaterial>();
             services.AddScoped<IServicioGrupoProducto, ServicioGrupoProducto>();
+            services.AddScoped<IServicioLogin, ServicioLogin>();
+            services.AddScoped<IServicioObservacionMantenimiento, ServicioObservacionMantenimiento>();
+
 
             return services;
         }
