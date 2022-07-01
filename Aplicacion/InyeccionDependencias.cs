@@ -21,6 +21,8 @@ using Aplicacion.TiposIdentificacion;
 using Dominio.Interfaces.Aplicacion.TiposIdentificacion;
 using Dominio.Interfaces.Aplicacion.GrupoTipoMaterial;
 using Aplicacion.GrupoTipoMaterial;
+using Dominio.Interfaces.Aplicacion.GrupoProducto;
+using Aplicacion.GrupoProducto;
 
 namespace Aplicacion
 {
@@ -40,7 +42,7 @@ namespace Aplicacion
             services.AddScoped<IServicioTiposIdentificacion, ServicioTiposIdentificacion>();
             services.AddScoped<IServicioEncabezadoProduccionDiaria, ServicioEncabezadoProduccionDiaria>();
             services.AddScoped<IServicioGrupoTipoMaterial, ServicioGrupoTipoMaterial>();
-
+            services.AddScoped<IServicioGrupoProducto, ServicioGrupoProducto>();
 
             return services;
         }
