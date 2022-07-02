@@ -15,7 +15,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
     const [nombre, setNombre] = useState(proceso == 2 ? data.nombre : '');
     const [primerApellido, setPrimerApellido] = useState(proceso == 2 ? data.primerApellido : '');
     const [segundoApellido, setSegundoApellido] = useState(proceso == 2 ? data.segundoApellido : '');
-    const [fechaNacimiento, setfechaNacimiento] = useState(proceso == 2 ? data.fechaNacimiento.replace('T00:00:00', '') : '');//data.fechaNacimiento
+    const [fechaNacimiento, setfechaNacimiento] = useState(proceso == 2 ? data.fechaNacimiento.replace('T00:00:00', '') : '');
     const [direccion, setDireccion] = useState(proceso == 2 ? data.direccion : '');
     const [telefono, setTelefono] = useState(proceso == 2 ? data.telefono : '');
 
@@ -33,12 +33,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
     }, []);
 
     //llenado de combo box
-
     const ObtenerListadoDePlantas = async () => {
         const plantas = await ObtenerPlantas();
-        if (plantas !== undefined) {
+        if (plantas !== undefined ) {
             setListaPlantas(plantas);
-            //setIdPlanta(plantas[0].idPlanta);
         }
     }
 
@@ -46,7 +44,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         const roles = await ObtenerRoles();
         if (roles !== undefined) {
             setListaRoles(roles);
-            //setIdRol(roles[0].idRol);
         }
     }
 
@@ -54,14 +51,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         const tiposIdentificacion = await ObtenerTiposIdentificacion();
         if (tiposIdentificacion !== undefined) {
             setListaTiposIdentificacion(tiposIdentificacion);
-            //setidTiposIdentificacion(tiposIdentificacion[0].idTipoIdentificacion);
         }
     }
 
     //envio de datos
-
     const onClickAceptar = (event) => {
-        // console.log(idRol);
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -69,11 +63,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         } else {
 
             const data = {
-                idPlanta: idPlanta,
+                idPlanta: idPlanta == 0 ? listaPlantas[0].idPlanta : idPlanta,
                 coreoElectronico: correo,
                 contrasenaTemporal: contrasenaTemporal,
-                idRol: idRol,
-                idTipoIdentificacion: idTiposIdentificacion,
+                idRol: idRol == 0 ? listaRoles[0].idRol : idRol,
+                idTipoIdentificacion: idTiposIdentificacion == 0 ? listaTiposIdentificacion[0].idTipoIdentificacion : idTiposIdentificacion,
                 identificacion: identificacion,
                 nombre: nombre,
                 primerApellido: primerApellido,
@@ -116,8 +110,9 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
                 <Row>
-                    <InputSelect className="form-control" controlId="sel-tipoIdentificacion" label="Tipo de Identificación" data={listaTiposIdentificacion}
+                    <InputSelect className="form-control custom-select-sm" controlId="sel-tipoIdentificacion" label="Tipo de Identificación" data={listaTiposIdentificacion}
                         onChange={() => onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />
+
                     <InputText id='txt-identificacion' label='Identificación:' type='text' placeholder='Ingrese la identificación' value={identificacion}
                         text='Identificación.' onChange={onChangeIdentificacion} mensajeValidacion="La identificación es requerida" className="col-md-4" readOnly={proceso == 2} />
                 </Row>
@@ -141,8 +136,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
                         text='Dirección exacta.' onChange={onChangeDireccion} mensajeValidacion="El campo es requerido" className="col-md-10" />
                 </Row>
                 <Row>
-                    <InputSelect className="form-control" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={() => onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />
-                    <InputSelect className="form-control" controlId="sel-rol" label="Rol" data={listaRoles} onChange={() => onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
+                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={() => onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />
+                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Rol" data={listaRoles} onChange={() => onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
                 </Row>
                 <br />
                 <Row>
