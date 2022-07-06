@@ -10,7 +10,7 @@ namespace Dominio.Interfaces.Aplicacion.Login
 {
     public interface IServicioLogin
     {
-        Task<DtoLogin> IniciarSesionUsuario(EntitiLogin entitiLogin);
+        Task<DtoLogin> IniciarSesionUsuario(string usuario, string contrasena);
 
     }
 }

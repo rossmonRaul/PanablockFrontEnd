@@ -23,6 +23,7 @@ namespace WebUI
         {
             services.AddInfrastructura(Configuration);
             services.AddAplicacion(Configuration);
+            services.AddWebUI(Configuration);
 
             services.AddControllersWithViews();
 

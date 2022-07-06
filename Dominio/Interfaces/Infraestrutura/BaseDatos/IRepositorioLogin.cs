@@ -10,7 +10,7 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 {
     public interface IRepositorioLogin
     {
-        Task<DtoLogin> IniciarSesionUsuario(EntitiLogin entitiLogin);
+        Task<DtoLogin> IniciarSesionUsuario(string usuario, string contrasena);
 
     }
 }

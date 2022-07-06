@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +32,8 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\modelos\" />
     <Folder Include="ClientApp\src\utils\" />
+    <Folder Include="ClientApp\src\utils\" />
+    <Folder Include="ClientApp\src\views\login\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

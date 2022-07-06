@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from './views/home/layout'
@@ -10,11 +10,34 @@ import Usuarios from './views/usuarios';
 import ControlDeCalidad from './views/controldecalidad';
 import Producto from './views/producto';
 
+import { ObtenerTokenUsuario } from './utils/utilidades';
+
 import './custom.css'
+import Login from './views/login';
 
 const App = () => {
+  const [sesionActiva, setSesionActiva] = useState(false);
+
+  useEffect(() => {
+    //CerrarSession()
+    ValidarSesionActiva();
+  }, []);
+
+  const ValidarSesionActiva = () => {
+    const fecha = new Date();
+    const { expiracion, token } = ObtenerTokenUsuario();
+    const tokenExpiration = new Date(expiracion);
+    setSesionActiva(token !== null && fecha <= tokenExpiration ? true : false);   
+  }
+
+  const CerrarSession = () => {
+    setSesionActiva(false);
+    sessionStorage.clear();
+  }
+
   return (
     <>
+      {sesionActiva ? 
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -29,6 +52,7 @@ const App = () => {
             </Route>
           </Routes>
         </BrowserRouter>
+        :  <Login ValidarSesionActiva={ValidarSesionActiva} />}
     </>
   );
 }

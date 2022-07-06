@@ -69,6 +69,7 @@ const Usuarios = () => {
     }
 
     const onClickProcesarUsuario = async (data) => {
+        setMensajeFormulario("");
         let respuesta = {};
         if (proceso === 1)
             respuesta = await AgregarUsuario(data);
@@ -127,7 +128,7 @@ const Usuarios = () => {
                 <hr />
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevoUsuario()}>Registrar</Button>{' '}
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarUsuario()} disabled={bloquearBoton}>Actualizar</Button>{' '}
-                <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarContrasenha()} disabled={bloquearBoton}>Contraseña</Button>{' '}
+                <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarContrasenha()} disabled={bloquearBoton}>Contraseï¿½a</Button>{' '}
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickInactivarUsuario()} disabled={bloquearBoton}>{textoBotonInactivar}</Button>
                 <br /><br />
                 {mensajeRespuesta.mensaje !== "" ?
