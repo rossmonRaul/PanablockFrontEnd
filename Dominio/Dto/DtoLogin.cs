@@ -17,5 +17,7 @@ namespace Dominio.Dto
         public string? descripcion { get; set; }
 
         public int? esPrimeraSesion { get; set; }
+        public int? idPlanta { get; set; }
+        public int? nombrePlanta { get; set; }
     }
 }
