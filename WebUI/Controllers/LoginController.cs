@@ -1,9 +1,12 @@
-﻿using Dominio.Entiti;
+﻿using Dominio.Dto;
+using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.Login;
+using Dominio.Interfaces.WebUI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using WebUI.Procesos.JWT;
 
 namespace WebUI.Controllers
 {
@@ -13,18 +16,27 @@ namespace WebUI.Controllers
     {
 
         private readonly IServicioLogin servicioLogin;
+        private readonly IJwtSecurity jwtSecurity;
 
-        public LoginController(IServicioLogin servicioLogin)
+        public LoginController(IServicioLogin servicioLogin, IJwtSecurity jwtSecurity)
         {
             this.servicioLogin = servicioLogin;
+            this.jwtSecurity = jwtSecurity;
         }
 
-        [HttpPost("[action]")]
-        public async Task<JsonResult> IniciarSesionUsuario(EntitiLogin entitiLogin)
+        [HttpGet("[action]")]
+        public async Task<JsonResult> IniciarSesionUsuario(string usuario, string contrasena)
         {
             try
             {
-                return Json(await this.servicioLogin.IniciarSesionUsuario(entitiLogin));
+                DtoLogin login = await this.servicioLogin.IniciarSesionUsuario(usuario, contrasena);
+                if(string.IsNullOrEmpty(login.nombre))
+                    return Json(new DtoAccessToken());
+                else
+                {
+                    return Json(this.jwtSecurity.Autentication(login));
+                }
+                    
             }
             catch (Exception ex)
             {

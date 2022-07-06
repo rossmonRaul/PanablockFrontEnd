@@ -20,9 +20,9 @@ namespace Aplicacion.Login
             this.repositorioLogin = repositorioLogin;
         }
 
-        public async Task<DtoLogin> IniciarSesionUsuario(EntitiLogin entitiLogin)
+        public async Task<DtoLogin> IniciarSesionUsuario(string usuario, string contrasena)
         {
-            return await this.repositorioLogin.IniciarSesionUsuario(entitiLogin);
+            return await this.repositorioLogin.IniciarSesionUsuario(usuario, contrasena);
         }
     }
 }

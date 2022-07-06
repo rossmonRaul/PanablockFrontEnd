@@ -19,14 +19,14 @@ namespace Infraestrutura.BaseDatos
             this.contextoBD = contextoBD;
         }
 
-        public async Task<DtoLogin> IniciarSesionUsuario(EntitiLogin entitiLogin)
+        public async Task<DtoLogin> IniciarSesionUsuario(string usuario, string contrasena)
         {
             try
             {
 
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("ContrasenaTemporal", entitiLogin.contrasenaTemporal);
-                data.Add("CoreoElectronico", entitiLogin.coreoElectronico);
+                data.Add("ContrasenaTemporal", contrasena);
+                data.Add("CoreoElectronico", usuario);
                
 
                 //se inserta el producto normal sin los tipos de materiales

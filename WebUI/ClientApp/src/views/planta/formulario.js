@@ -8,7 +8,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPlanta, mensaje
     const [ubicacion, setUbicacion] = useState(proceso == 2 ? data.ubicacion : '');
     const [validated, setValidated] = useState(false);
 
-    const onClickAceptar = (event) => {
+    const onClickAceptar = async(event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -18,7 +18,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPlanta, mensaje
                 nombrePlanta: nombrePlanta,
                 ubicacion: ubicacion
             }
-            onClickProcesarPlanta(data);
+            const result = onClickProcesarPlanta(data);
+            console.log(result);
         }
         setValidated(true);
         event.preventDefault();
