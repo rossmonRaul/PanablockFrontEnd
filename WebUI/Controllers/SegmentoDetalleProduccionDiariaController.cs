@@ -30,8 +30,7 @@ namespace WebUI.Controllers
 
             return Json(await this.SegmentoDetalleProduccionDiaria.ActualizarSegmentoDetalleProduccionDiaria(entitiSegmentoDetalle));
         }
-
-        
+       
 
         [HttpGet("[action]/{idEncabezadoProduccion}")]
         public async Task<JsonResult> ObtenerSegementoDetalleProduccionDiaria(int idEncabezadoProduccion)

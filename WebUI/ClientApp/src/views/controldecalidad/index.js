@@ -1,7 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-
-import { Button } from 'react-bootstrap';
-
+import { Button, Form } from 'react-bootstrap';
 import Formulario from './formulario';
 import { FormularioModal } from '../../components/ventanaModal';
 import { Grid } from '../../components/grid';
@@ -98,8 +96,8 @@ const ControlDeCalidad = () => {
                 <hr />
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevoControldeCalidad()}>Registrar</Button>{' '}
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarControldeCalidad()} disabled={bloquearBoton}>Actualizar</Button>{' '}
-              
-                <br /><br />
+               
+                <br/><br/>
                 {mensajeRespuesta.mensaje !== "" ?
                     <>
                         <span className={mensajeRespuesta.indicador === 0 ? "text-success" : "text-danger"}>{mensajeRespuesta.mensaje}</span>

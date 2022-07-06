@@ -31,6 +31,10 @@ namespace Infraestrutura
             services.AddScoped<IRepositorioGrupoProducto, RepositorioGrupoProducto>();
             services.AddScoped<IRepositorioLogin, RepositorioLogin>();
             services.AddScoped<IRepositorioObservacionMantenimiento, RepositorioObservacionMantenimiento>();
+            services.AddScoped<IRepositorioAgregadosProduccionDiaria, RepositorioAgregadosProduccionDiaria>();
+            services.AddScoped<IRepositorioDetalleProduccionDiaria, RepositorioDetalleProduccionDiaria>();
+            services.AddScoped<IRepositorioTotalProduccionDiaria, RepositorioTotalesProduccionDiaria>();
+
 
 
             return services;

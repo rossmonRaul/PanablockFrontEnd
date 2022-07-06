@@ -51,7 +51,7 @@ namespace Infraestrutura.BaseDatos
             }
             catch (Exception)
             {
-                throw;
+                throw;                                                                                                                                                                                                                                                                                                                                            
             }
         }
     }

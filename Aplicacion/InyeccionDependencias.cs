@@ -27,6 +27,12 @@ using Dominio.Interfaces.Aplicacion.Login;
 using Aplicacion.Login;
 using Aplicacion.ObservacionMantenimiento;
 using Dominio.Interfaces.Aplicacion.ObservacionMantenimiento;
+using Dominio.Interfaces.Aplicacion.AgregadosProduccionDiaria;
+using Aplicacion.AgregadosProduccionDiaria;
+using Dominio.Interfaces.Aplicacion.DetalleProduccionDiaria;
+using Aplicacion.DetalleProduccionDiaria;
+using Aplicacion.TotalesProduccionDiaria;
+using Dominio.Interfaces.Aplicacion.TotalesProduccionDiaria;
 
 namespace Aplicacion
 {
@@ -49,7 +55,9 @@ namespace Aplicacion
             services.AddScoped<IServicioGrupoProducto, ServicioGrupoProducto>();
             services.AddScoped<IServicioLogin, ServicioLogin>();
             services.AddScoped<IServicioObservacionMantenimiento, ServicioObservacionMantenimiento>();
-
+            services.AddScoped<IServicioAgregadosProduccionDiaria, ServicioAgregadosProduccionDiaria>();
+            services.AddScoped<IServicioDetalleProduccionDiaria, ServicioDetalleProduccionDiaria>();
+            services.AddScoped<IServicioTotalProduccionDiaria, ServicioTotalProduccionDiaria>();
 
             return services;
         }
