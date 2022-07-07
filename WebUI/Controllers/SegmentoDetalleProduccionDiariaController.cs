@@ -1,5 +1,6 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.SegmentoDetalleProduccionDiaria;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,14 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarSegmentoDetalleProduccionDiaria(EntitiSegmentoDetalleProduccion entitiSegmentoDetalle)
         {
             return Json(await this.SegmentoDetalleProduccionDiaria.InsertarSegmentoDetalleProduccionDiaria(entitiSegmentoDetalle));
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarSegmentoDetalleProduccionDiaria(EntitiSegmentoDetalleProduccion entitiSegmentoDetalle)
         {
 
@@ -33,6 +36,7 @@ namespace WebUI.Controllers
        
 
         [HttpGet("[action]/{idEncabezadoProduccion}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerSegementoDetalleProduccionDiaria(int idEncabezadoProduccion)
         {
             return Json(await this.SegmentoDetalleProduccionDiaria.ObtenerSegementoDetalleProduccionDiaria(idEncabezadoProduccion));

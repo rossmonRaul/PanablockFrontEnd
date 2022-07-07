@@ -1,5 +1,6 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.ActividadPlanta;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,12 +21,14 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarActividadPlanta(EntitiActividadPlanta entitiActividadPlanta)
         {
             return Json(await this.servicioActividadPlanta.InsertarActividadPlanta(entitiActividadPlanta));
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarActividadPlanta(EntitiActividadPlanta entitiActividadPlanta)
         {
 
@@ -33,12 +36,14 @@ namespace WebUI.Controllers
         }
 
         [HttpDelete("[action]")]
+        [Authorize]
         public async Task<JsonResult> EliminarActividadPlanta(int idActividadPlanta)
         {
             return Json(await this.servicioActividadPlanta.EliminarActividadPlanta(idActividadPlanta));
         }
 
         [HttpGet("[action]/{idActividadPlanta}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleActividadPlantaID(int idActividadPlanta)
         {
             try
@@ -54,6 +59,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerActividadesPlantas()
         {
             return Json(await this.servicioActividadPlanta.ObtenerActividadesPlantas());

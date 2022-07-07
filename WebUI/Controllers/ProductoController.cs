@@ -1,5 +1,6 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.Producto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,24 +20,28 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarProducto(EntitiProducto entitiProducto)
         {
             return Json(await this.servicioProducto.InsertarProducto(entitiProducto));
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerUltimoProductoInsertado()
         {
             return Json(await this.servicioProducto.ObtenerUltimoProductoInsertado());
         }
 
         [HttpPost("[action]/idproducto/{idproducto}/item/{item}")]
+        [Authorize]
         public async Task<JsonResult> InsertarTipoMaterialProducto(int idProducto, int item)
         {
             return Json(await this.servicioProducto.InsertarTipoMaterialProducto(idProducto, item));
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarProducto(EntitiProducto entitiProducto)
         {
 
@@ -44,6 +49,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPut("[action]/idTipoMaterialProducto/{idTipoMaterialProducto}/estado/{estado}")]
+        [Authorize]
         public async Task<JsonResult> ActualizarTipoMaterialProducto(int idTipoMaterialProducto, int estado)
         {
             
@@ -51,12 +57,14 @@ namespace WebUI.Controllers
         }
 
         [HttpDelete("[action]/{idProducto}")]
+        [Authorize]
         public async Task<JsonResult> EliminarProducto(int idProducto)
         {
             return Json(await this.servicioProducto.EliminarProducto(idProducto));
         }
 
         [HttpGet("[action]/{idProducto}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleProductoID(int idProducto)
         {
             try
@@ -71,12 +79,14 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerProductos()
         {
             return Json(await this.servicioProducto.ObtenerProductos());
         }
 
         [HttpGet("[action]/{idProducto}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerTipoMaterialProducto(int idProducto)
         {
             try

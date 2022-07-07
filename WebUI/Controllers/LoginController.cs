@@ -2,6 +2,7 @@
 using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.Login;
 using Dominio.Interfaces.WebUI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,6 +26,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public async Task<JsonResult> IniciarSesionUsuario(string usuario, string contrasena)
         {
             try

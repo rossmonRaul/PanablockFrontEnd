@@ -1,6 +1,7 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.Usuario;
 using Dominio.Interfaces.Infraestrutura.BaseDatos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarUsuario(EntitiUsuario entitiUsuario)
         {
             try
@@ -33,6 +35,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarUsuario(EntitiUsuario entitiPlanta)
         {
             try
@@ -48,18 +51,21 @@ namespace WebUI.Controllers
         }
 
         [HttpDelete("[action]")]
+        [Authorize]
         public async Task<JsonResult> EliminarUsuario(int idUsuario)
         {
             return Json(await this.servicioUsuario.EliminarUsuario(idUsuario));
         }
 
         [HttpGet("[action]/{idUsuario}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleUsuarioID(int idUsuario)
         {
             return Json(await this.servicioUsuario.ObtenerDetalleUsuarioID(idUsuario));
         }
 
         [HttpGet("[action]/{nombre}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleUsuarioNombre(string nombre)
         {
             return Json(await this.servicioUsuario.ObtenerDetalleUsuarioNombre(nombre));
@@ -67,12 +73,14 @@ namespace WebUI.Controllers
 
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerUsuarios()
         {
             return Json(await this.servicioUsuario.ObtenerUsuarios());
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarContrasenhaTemporal(EntitiUsuario entitiPlanta)
         {
             try

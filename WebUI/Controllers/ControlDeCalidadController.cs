@@ -1,5 +1,6 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.ControlDeCalidad;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,12 +21,14 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarControlDeCalidad(EntitiControlDeCalidad entitiControlDeCalidad)
         {
             return Json(await this.servicioControlDeCalidad.InsertarControlDeCalidad(entitiControlDeCalidad));
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarControlDeCalidad(EntitiControlDeCalidad entitiControlDeCalidad)
         {
 
@@ -33,6 +36,7 @@ namespace WebUI.Controllers
         }  
 
         [HttpGet("[action]/{idCalidad}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleControlDeCalidadID(int idCalidad)
         {
             try
@@ -48,6 +52,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]/{idProducto}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleControlDeCalidadPorProducto(int idProducto)
         {
             try
@@ -63,6 +68,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerControlDeCalidad()
         {
             return Json(await this.servicioControlDeCalidad.ObtenerControlDeCalidad());

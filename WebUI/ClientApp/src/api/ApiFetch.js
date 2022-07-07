@@ -1,12 +1,13 @@
-﻿
+﻿import { ObtenerTokenUsuario } from "../utils/utilidades";
+
 export const ProcesarDatosApi = async (method, url, data) => {
-    //const { token } = ObtenerTokenUsuario();
+    const { token } = ObtenerTokenUsuario();
     const myInit = {
         method: method,
         headers: {
             "Content-type": "application/json;charset=UTF-8",
             'Accept': 'application/json',
-            //'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         },
         mode: 'cors',
         cache: 'default',

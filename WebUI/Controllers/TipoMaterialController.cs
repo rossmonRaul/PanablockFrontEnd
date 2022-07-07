@@ -1,5 +1,6 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.TipoMaterial;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarTipoMaterial(EntitiTipoMaterial entitiTipoMaterial)
         {
             /*EntitiPlanta entitiPlanta = new EntitiPlanta()
@@ -30,6 +32,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarTipoMaterial(EntitiTipoMaterial entitiTipoMaterial)
         {
 
@@ -37,18 +40,21 @@ namespace WebUI.Controllers
         }
 
         [HttpDelete("[action]/{idTipoMaterial}")]
+        [Authorize]
         public async Task<JsonResult> EliminarTipoMaterial(int idTipoMaterial)
         {
             return Json(await this.servicioTipoMaterial.EliminarTipoMaterial(idTipoMaterial));
         }
 
         [HttpGet("[action]/{idTipoMaterial}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleTipoMaterialID(int idTipoMaterial)
         {
             return Json(await this.servicioTipoMaterial.ObtenerDetalleTipoMaterialID(idTipoMaterial));
         }
 
         [HttpGet("[action]/{nombre}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetalleTipoMaterialNombre(string nombre)
         {
             return Json(await this.servicioTipoMaterial.ObtenerDetalleTipoMaterialNombre(nombre));
@@ -56,6 +62,7 @@ namespace WebUI.Controllers
 
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerTipoMateriales()
         {
             return Json(await this.servicioTipoMaterial.ObtenerTipoMateriales());

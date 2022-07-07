@@ -32,7 +32,7 @@ namespace WebUI.Procesos.JWT
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, usuario.nombre.ToString()),
+                        new Claim(ClaimTypes.Name, 1.ToString()),
                     }),
                     IssuedAt = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddHours(Convert.ToDouble(Configuration["JwtConfig:accessTokenExpiration"])),
