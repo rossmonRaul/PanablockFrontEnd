@@ -159,5 +159,24 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
+        public async Task<DtoDatosSP> ActualizarContrasenha(int idUsuario, string contrasena)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+
+                data.Add("IdUsuario", idUsuario);
+                data.Add("ContrasenaTemporal", contrasena);
+
+                string query = "SPActualizarContrasena";
+
+                return await this.contextoBD.EjecutarSP(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

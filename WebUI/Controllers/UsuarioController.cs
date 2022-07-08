@@ -86,5 +86,19 @@ namespace WebUI.Controllers
 
         }
 
+        [HttpPut("[action]/idUsuario/{idUsuario}/contrasena/{contrasena}")]
+        public async Task<JsonResult> ActualizarContrasenhaTemporal(int idUsuario, string contrasena )
+        {
+            try
+            {
+                return Json(await this.servicioUsuario.ActualizarContrasenha(idUsuario, contrasena));
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
     }
 }

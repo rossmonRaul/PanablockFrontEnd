@@ -33,6 +33,8 @@ using Dominio.Interfaces.Aplicacion.DetalleProduccionDiaria;
 using Aplicacion.DetalleProduccionDiaria;
 using Aplicacion.TotalesProduccionDiaria;
 using Dominio.Interfaces.Aplicacion.TotalesProduccionDiaria;
+using Dominio.Interfaces.Aplicacion.Horario;
+using Aplicacion.Horario;
 
 namespace Aplicacion
 {
@@ -58,6 +60,7 @@ namespace Aplicacion
             services.AddScoped<IServicioAgregadosProduccionDiaria, ServicioAgregadosProduccionDiaria>();
             services.AddScoped<IServicioDetalleProduccionDiaria, ServicioDetalleProduccionDiaria>();
             services.AddScoped<IServicioTotalProduccionDiaria, ServicioTotalProduccionDiaria>();
+            services.AddScoped<IServicioHorario, ServicioHorario>();
 
             return services;
         }

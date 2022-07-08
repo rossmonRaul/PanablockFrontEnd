@@ -34,6 +34,7 @@ namespace Infraestrutura
             services.AddScoped<IRepositorioAgregadosProduccionDiaria, RepositorioAgregadosProduccionDiaria>();
             services.AddScoped<IRepositorioDetalleProduccionDiaria, RepositorioDetalleProduccionDiaria>();
             services.AddScoped<IRepositorioTotalProduccionDiaria, RepositorioTotalesProduccionDiaria>();
+            services.AddScoped<IRepositorioHorario, RepositorioHorario>();
 
 
 

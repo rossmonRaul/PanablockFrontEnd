@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Button, Col, Container, Row } from "reactstrap";
 import { AutenticarUsuario } from '../../servicios/ServicioAutenticacion';
+import logo from '../../images/logo.webp';
+//import '../../styles/login.css';
+
 
 const Login = ({ ValidarSesionActiva }) => {
 
@@ -27,15 +30,24 @@ const Login = ({ ValidarSesionActiva }) => {
                 setMensaje("Usuario o contraseña incorrectos");                
             }
         }
+
     }
+
 
     return(
         <>
         <br/><br/>
-        <Container>
+            <Container>
+        <div className="content">
 
-            <Row>
-                <Col>
+            
+                    <div className="layout">   
+
+                        <div className="content-left">
+                            <img src={logo} className="logo"/>
+                        </div>
+                        <div className="content-right">
+                         <h2>Iniciar sesión</h2>
                     <Form onSubmit={onClickIniciarSesion}>
                         <Form.Group className="mb-3" controlId="txt-usuario">
                             <Form.Label>Usuario:</Form.Label>
@@ -45,17 +57,20 @@ const Login = ({ ValidarSesionActiva }) => {
                         <Form.Group className="mb-3" controlId="txt-contrasenha">
                             <Form.Label>Contraseña:</Form.Label>
                             <Form.Control type="password" placeholder="Contraseña" />
-                        </Form.Group>
+                                </Form.Group>
+                              
+                          <Button  type="submit" className="btn">Ingresar </Button>
                         <div className="text-center">
-                            <Button variant="primary" type="submit">Aceptar</Button>                            
                         </div>
                         <div className="text-center">{mensaje !== '' ? <span>{mensaje}</span> : ''}</div>
-                        
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
-        
+                            </Form>
+                            </div>
+             </div>   
+            </div>
+            </Container>
+           
+
+             
         </>
     )
 }

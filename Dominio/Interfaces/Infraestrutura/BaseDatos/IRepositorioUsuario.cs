@@ -22,5 +22,7 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 
         Task<List<DtoUsuario>> ObtenerUsuarios();
         Task<DtoDatosSP> ActualizarContrasenhaTemporal(EntitiUsuario entitiUsuario);
+
+        Task<DtoDatosSP> ActualizarContrasenha(int idUsuario, string contrasena);
     }
 }

@@ -9,6 +9,8 @@ import ActividadPlanta from './views/actividadesplanta'
 import Usuarios from './views/usuarios';
 import ControlDeCalidad from './views/controldecalidad';
 import Producto from './views/producto';
+import Contrasena from './views/actualizarcontrasena';
+import ProduccionDiaria from './views/producciondiaria';
 
 import { ObtenerTokenUsuario } from './utils/utilidades';
 
@@ -45,14 +47,16 @@ const App = () => {
               <Route path="planta" element={<Planta />} /> 
                 <Route path="tipomaterial" element={<TipoMaterial />} />
                 <Route path="actividadplanta" element={<ActividadPlanta />} />
-                      <Route path="usuarios" element={<Usuarios />} />
-                      <Route path="controldecalidad" element={<ControlDeCalidad />} />
-                      <Route path="producto" element={<Producto />} />
+                <Route path="usuarios" element={<Usuarios />} />
+                <Route path="controldecalidad" element={<ControlDeCalidad />} />
+                <Route path="producto" element={<Producto />} />
+                <Route path="contrasena" element={<Contrasena />} />  
               <Route path="*" element={<Navigate to="/" replace />} />           
             </Route>
           </Routes>
         </BrowserRouter>
-        :  <Login ValidarSesionActiva={ValidarSesionActiva} />}
+              : <Login ValidarSesionActiva={ValidarSesionActiva} />
+          }
     </>
   );
 }

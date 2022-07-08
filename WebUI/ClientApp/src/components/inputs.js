@@ -1,11 +1,11 @@
 import React from 'react';
 import { Form } from "react-bootstrap"
 
-export const InputText = ({ id, label, type, placeholder, value, text, onChange, mensajeValidacion, className, readOnly }) => {
+export const InputText = ({ id, label, type, placeholder, value, text, onChange, mensajeValidacion, className, readOnly, disabled }) => {
     return (
         <Form.Group className={"mb-3 " + className} controlId={id}>
             <Form.Label>{label}</Form.Label>
-            <Form.Control type={type} placeholder={placeholder} size="sm" value={value} onChange={onChange} required readOnly={readOnly} />
+            <Form.Control type={type} placeholder={placeholder} size="sm" value={value} onChange={onChange} required readOnly={readOnly} disabled={disabled }/>
             <Form.Text className="text-muted">{text}</Form.Text>
             <Form.Control.Feedback type="invalid">{mensajeValidacion}</Form.Control.Feedback>
         </Form.Group>

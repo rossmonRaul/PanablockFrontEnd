@@ -1,11 +1,10 @@
 ﻿import React, { useEffect, useState } from 'react';
-
-import { Button } from 'react-bootstrap';
-
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import Formulario from './formulario';
 import { FormularioModal } from '../../components/ventanaModal';
 import { Grid } from '../../components/grid';
 import { AgregarPlanta, ActualizarPlanta, InactivarPlanta, ObtenerPlantas, ObtenerPlantaPorId } from '../../servicios/ServicioPlanta';
+import { InputText } from '../../components/inputs';
 
 const Planta = () => {
     const [proceso, setProceso] = useState(1);
@@ -14,8 +13,10 @@ const Planta = () => {
     const [labelButton, setLabelButton] = useState("Registrar");
     const [mensajeFormulario, setMensajeFormulario] = useState("");
     const [mensajeRespuesta, setMensajeRespuesta] = useState({});
+    const [idBuscar, setidBuscar] = useState("");
 
     const [listaPlantas, setListaPlantas] = useState([]);
+    const [listaRespaldo, setListaRespaldo] = useState([]);
     const [pendiente, setPendiente] = useState(false);
     const [filaSeleccionada, setFilaSeleccionada] = useState({});
     const [data, setData] = useState({});
@@ -31,7 +32,7 @@ const Planta = () => {
     ]
 
     useEffect(() => {
-        ObtenerListadoDePlantas();
+        ObtenerListadoDePlantas();        
     }, []);
 
     const onClickProcesarPlanta = async(data) => {
@@ -56,6 +57,7 @@ const Planta = () => {
     const ObtenerListadoDePlantas = async() => {
         setPendiente(true);
         setListaPlantas(await ObtenerPlantas());
+        setListaRespaldo(await ObtenerPlantas());
         setPendiente(false);
     }
 
@@ -96,25 +98,62 @@ const Planta = () => {
 
     const ValidarSiFilaFueSeleccionada = (fila) => Object.entries(fila).length === 0 ? false : true;    
 
+    const onChangeIdBuscar = (e) => {
+        ObtenerBuscarPersonalizada(e.target.value);
+    }
+
+    const ObtenerBuscarPersonalizada = (elem) => {
+
+        var consulta = elem.toLowerCase();
+        var actualizarLista = listaPlantas.filter(function (el) {
+            var valor = el.nombrePlanta.toLowerCase();
+            return valor.indexOf(consulta) !== -1;
+
+        });
+            
+        if (actualizarLista.length > 0) {
+            setListaRespaldo(actualizarLista)
+        } else { 
+
+            idBuscar === " " ? setListaRespaldo(listaPlantas) : setListaRespaldo([]);
+        }
+    }
+
+
     return (
         <>            
             <div className="container-fluid text-no">
                 <h1>Catálogo de Ubicaciones de Plantas</h1>
                 <hr />
-                <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaPlanta()}>Registrar</Button>{' '}
-                <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarPlanta()} disabled={bloquearBoton}>Actualizar</Button>{' '}
-                <Button variant="primary" type="submit" size="sm" onClick={() => onClickInactivarPlanta()} disabled={bloquearBoton}>{textoBotonInactivar}</Button>
-                <br/><br/>   
+                <Row >
+                
+                    <Col lg={1} >
+                        <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaPlanta()}>Registrar</Button>{' '}
+                    </Col>
+                    <Col lg={1}>
+                        <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarPlanta()} disabled={bloquearBoton}>Actualizar</Button>{' '}
+                    </Col>
+                    <Col lg={1}>
+                <Button variant="primary" type="submit" size="sm" onClick={() => onClickInactivarPlanta()} disabled={bloquearBoton}>{textoBotonInactivar}
+                        </Button>
+                    </Col>
+                    <Col lg={2 }>
+                <InputText type="text" placeholder="Buscar..." onChange={onChangeIdBuscar} />
+                </Col>
+                </Row>
+                <br />
                 {mensajeRespuesta.mensaje !== "" ? 
                 <>                   
                     <span className={mensajeRespuesta.indicador === 0 ? "text-success" : "text-danger"}>{mensajeRespuesta.mensaje}</span>
                     <br/>  
                 </>                
                 : ''}    
-                <span>Listado de todas las plantas registradas</span>    
-                <Grid gridHeading={encabezado} gridData={listaPlantas} selectableRows={true} pending={pendiente} 
-                    setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idPlanta"/>                
-                <br/><br/>
+                <span>Listado de todas las plantas registradas</span>
+                <br />
+                    <Grid gridHeading={encabezado} gridData={listaRespaldo} selectableRows={true} pending={pendiente}
+                        setFilaSeleccionada={onClickSeleccionarFila} idBuscar="idPlanta" />
+                    <br /><br />
+               
             </div>
             <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className=''>
                 <Formulario labelButton={labelButton} data={data} proceso={proceso} onClickProcesarPlanta={onClickProcesarPlanta} mensaje={mensajeFormulario}/>
