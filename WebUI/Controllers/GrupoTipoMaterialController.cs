@@ -1,4 +1,5 @@
 ﻿using Dominio.Interfaces.Aplicacion.GrupoTipoMaterial;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerGrupoTiposMaterial()
         {
             return Json(await this.servicioGrupoTipoMaterial.ObtenerGrupoTiposMaterial());

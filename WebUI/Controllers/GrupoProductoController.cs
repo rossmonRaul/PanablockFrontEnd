@@ -1,4 +1,5 @@
 ﻿using Dominio.Interfaces.Aplicacion.GrupoProducto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerGrupoProductos()
         {
             return Json(await this.servicioGrupoProducto.ObtenerGrupoProductos());

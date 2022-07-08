@@ -1,6 +1,7 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.EncabezadoProduccionDiaria;
 using Dominio.Interfaces.Aplicacion.Planta;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> IInsertarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
         {
             return Json(await this.servicioEncabezadoProduccion.InsertarEncabezadoProduccionDiaria(entitiEncabezadoProduccion));
@@ -32,6 +34,7 @@ namespace WebUI.Controllers
         
 
         [HttpGet("[action]/{idPlanta}/{Fecha}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
         {
             try

@@ -1,4 +1,5 @@
 ﻿using Dominio.Interfaces.Aplicacion.Rol;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerRoles()
         {
             return Json(await this.servicioRol.ObtenerRoles());

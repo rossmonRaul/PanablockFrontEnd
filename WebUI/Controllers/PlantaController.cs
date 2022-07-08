@@ -1,5 +1,6 @@
 ﻿using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.Planta;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,25 +24,28 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<JsonResult> InsertarPlanta(EntitiPlanta entitiPlanta)
         {
             return Json(await this.servicioPlanta.InsertarPlanta(entitiPlanta));
         }
 
         [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarPlanta(EntitiPlanta entitiPlanta)
-        {
-           
+        {           
             return Json(await this.servicioPlanta.ActualizarPlanta(entitiPlanta));
         }
 
         [HttpDelete("[action]")]
+        [Authorize]
         public async Task<JsonResult>EliminarPlanta(int idPlanta)
         {
             return Json(await this.servicioPlanta.EliminarPlanta(idPlanta));
         }
 
         [HttpGet("[action]/{idPlanta}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetallePlantaID(int idPlanta)
         {
             try
@@ -50,13 +54,12 @@ namespace WebUI.Controllers
             }
             catch (Exception ex)
             {
-
                 return Json($"Error: {ex.Message}");
-            }
-            
+            }            
         }
 
         [HttpGet("[action]/{nombre}")]
+        [Authorize]
         public async Task<JsonResult> ObtenerDetallePlantaNombre(string nombre)
         {
             return Json(await this.servicioPlanta.ObtenerDetallePlantaNombre(nombre));
@@ -64,6 +67,7 @@ namespace WebUI.Controllers
 
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<JsonResult> ObtenerPlantas()
         {
             return Json(await this.servicioPlanta.ObtenerPlantas());
