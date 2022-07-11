@@ -13,23 +13,31 @@ import Contrasena from './views/actualizarcontrasena';
 import ProduccionDiaria from './views/producciondiaria';
 
 import { ObtenerTokenUsuario } from './utils/utilidades';
+import { ObtenerDatosDeUsuario } from './utils/utilidades';
 
-import './custom.css'
+
 import Login from './views/login';
+import './custom.css'
 
 const App = () => {
   const [sesionActiva, setSesionActiva] = useState(false);
 
   useEffect(() => {
-    //CerrarSession()
+    
+    CerrarSession();
     ValidarSesionActiva();
   }, []);
 
   const ValidarSesionActiva = () => {
     const fecha = new Date();
     const { expiracion, token } = ObtenerTokenUsuario();
+    const usuario = ObtenerDatosDeUsuario();
     const tokenExpiration = new Date(expiracion);
-    setSesionActiva(token !== null && fecha <= tokenExpiration ? true : false);   
+    let usuarioValido = true;
+    if(usuario !== null && usuario !== undefined)
+      if(usuario.esPrimeraSesion == 1)
+        usuarioValido = false;
+    setSesionActiva(usuarioValido && token !== null && fecha <= tokenExpiration ? true : false);   
   }
 
   const CerrarSession = () => {
@@ -40,7 +48,7 @@ const App = () => {
   return (
     <>
       {sesionActiva ? 
-        <BrowserRouter>
+        <BrowserRouter>          
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home/>} /> 
@@ -55,7 +63,8 @@ const App = () => {
             </Route>
           </Routes>
         </BrowserRouter>
-              : <Login ValidarSesionActiva={ValidarSesionActiva} />
+              : 
+              <Login ValidarSesionActiva={ValidarSesionActiva} />
           }
     </>
   );

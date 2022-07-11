@@ -16,12 +16,11 @@ export const ProcesarDatosApi = async (method, url, data) => {
     const myRequest = new Request(url, myInit);
     try {
         const response = await fetch(myRequest);
-    console.log(response);
-    if (response.ok) {
-        return await response.json();
-    } else {
-        return {indicador: 500, mensaje: 'Ocurrio un error en el proceso!'}
-    }
+        if (response.ok) {
+            return await response.json();
+        } else {
+            return {indicador: 500, mensaje: 'Ocurrio un error en el proceso!'}
+        }
     } catch (error) {
         console.log(error);
     }

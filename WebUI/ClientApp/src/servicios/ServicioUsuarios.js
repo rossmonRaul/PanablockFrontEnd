@@ -50,3 +50,8 @@ export const ActualizarContrasenhaTemporal = async (data) => {
     const url = `${controlador}/actualizarcontrasenhatemporal`;
     return await ProcesarDatosApi('PUT', url, data);
 }
+
+export const ActualizarContrasenha = async (data) => {
+    const url = `${controlador}/actualizarcontrasenha?idUsuario=${data.idUsuario}&contrasena=${data.contrasena}`;
+    return await ProcesarDatosApi('PUT', url);
+}

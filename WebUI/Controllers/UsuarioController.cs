@@ -94,7 +94,8 @@ namespace WebUI.Controllers
 
         }
 
-        [HttpPut("[action]/idUsuario/{idUsuario}/contrasena/{contrasena}")]
+        [HttpPut("[action]")]
+        [Authorize]
         public async Task<JsonResult> ActualizarContrasenha(int idUsuario, string contrasena )
         {
             try
