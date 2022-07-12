@@ -11,8 +11,8 @@ namespace Dominio.Interfaces.Aplicacion.Reporte
     public interface IServicioReporte
     {
 
-        Task<List<DtoReporteAcumulativoMensual>> ReporteAcumulativoMensual(EntitiReporte reporte);
-        Task<List<DtoReporteProductos>> ReporteProductos(EntitiReporte reporte);
+        Task<List<DtoReporteAcumulativoPlacasMensual>> ReporteAcumulativoMensual(EntitiReporte reporte);
+        Task<List<DtoReporteCementoPorPlacasProductos>> ReporteProductos(EntitiReporte reporte);
 
     }
 }
