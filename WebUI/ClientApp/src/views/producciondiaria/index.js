@@ -1,30 +1,42 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Table, Row, Col, Form } from "react-bootstrap";
-import width from '../../../../../node_modules/dom-helpers/cjs/width';
+import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
 import { InputSelect, InputText } from '../../components/inputs';
 import { TextArea } from '../../components/textarea';
 
 import logo from '../../images/logo.webp';
+import add from '../../images/add.png';
+import producciondiaria from '../../images/business-report.png';
+import turnos from '../../images/change-management.png';
+import totales from '../../images/checklist.png';
+import brick from '../../images/brick.png';
+
 import { ObtenerProductos } from '../../servicios/ServicioProducto';
 import { ObtenerHorarios } from '../../servicios/ServicioProduccionDiaria';
-
-const API_HOST = "http://localhost:3000";
-const INVENTORY_API_URL = `${API_HOST}/inventory`;
 
 const ProduccionDiaria = () => {
 
     const [data, setData] = useState([]);
     const [listaTurno, setListaTurno] = useState([
-        "Placa F:", "Placa I:", null, "Turno #1", "Placa F:", "Placa I:", null, "Turno #2", "Placa F:", "Placa I:", null, "Turno #2", "Placa F:", "Placa I:"
+        "Placa Inicio:", "Placa Final:"
     ]);
+
     const [placas6, setPlacas6] = useState(0);
 
-    const onChangeplacas6 = (e) => setPlacas6(e.target.value);
 
     const [idProducto, setidProducto] = useState(0);
     const [listaProductos, setListaProductos] = useState([]);
+
     const [listaPlacas, setListaPlacas] = useState([]);
     const [listaHorarios, setListaHorarios] = useState([]);
+
+    const [listaObservaciones, setListaObservaciones] = useState([]);
+    const [nuevoElementoObservacion, setnuevoElementoObservacion] = useState("");
+
+    const [listaAgregados, setListaAgregados] = useState([]);
+    const [nuevoElementoAgregados, setnuevoElementoAgregados] = useState("");
+ 
+    const [fechaActual, setFechaActual] = useState("");
+ 
 
     const ObtenerListadoDeProductos = async () => {
         const productos = await ObtenerProductos();
@@ -41,195 +53,134 @@ const ProduccionDiaria = () => {
         }
     }
 
-
-    const fetchInventory = () => {
-        setData(
-             [
-                {
-                    "id": 1,
-                    "product_name": "Weetabix",
-                    "product_category": "Cereal",
-                    "unit_price": "501",
-                },
-                {
-                    "id": 2,
-                    "product_name": "Colgate Toothpaste",
-                    "product_category": "Toiletries",
-                    "unit_price": "119",
-                },
-                {
-                    "id": 3,
-                    "product_name": "Imperial Leather Soap",
-                    "product_category": "Toiletries",
-                    "unit_price": "235",
-                },
-                {
-                    "id": 4,
-                    "product_name": "Sunlight Detergent",
-                    "product_category": "Toiletries",
-                    "unit_price": "401",
-                }
-            ]
-        );   
-
+    const onClickAgregarAgregado = (e) => {
+        
+        setListaAgregados(listaAgregados => [...listaAgregados, nuevoElementoAgregados]);
+        e.preventDefault();
+        setnuevoElementoAgregados("");
     }
 
+
+    const onClickAgregarObservacion= (e) => {
+
+        setListaObservaciones(listaObservaciones => [...listaObservaciones, nuevoElementoObservacion]);
+        e.preventDefault();
+        setnuevoElementoObservacion("");
+    }
+
+    const ObtenerFechaActual = () => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+        //validar si ya hay un encabezado de produccion ese día sin terminar
+
+        setFechaActual(date);
+    }
+
+
     useEffect(() => {
-        fetchInventory();
         ObtenerListadoDeProductos();
         ObtenerListadoDeHorarios();
-       
+        ObtenerFechaActual();
     }, []);
 
 
-    const [inEditMode, setInEditMode] = useState({
-        status: false,
-        rowKey: null
-    });
-
-    const [unitPrice, setUnitPrice] = useState(null);
-
-    const onEdit = ({ id, currentUnitPrice }) => {
-        setInEditMode({
-            status: true,
-            rowKey: id
-        })
-        setUnitPrice(currentUnitPrice);
-    }
-
- 
-    const updateInventory = ({ id, newUnitPrice }) => {
-        fetch(`${INVENTORY_API_URL}/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                unit_price: newUnitPrice
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-            .then(response => response.json())
-            .then(json => {
-                // reset inEditMode and unit price state values
-                onCancel();
-
-                // fetch the updated data
-                fetchInventory();
-            })
-    }
-
-    /**
-     *
-     * @param id -The id of the product
-     * @param newUnitPrice - The new unit price of the product
-     */
-    const onSave = ({ id, newUnitPrice }) => {
-        updateInventory({ id, newUnitPrice });
-    }
-
-    const onCancel = () => {
-        // reset the inEditMode state value
-        setInEditMode({
-            status: false,
-            rowKey: null
-        })
-        // reset the unit price state value
-        setUnitPrice(null);
-    }
 
     const onChangeidProducto = (e) => setidProducto(e.target.value);
-
+    const onChangeplacas6 = (e) => setPlacas6(e.target.value); //prueba
+    const onChangeNuevoElementoObservacion = (e) => setnuevoElementoObservacion(e.target.value);
+    const onChangeNuevoElementoAgregados= (e) => setnuevoElementoAgregados(e.target.value);
 
     return (
-       
+       <>
         <div className="container">
             <br />
-            <Row>
-                <Col>
-                <h1 >Producción Diaria</h1>
+            <br />
+            <Row >
+                <Col style={{ borderLeft: "5px solid #007BFF", marginLeft: "2vw", height : "6vh"}}  >
+                <h1 style={{ color: "#38454C", fontWeight: "700" }} >Producción Diaria</h1>
                 </Col>
                 <Col>
-                    <img src={logo} className="logo" style={{ width: "18vw", height: "4vw", objectFit : "contain" }} />
-                </Col>
-            </Row>
-            <br/>
-            <Row>
-                <Col>
-                <InputText id='txt-peso1' label='Fecha:' type='text' placeholder='21-03-22' 
-                         mensajeValidacion="El peso es requerido" disabled="disabled" />
-                </Col>
-                <Col>
-                    <InputText id='txt-peso1' label='Planta:' type='text' placeholder='Planta X'
-                         mensajeValidacion="El peso es requerido" disabled="disabled" />
+                    <img src={logo} className="logo" style={{ width: "30vw", height: "4vw", objectFit : "contain" }} />
                 </Col>
             </Row>
+            
+            <hr />
+            <br />
+            <div style={{ padding: "3%", borderRadius: "15px", backgroundColor: "#fff" }}>
             <Row>
                 <Col>
-                    <InputText id='txt-peso1' label='Hora Inicio:' type='text' placeholder='7:50 AM'
-                         mensajeValidacion="El peso es requerido" disabled="disabled" />
+                        <InputText id='txt-fecha' label='Fecha:' type='text' value={fechaActual }
+                          disabled="disabled" />
                 </Col>
                 <Col>
-                    <InputText id='txt-peso1' label='Hora Paro:' type='text' placeholder='5:00 PM'
-                         mensajeValidacion="El peso es requerido" disabled="disabled" />
+                    <InputText id='txt-planta' label='Planta:' type='text' placeholder='Planta X'
+                          disabled="disabled" />
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                    <InputText id='txt-horaInicio' label='Hora Inicio:' type='text' placeholder='7:50 AM'
+                         />
+                </Col>
+                <Col>
+                    <InputText id='txt-horaParo' label='Hora Paro:' type='text' placeholder='5:00 PM'
+                          />
+                </Col>
+                </Row>
+
+            </div>
+
+
             <hr/>
-            <Row>
-                <Col className="col-md-6">
-                    
-                    <InputSelect className="form-control" controlId="sel-idProducto" label="Producto" data={listaProductos} onChange={onChangeidProducto} value={idProducto} optionValue="idProducto" optionLabel="nombreProducto" 
-                    />
-                </Col>   
-            </Row>
-        
+            <div style={{ padding: "3%", borderRadius: "15px", backgroundColor: "#007BFF" }}>  
+                <div>
+                    <div style={{ display: "inline-block", color: "white", fontWeight: "600", fontSize:"1.5vw"}} >
+                        <InputSelect className="form-control" controlId="sel-idProducto" label="Producto" data={listaProductos} onChange={onChangeidProducto} value={idProducto} optionValue="idProducto" optionLabel="nombreProducto"
+                        />
+                    </div>
+                    <div style={{ display: "inline-block", float: "right" }}>
+                        <img src={brick} style={{ width: "6vw", height: "5vw", objectFit: "contain", borderRadius: "50%"}} />
+                    </div>
+                </div>
+            </div>
+
             <br />
-            <br />
-            <h3>Desglose de producción diaria</h3>
+
+            <div style={{ padding: "3%", borderRadius: "15px", backgroundColor: "white" }}>
+                <div>
+                    <div style={{ display: "inline-block"}} >
+                        <h2 style={{ color: "#38454C", fontWeight: "600", lineHeight: "9vh" }}>Desglose de Producción Diaria</h2>
+                    </div>
+                    <div style={{ display: "inline-block", float: "right"}}> 
+                        <img src={producciondiaria} style={{ width: "5.5vw", height: "5vw", objectFit: "contain", borderRadius: "50%", backgroundColor: "#EEE", padding: "10%"}} />
+                    </div>
+                </div>
             <br />
             <Table >
-                <thead >
-                    <tr style={{ backgroundColor: "#007bff", color: "white"} }>
-                        <th>Hora</th>
-                        <th>Placas</th>
-                        <th>Turno</th>
-                        <th>Placa</th>
-                        <th>Conteo</th>
-                        <th>Observacion</th>
+                <thead style={{ backgroundColor: "#007bff", color: "white" }}> 
+                  <tr>
+                        <th style={{ borderRadius: "15px 0px 0px 15px"}}>Hora</th>
+                        <th>Placas</th>  
+                        <th style={{ borderRadius: "0px 15px 15px 0px" }}>Observacion</th>
                     </tr>
-                </thead>
+                </thead>                
                 <tbody>
                     {
                         
                         listaHorarios.map((item, index) => (
                             
                             <tr key={item.id}>
-                                <td>{
+                                <td style={{ color: "#38454C", fontWeight: "500" }}>{
 
                                     item.horaInicio + " - " + item.horaFinal
                                 }
                                 </td>
                                 <td>
                                     {<Form.Control />}
-
-                                </td>
-                                <td>
-                                    {listaTurno[index] }                 
-                                </td>
-                               
+                                </td>                                                         
                                 <td>
                                     {<Form.Control />}
-                                  
-                                </td>
-                                
-                                 <td >
-                                    {<Form.Control />}
-                                 </td>
-                                     
-                                <td>{
-
-                                    <Form.Control value={placas6}
-                                        onChange={onChangeplacas6} />
-                                }
                                 </td>
                             </tr>
                             
@@ -237,209 +188,249 @@ const ProduccionDiaria = () => {
                     }
                 </tbody>
             </Table>
-
-            <hr/>
-
-            
+            <hr/>           
+            </div>
             <br />
-          
-
-            <h3>Desglose de totales de producción diaria</h3>
-            
-            <Table striped  >
-                <thead className="table-light">
+            <br />
+            <div style={{ padding: "3%", borderRadius: "15px", backgroundColor: "white" }}>
+                <div>
+                    <div style={{ display: "inline-block" }} >
+                        <h2 style={{ color: "#38454C", fontWeight: "600", lineHeight: "9vh" }}>Desglose de Turnos</h2>
+                    </div>
+                    <div style={{ display: "inline-block", float: "right" }}>
+                        <img src={turnos} style={{ width: "5.5vw", height: "5vw", objectFit: "contain", borderRadius: "50%", backgroundColor: "#EEE", padding: "15%" }} />
+                    </div>
+                </div>
+            <br />
+            <Table >
+                <thead >
+                    <tr style={{ backgroundColor: "#007bff", color: "white" }}>                      
+                        <th style={{ borderRadius: "15px 0px 0px 15px" }}>Turno #1</th>
+                        <th>Placa</th>
+                        <th style={{ borderRadius: "0px 15px 15px 0px" }}>Conteo</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr>
-                        <th>Placas Totales</th>
+                        <td>
+                            Placa Inicio:
+                        </td>
+
+                        <td>
+                            {<Form.Control />}
+
+                        </td>
+                        <td rowSpan="2">
+                            {<Form.Control style={{height : "10vh"} }/>}
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            Placa Final:
+                        </td>
+                        <td>
+                            {<Form.Control />}
+                        </td>                       
+                   </tr >
+                </tbody>
+            </Table>
+
+            <Table >
+                <thead >
+                    <tr style={{ backgroundColor: "#007bff", color: "white" }}>
+                        <th style={{ borderRadius: "15px 0px 0px 15px" }}>Turno #2</th>
+                        <th>Placa</th>
+                        <th style={{ borderRadius: "0px 15px 15px 0px" }}>Conteo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Placa Inicio:
+                        </td>
+
+                        <td>
+                            {<Form.Control />}
+
+                        </td>
+                        <td rowSpan="2">
+                            {<Form.Control style={{ height: "10vh" }} />}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Placa Final:
+                        </td>
+                        <td>
+                            {<Form.Control />}
+                        </td>
+                    </tr >
+                </tbody>
+            </Table>
+
+            <hr />         
+            </div>
+
+            <br />
+            <br />
+            <div style={{ padding: "3%", borderRadius: "15px", backgroundColor: "white" }}>
+                <div>
+                    <div style={{ display: "inline-block" }} >
+                        <h2 style={{ color: "#38454C", fontWeight: "600", lineHeight: "9vh" }}>Desglose de Totales de Producción Diaria</h2>
+                    </div>
+                    <div style={{ display: "inline-block", float: "right" }}>
+                        <img src={totales} style={{ width: "5.5vw", height: "5vw", objectFit: "contain", borderRadius: "50%", backgroundColor: "#EEE", padding: "15%" }} />
+                    </div>
+                </div>
+            <br/>
+            <Table >
+                <thead >
+                    <tr style={{ backgroundColor: "#007bff", color: "white" }}>
+                        <th style={{ borderRadius: "15px 0px 0px 15px" }}>Placas Totales</th>
                         <th>Unidades Totales</th>
                         <th>Cubos Totales</th>
                         <th>Merma Total</th>
                         <th>Mezclas Perdidas</th>
                         <th>Número de Mezclas</th>
                         <th>Cemento (kg)</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-
-                    <tr >
-                        <td>{
-
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
-                        }
-                        </td>
-                        <td>{
-
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
-                        }
-                        </td>
-                        <td>{
-
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
-                        }
-                        </td>
-                        <td>{
-
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
-                        }
-                        </td>
-                        <td>{
-
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
-                        }
-                        </td>
-                        <td> <Form.Control value={placas6}
-                            onChange={onChangeplacas6} className="" />
-                        </td>
-                        <td>{
-
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
-                        }
-                        </td>
-
-
-
-                    </tr>
-
-
-                </tbody>
-            </Table>
-
-
-
-            <Table striped  >
-                <thead >
-                    <tr>
-
-                        <th>Agregados</th>
-                        <th>Agregado #1</th>
-                        <th>Agregado #2</th>
-                        <th>Agregado #3</th>
                         <th>Aditivo (kg)</th>
-                        <th>Color</th>
+                        <th style={{ borderRadius: "0px 15px 15px 0px"}}>Color</th>
                     </tr>
                 </thead>
+               
                 <tbody>
-                                          
-                    <tr >
 
-                        <td>
-                            {<Form.Label>Tipos</Form.Label>}
-                            {<Form.Label>Vueltas</Form.Label>}
-                        </td>
-                        <td >                           
-                            {
-                                <Form.Control value={placas6}
-                                onChange={onChangeplacas6} />
-                            }  
-                            {
-                                <Form.Control value={placas6}
-                                onChange={onChangeplacas6}  />
-                            } 
-                        </td>
-                        <td >
-                            {
-                                <Form.Control value={placas6}
-                                    onChange={onChangeplacas6} />
-                            }
-                            {
-                                <Form.Control value={placas6}
-                                    onChange={onChangeplacas6} />
-                            }
-                        </td>
-                        <td >
-                            {
-                                <Form.Control value={placas6}
-                                    onChange={onChangeplacas6} />
-                            }
-                            {
-                                <Form.Control value={placas6}
-                                    onChange={onChangeplacas6} />
-                            }
-                        </td>
+
+                        <tr  >
                         <td>{
 
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
+                            <Form.Control  />
                         }
                         </td>
                         <td>{
 
-                            <Form.Control value={listaPlacas}
-                                onChange={onChangeplacas6} />
+                            <Form.Control  />
                         }
                         </td>
-                        
+                        <td>{
+
+                            <Form.Control  />
+                        }
+                        </td>
+                        <td>{
+
+                            <Form.Control  />
+                        }
+                        </td>
+                        <td>{
+
+                            <Form.Control />
+                        }
+                        </td>
+                        <td> <Form.Control />
+                        </td>
+                        <td>{
+
+                            <Form.Control />
+                        }
+                        </td>
+                        <td>{
+
+                            <Form.Control />
+                        }
+                        </td>
+                        <td>{
+
+                            <Form.Control />
+                        }
+                        </td>
+
+
                     </tr>
-                       
-                    
+
+
                 </tbody>
             </Table>
-
-  
+            </div>
+            <br />
             <hr/>
-            <br/>
-            <h3>Observaciones de Mantenimiento</h3>
-            <Table striped  >
-                <tbody>
+            <br />
 
+            <Row>
 
-                    <tr >
-                        <td>{
-
-                            <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación' 
-                                 mensajeValidacion="La observación es requerida" />
-
+            <Col style={{ padding: "3%", borderRadius: "15px", backgroundColor: "white" }}>
+                    <h3 style={{ color: "#38454C", fontWeight: "600", borderLeft: "5px solid #007BFF", height: "5vh", paddingLeft: "1vw" }}>Observaciones de Mantenimiento</h3>
+                <br />
+                <hr/>
+                    <Form onSubmit={onClickAgregarObservacion} >
+                        <Row>
+                            <Col>
+                                <TextArea id='txt-nuevaObservacion' type='text' placeholder='Ingrese una nueva observación' value={nuevoElementoObservacion}
+                                    onChange={onChangeNuevoElementoObservacion} mensajeValidacion="La observación es requerida" />
+                            </Col>
+                            <Col className="col-md-4">
+                                <br />                               
+                                <Button variant="primary" type="submit" size="md">Agregar <img src={add} /> </Button>
+                                <br />
+             
+                                <hr />
+                            </Col>
+                        </Row>
+                    </Form>
+                <br/>
+                    <ListGroup variant="flush">
+                        {
+                            listaObservaciones.map((item) =>(
+                                <ListGroup.Item>{item}</ListGroup.Item>
+                            ))   
                         }
-                        </td>
-                        <td>{
-
-                            <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación' 
-                                 mensajeValidacion="La observación es requerida" />
+                    </ListGroup>
+            </Col>
+            
+                <Col style={{ padding: "3%", borderRadius: "15px", backgroundColor: "white" }} className="col-md-5 offset-1">
+                    <h3 style={{ color: "#38454C", fontWeight: "600", borderLeft: "5px solid #007BFF", height: "5vh", paddingLeft: "1vw" }}>Agregados</h3>
+                    <br />
+                    <hr />
+                    <Form onSubmit={onClickAgregarAgregado} >
+                        <Row>
+                            <Col>
+                                <InputText id='txt-nombre' type='text' placeholder='Ingrese un agregado' value={nuevoElementoAgregados}
+                                    onChange={onChangeNuevoElementoAgregados} />
+                            </Col>
+                            <Col className="col-md-4">
+                                <br />
+                                <Button variant="primary" type="submit" size="md">Agregar <img src={add} /> </Button>
+                               
+                            </Col>
+                        </Row>
+                    </Form>
+                    <br />
+                    <ListGroup variant="flush" >
+                        {
+                            listaAgregados.map((item, index) => (
+                                <ListGroup.Item >#{index + 1} | {item}</ListGroup.Item>
+                            ))
                         }
-                        </td>
-                        <td>{
-
-                            <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación' 
-                                 mensajeValidacion="La observación es requerida" />
-                        }
-                        </td>
-                        <td>{
-
-                            <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación'
-                                mensajeValidacion="La observación es requerida" />
-                        }
-                        </td>
-                        <td>{
-
-                            <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación' 
-                                 mensajeValidacion="La observación es requerida" />
-                        }
-                        </td>
-                        <td> <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación' 
-                                 mensajeValidacion="La observación es requerida" />
-                        </td>
-                        <td>{
-
-                            <TextArea id='txt-nombre' label='Observación:' type='text' placeholder='Ingrese una observación'
-                                mensajeValidacion="La observación es requerida" />
-                        }
-                        </td>
-
-
-
-                    </tr>
-
-
-                </tbody>
-            </Table>
+                    </ListGroup>
+                </Col>
+            </Row>
+            <br />
         </div>
+
+
+            <style type="text/css">
+                {`
+                    .table thead th{     
+                        border-bottom: none;
+                        border-top: none;
+                    }
+
+                    
+                `}
+            </style>
+
+        </>
+
     );
 }
 

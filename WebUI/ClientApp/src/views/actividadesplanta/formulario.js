@@ -55,7 +55,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarActividadPlanta
                 
                 <InputSelect className="form-control" controlId="sel-idPlanta" label="Id Planta" data={listaPlantas} onChange={onChangeidPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" />
                 <br />
-                {idPlanta }
+                
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <div className='text-right'>
                     <Button variant="primary" type="submit" size="sm">{labelButton}</Button>

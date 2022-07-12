@@ -1,15 +1,29 @@
-import React, { useState } from "react";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import React, { useState, useEffect} from "react";
+import { Nav, Navbar, NavDropdown, Container, Button } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom";
 import logo from '../../images/logo.webp';
+import user from '../../images/user.png';
+
 //import { IoIosHome, IoIosDocument, IoIosCopy, IoIosPerson, IoMdArchive } from "react-icons/io";
 //import { IoEnterOutline } from "react-icons/io5";
 
 const Layout = () => {
-    const [linkActive, setLinkActive] = useState(window.location.pathname.replace('/',''));
+    const [linkActive, setLinkActive] = useState(window.location.pathname.replace('/', ''));
+    const [nombreUsuario, setnombreUsuario] = useState("");
+
     const ActivarLink = (to) => {
         setLinkActive(to);
     }
+
+    useEffect(() => {       
+        ObtenerNombreUsuario();
+    }, []);
+
+    const ObtenerNombreUsuario = () => {
+        let usuario = JSON.parse(sessionStorage.getItem("data_usuario"));
+        setnombreUsuario(usuario.nombre + " " + usuario.primerApellido);
+    }
+
 
     return (
         <>
@@ -20,8 +34,8 @@ const Layout = () => {
                         <h3><img src={logo} className="img-fluid" style={{width: "150px"}} /><span></span></h3>
                     </div>
                     <ul className="list-unstyled components">
-                        <li className={linkActive === 'home' ? 'active' : ''}>
-                            <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Producción Diaria</span></Link>
+                        <li className={linkActive === 'producciondiaria' ? 'active' : ''}>
+                            <Link className={`dashboard`} to="/producciondiaria" onClick={() => ActivarLink('producciondiaria')}>{' '}<span>Producción Diaria</span></Link>
                         </li>
                         <div className="small-screen navbar-display">
                             <li className="d-lg-none d-md-block d-xl-none d-sm-block">
@@ -58,37 +72,33 @@ const Layout = () => {
                 
             
                 <div id="content">
-                    <div className="top-navbar">
-                        <nav className="navbar navbar-expand-lg">
-                            <div className="container-fluid">
-                               
-                                <a className="navbar-brand" href="#"></a>
-                                <button className="d-inline-block d-lg-none ml-auto more-button" type="button"
-                                    data-toggle="collapse" data-target="#navbarSupportedContent"
-                                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span className="material-icons">more_vert</span>
-                                </button>
+                    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "#005CB8" }} >
+                        <Container fluid>
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ backgroundColor: "#005CB8" }} />
+                            <Navbar.Collapse  className="justify-content-end">                                
+                                <Nav>                                  
+                                    <Nav.Link href="#"><img src={user} style={{objectFit: "contain"} }/> </Nav.Link>
+                                    <Nav.Link style={{ fontWeight: "700", color: "white" }} href="#">{nombreUsuario}</Nav.Link>
+                                    <Nav.Link href="#" ><Button id="logout"  >Cerrar Sesión</Button></Nav.Link>
+                                </Nav>
+                            </Navbar.Collapse>
+                    </Container>
+                    </Navbar>
 
-                                <div className="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
-                                            id="navbarSupportedContent">
-                                            <ul className="nav navbar-nav ml-auto">   
-                                                <NavDropdown title="Usuario" id="navbarScrollingDropdown">
-                                                   <NavDropdown.Item href="#action3">Rol de usuario</NavDropdown.Item>
-                                                    <NavDropdown.Item href="#action4">Nombre de usuario</NavDropdown.Item>
-                                                    <NavDropdown.Divider />
-    <NavDropdown.Item href="#action5">Cerrar sesión</NavDropdown.Item>
-                                                </NavDropdown>
-                                            </ul>
-                                  </div>
-                            </div>
-                        </nav>
-                    </div>
 
                     <div className="main-content" style={{height : "100%"} }>
                         <Outlet />
                     </div>
                 </div>
             </div>
+
+            <style type="text/css">
+                {`
+                    #logout {
+                        background-color: #dc3545 !important
+                    }
+                `}
+            </style>
         </>
     )
 };
