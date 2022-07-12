@@ -39,11 +39,14 @@ const Login = ({ ValidarSesionActiva }) => {
         setMensaje(""); 
        if(data.contrasena == data.contrasenhaConfirmada){
             const usuario = ObtenerDatosDeUsuario();
-            console.log(usuario);
+           // console.log(usuario);
             data.idUsuario = usuario.idUsuario;
             const resultado = await ActualizarContrasenha(data);
-            if(resultado.indicador == 0)
+            if(resultado.indicador == 0){
+                usuario.esPrimeraSesion = null;
+                sessionStorage.setItem("data_usuario", JSON.stringify(usuario));
                 ValidarSesionActiva();
+            }                
             else
                 setMensaje(resultado.mensaje);      
         }else
