@@ -8,6 +8,7 @@ namespace Dominio.Dto
 {
     public class DtoLogin
     {
+        public int idUsuario { get; set; }
         public string? nombre { get; set; }
 
         public string? primerApellido { get; set; }
@@ -18,6 +19,6 @@ namespace Dominio.Dto
 
         public int? esPrimeraSesion { get; set; }
         public int? idPlanta { get; set; }
-        public int? nombrePlanta { get; set; }
+        public string nombrePlanta { get; set; }
     }
 }

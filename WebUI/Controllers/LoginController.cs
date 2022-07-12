@@ -32,13 +32,12 @@ namespace WebUI.Controllers
             try
             {
                 DtoLogin login = await this.servicioLogin.IniciarSesionUsuario(usuario, contrasena);
-                if(string.IsNullOrEmpty(login.nombre))
+                if (login == null || string.IsNullOrEmpty(login.nombre))
                     return Json(new DtoAccessToken());
                 else
                 {
                     return Json(this.jwtSecurity.Autentication(login));
-                }
-                    
+                }                    
             }
             catch (Exception ex)
             {

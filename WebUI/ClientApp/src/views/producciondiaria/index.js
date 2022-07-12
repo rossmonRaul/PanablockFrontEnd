@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
+import width from '../../../../../node_modules/dom-helpers/cjs/width';
 import { InputSelect, InputText } from '../../components/inputs';
 import { TextArea } from '../../components/textarea';
 
