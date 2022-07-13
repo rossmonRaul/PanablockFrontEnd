@@ -19,27 +19,28 @@
     align-items: center; 
 }
 
-h2{
+.login-title{
     color: black;
     font-weight: 500;
 }
 
-.container {   
+.container-login {   
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    width: 100vw;
 }
 
 
-.content {
+.content-login {
     background-color: white;
     border-radius: 20px;
     width: 50vw;
     border-top: 8px solid #0080FF;
 }
 
-.logo{
+.logo-login{
     object-fit: contain;
     width: 20vw;
     height: 15vh;
@@ -72,6 +73,17 @@ h2{
         background: #044E9F;
         color: white;
     }
+
+@media only screen and (min-width: 200px) and (max-width: 992px) {
+    .nav-link:nth-child(1) {
+        display: none;
+    }
+
+    .nav-link {
+        text-align: right;
+    }
+}
+
 
 
 

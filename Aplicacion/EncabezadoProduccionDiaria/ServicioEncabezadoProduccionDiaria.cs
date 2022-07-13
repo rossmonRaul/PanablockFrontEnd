@@ -25,6 +25,11 @@ namespace Aplicacion.EncabezadoProduccionDiaria
             return await this.repositorioEncabezadoProduccion.InsertarEncabezadoProduccionDiaria(entitiEncabezadoProduccion);
         }
 
+        public async Task<DtoDatosSP> ActualizarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
+        {
+            return await this.repositorioEncabezadoProduccion.ActualizarEncabezadoProduccionDiaria(entitiEncabezadoProduccion);
+        }
+
         public async Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
         {
             return await this.repositorioEncabezadoProduccion.ObtenerEncabezadoProduccionDiaria( idPlanta,  Fecha);

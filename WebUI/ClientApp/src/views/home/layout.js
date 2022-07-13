@@ -74,7 +74,7 @@ const Layout = () => {
                 <div id="content">
                     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "#005CB8" }} >
                         <Container fluid>
-                            <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ backgroundColor: "#005CB8" }} />
+                            <Navbar.Toggle aria-controls="navbarScroll" style={{ backgroundColor: "#005CB8" }} />
                             <Navbar.Collapse  className="justify-content-end">                                
                                 <Nav>                                  
                                     <Nav.Link href="#"><img src={user} style={{objectFit: "contain"} }/> </Nav.Link>

@@ -60,20 +60,20 @@ const Login = ({ ValidarSesionActiva }) => {
     return(
         <div id="login">
             <br/><br/>
-            <Container>
-                <div className="content">
+            <div className="container-login">
+                <div className="content-login">
                     <div className="layout">   
-                        <div className="content-left">
-                            <img src={logo} className="logo"/>
+                        <div >
+                            <img src={logo} className="logo-login"/>
                         </div>
-                        <div className="content-right">
+                        <div>
                             {formActivo === 1 ? 
                             <FormLogin IniciarSesion={IniciarSesion} mensaje={mensaje} />   
                             : <FormActualizacion  ActualizarContrasenha={ProcesarContrasenha} mensaje={mensaje} />}                    
                         </div>
                     </div>   
                 </div>
-            </Container>
+            </div>
         </div>
     )
 }

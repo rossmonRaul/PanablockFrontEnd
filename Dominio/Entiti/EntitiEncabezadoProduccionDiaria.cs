@@ -14,6 +14,7 @@ namespace Dominio.Entiti
         public DateTime? HoraFinal { get; set; }
         public int IdPlanta { get; set; }
         public int IdProducto { get; set; }
+        public int estatus { get; set; }
 
     }
 }

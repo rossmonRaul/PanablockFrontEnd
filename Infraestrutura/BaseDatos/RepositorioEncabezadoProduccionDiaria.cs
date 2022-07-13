@@ -37,7 +37,26 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        
+        public async Task<DtoDatosSP> ActualizarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdEncabezadoProduccionDiaria", entitiEncabezadoProduccion.IdEncabezadoProduccionDiaria);
+                data.Add("HoraInicio", entitiEncabezadoProduccion.HoraInicio);
+                data.Add("HoraFinal", entitiEncabezadoProduccion.HoraFinal);
+                data.Add("Estatus", entitiEncabezadoProduccion.estatus);
+                string query = "SPActualizarEncabezadoProduccionDiaria";
+
+                return await this.contextoBD.EjecutarSP(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public async Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
         {
             try

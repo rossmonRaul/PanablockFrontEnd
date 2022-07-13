@@ -26,12 +26,18 @@ namespace WebUI.Controllers
 
         [HttpPost("[action]")]
         [Authorize]
-        public async Task<JsonResult> IInsertarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
+        public async Task<JsonResult> InsertarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
         {
             return Json(await this.servicioEncabezadoProduccion.InsertarEncabezadoProduccionDiaria(entitiEncabezadoProduccion));
         }
 
-        
+        [HttpPut("[action]")]
+        [Authorize]
+        public async Task<JsonResult> ActualizarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
+        {
+            return Json(await this.servicioEncabezadoProduccion.ActualizarEncabezadoProduccionDiaria(entitiEncabezadoProduccion));
+        }
+
 
         [HttpGet("[action]/{idPlanta}/{Fecha}")]
         [Authorize]

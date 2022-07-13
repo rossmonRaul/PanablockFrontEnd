@@ -51,14 +51,15 @@ const App = () => {
         <BrowserRouter>          
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home/>} /> 
-              <Route path="planta" element={<Planta />} /> 
+                <Route index element={<Home/>} /> 
+                <Route path="planta" element={<Planta />} /> 
                 <Route path="tipomaterial" element={<TipoMaterial />} />
                 <Route path="actividadplanta" element={<ActividadPlanta />} />
                 <Route path="usuarios" element={<Usuarios />} />
                 <Route path="controldecalidad" element={<ControlDeCalidad />} />
                 <Route path="producto" element={<Producto />} />
-                <Route path="contrasena" element={<Contrasena />} />  
+                <Route path="contrasena" element={<Contrasena />} />
+                <Route path="producciondiaria" element={<ProduccionDiaria />} />  
               <Route path="*" element={<Navigate to="/" replace />} />           
             </Route>
           </Routes>
