@@ -18,32 +18,33 @@ namespace Infraestrutura.BaseDatos
         {
             this.contextoBD = contextoBD;
         }
-        public async Task <List<DtoReporteAcumulativoMensual>> ReporteAcumulativoMensual(EntitiReporte reporte)
+        public async Task <List<DtoReporteAcumulativoPlacasMensual>> ReporteAcumulativoMensual(EntitiReporte reporte)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("FechaInicio", reporte.FechaInicio);
                 data.Add("FechaFinal", reporte.FechaFin);
-                string query = "SPRptAcumulativoMensual";
+                string query = "SPRptAcumulativoPlacasMensual";
 
-                return await this.contextoBD.ObtenerListaDeDatos<DtoReporteAcumulativoMensual>(query, data);
+                return await this.contextoBD.ObtenerListaDeDatos<DtoReporteAcumulativoPlacasMensual>(query, data);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public async Task<List<DtoReporteProductos>> ReporteProductos(EntitiReporte reporte)
+        public async Task<List<DtoReporteCementoPorPlacasProductos>> ReporteProductos(EntitiReporte reporte)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("FechaInicio", reporte.FechaInicio);
                 data.Add("FechaFinal", reporte.FechaFin);
-                string query = "SPRptProductos";
+                data.Add("IdProducto", reporte.idProducto);
+                string query = "SPRptCementoPorUnidadProductos";
 
-                return await this.contextoBD.ObtenerListaDeDatos<DtoReporteProductos>(query, data);
+                return await this.contextoBD.ObtenerListaDeDatos<DtoReporteCementoPorPlacasProductos>(query, data);
             }
             catch (Exception)
             {

@@ -12,6 +12,7 @@ namespace Dominio.Entiti
         public DateTime FechaInicio { get; set; }
 
         public DateTime FechaFin { get; set; }
+        public int? idProducto { get; set; }
 
        
     }
