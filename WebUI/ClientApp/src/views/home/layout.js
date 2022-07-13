@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Nav, Navbar, NavDropdown, Container, Button } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom";
 import logo from '../../images/logo.webp';
@@ -7,7 +7,7 @@ import user from '../../images/user.png';
 //import { IoIosHome, IoIosDocument, IoIosCopy, IoIosPerson, IoMdArchive } from "react-icons/io";
 //import { IoEnterOutline } from "react-icons/io5";
 
-const Layout = () => {
+const Layout = ({ CerrarSession }) => {
     const [linkActive, setLinkActive] = useState(window.location.pathname.replace('/', ''));
     const [nombreUsuario, setnombreUsuario] = useState("");
 
@@ -15,7 +15,7 @@ const Layout = () => {
         setLinkActive(to);
     }
 
-    useEffect(() => {       
+    useEffect(() => {
         ObtenerNombreUsuario();
     }, []);
 
@@ -31,7 +31,7 @@ const Layout = () => {
                 <div className="body-overlay"></div>
                 <nav id="sidebar">
                     <div className="sidebar-header">
-                        <h3><img src={logo} className="img-fluid" style={{width: "150px"}} /><span></span></h3>
+                        <h3><img src={logo} className="img-fluid" style={{ width: "150px" }} /><span></span></h3>
                     </div>
                     <ul className="list-unstyled components">
                         <li className={linkActive === 'producciondiaria' ? 'active' : ''}>
@@ -60,33 +60,33 @@ const Layout = () => {
                         <li className={linkActive === 'tipomaterial' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>
                         </li>
-                        <li>
-                            <Link className={`dashboard`} to="/usuarios" onClick={() => ActivarLink('home')}>{' '}<span>Usuarios</span></Link>
+                        <li className={linkActive === 'usuarios' ? 'active' : ''}>
+                            <Link className={`dashboard`} to="/usuarios" onClick={() => ActivarLink('usuarios')}>{' '}<span>Usuarios</span></Link>
                         </li>
-                        <li>
-                            <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Reportes</span></Link>
+                        <li className={linkActive === 'reportes' ? 'active' : ''}>
+                            <Link className={`dashboard`} to="/reportes" onClick={() => ActivarLink('reportes')}>{' '}<span>Reportes</span></Link>
                         </li>
                     </ul>
 
                 </nav>
-                
-            
+
+
                 <div id="content">
                     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "#005CB8" }} >
                         <Container fluid>
                             <Navbar.Toggle aria-controls="navbarScroll" style={{ backgroundColor: "#005CB8" }} />
-                            <Navbar.Collapse  className="justify-content-end">                                
-                                <Nav>                                  
-                                    <Nav.Link href="#"><img src={user} style={{objectFit: "contain"} }/> </Nav.Link>
+                            <Navbar.Collapse className="justify-content-end">
+                                <Nav>
+                                    <Nav.Link href="#"><img src={user} style={{ objectFit: "contain" }} /> </Nav.Link>
                                     <Nav.Link style={{ fontWeight: "700", color: "white" }} href="#">{nombreUsuario}</Nav.Link>
-                                    <Nav.Link href="#" ><Button id="logout"  >Cerrar Sesión</Button></Nav.Link>
+                                    <Nav.Link href="#" ><Button id="logout" onClick={() => CerrarSession()}>Cerrar Sesión</Button></Nav.Link>
                                 </Nav>
                             </Navbar.Collapse>
-                    </Container>
+                        </Container>
                     </Navbar>
 
 
-                    <div className="main-content" style={{height : "100%"} }>
+                    <div className="main-content" style={{ height: "100%" }}>
                         <Outlet />
                     </div>
                 </div>
