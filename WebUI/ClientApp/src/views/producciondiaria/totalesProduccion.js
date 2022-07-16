@@ -59,7 +59,7 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
                             <th>Cemento (kg)</th>
                             <th>Aditivo (kg)</th>
                             <th>Color</th>
-                            <th className="tabla-header-bottom">Cantidad Color</th>
+                            <th className="tabla-header-bottom">Cantidad Color (kg)</th>
                         </tr>
                     </thead>
                     <tbody>

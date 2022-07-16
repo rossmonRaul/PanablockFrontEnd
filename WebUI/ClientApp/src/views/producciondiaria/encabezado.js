@@ -83,8 +83,8 @@ const Encabezado = () => {
                             disabled="disabled" />
                     </Col>
                 <Col>
-                        <InputText id='txt-horaInicio' label='Hora Inicio:' type='time' placeholder='Digite la fecha de inicio'
-                            value={horaInicio} onChange={onChangeHoraInicio }  />
+                        <InputText id='txt-horaInicio' label='Hora Inicial:' type='time' placeholder='Digite la fecha de inicio'
+                            value={horaInicio} onChange={onChangeHoraInicio}   />
                 </Col>
                 <Col>
                         <InputText id='txt-horaParo' label='Hora Paro:' type='time' placeholder='Digite la fecha final' value={horaFinal}

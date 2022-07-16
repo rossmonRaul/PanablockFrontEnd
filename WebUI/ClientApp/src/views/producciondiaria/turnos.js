@@ -11,6 +11,9 @@ const Turnos = ({ listaTurnos}) => { //lista con los datos de turnos
     const [placaFinalTurno1, setPlacaFinalTurno1] = useState(0);
     const [placaInicioTurno2, setPlacaInicioTurno2] = useState(0);
     const [placaFinalTurno2, setPlacaFinalTurno2] = useState(0);
+    const [conteoUno, setconteoUno] = useState(0);
+    const [conteoDos, setconteoDos] = useState(placaFinalTurno2 - placaInicioTurno2);
+
 
 
     useEffect(() => {
@@ -19,8 +22,10 @@ const Turnos = ({ listaTurnos}) => { //lista con los datos de turnos
 
     const onChangePlacaInicioTurno1 = (e) => setPlacaInicioTurno1(e.target.value);
     const onChangePlacaFinalTurno1 = (e) => setPlacaFinalTurno1(e.target.value);
-    const onChangePlacaInicioTurno2 = (e) => setPlacaInicioTurno1(e.target.value);
+    const onChangePlacaInicioTurno2 = (e) => setPlacaInicioTurno2(e.target.value);
     const onChangePlacaFinalTurno2 = (e) => setPlacaFinalTurno2(e.target.value);
+    const onChangeconteoUno = (e) => setconteoUno(placaFinalTurno1 - placaInicioTurno1);
+    const onChangeconteoDos= (e) => setconteoDos(placaFinalTurno2 - placaInicioTurno2);
 
 
     return (
@@ -29,7 +34,7 @@ const Turnos = ({ listaTurnos}) => { //lista con los datos de turnos
             <div className="section-container">
                 <div>
                     <div className="turno-left" >
-                        <h2>Desglose de Turnos</h2>
+                        <h2>Conteo de placas por turno</h2>
                     </div>
                     <div className="turno-right">
                         <img src={turno}  />
@@ -55,7 +60,7 @@ const Turnos = ({ listaTurnos}) => { //lista con los datos de turnos
                                     value={placaInicioTurno1} onChange={onChangePlacaInicioTurno1} />
                             </td>
                             <td rowSpan="2">
-                                {<Form.Control style={{ height: "10vh" }} placeholder='Digite el conteo de placas' />}
+                                {<Form.Control value={placaFinalTurno1 - placaInicioTurno1}  style={{ height: "5vh" }}  disabled />}
                             </td>
                         </tr>
                         <tr>
@@ -90,7 +95,7 @@ const Turnos = ({ listaTurnos}) => { //lista con los datos de turnos
 
                             </td>
                             <td rowSpan="2">
-                                {<Form.Control style={{ height: "10vh" }} placeholder='Digite el conteo de placas' />}
+                                {<Form.Control value={placaFinalTurno2-placaInicioTurno2} style={{ height: "5vh" }}  disabled  />}
                             </td>
                         </tr>
                         <tr>

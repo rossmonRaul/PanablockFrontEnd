@@ -15,5 +15,7 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
         Task<DtoDatosSP> ActualizarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion);
 
         Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha);
+
+        Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta(int idPlanta, DateTime? Fecha);
     }
 }

@@ -64,13 +64,30 @@ namespace Infraestrutura.BaseDatos
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdPlanta", idPlanta);
                 data.Add("Fecha", Fecha);
-                string query = "SPObtenerDetalleUsuarioID";
+                string query = "SPObtenerEncabezadoProduccionDiaria";
 
                 return await this.contextoBD.ObtenerDato<DtoEncabezadoProduccionDiaria>(query, data);
             }
             catch (Exception)
             {
                 throw;                                                                                                                                                                                                                                                                                                                                            
+            }
+        }
+
+        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta (int idPlanta, DateTime? Fecha)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdPLanta", idPlanta);
+                data.Add("Fecha", Fecha);
+                string query = "SPObtenerProduccionDiariaPorFechaYPlanta";
+
+                return await this.contextoBD.ObtenerDato<DtoEncabezadoProduccionDiaria>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

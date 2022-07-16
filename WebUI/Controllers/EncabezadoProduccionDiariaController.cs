@@ -55,5 +55,21 @@ namespace WebUI.Controllers
 
         }
 
+        [HttpGet("[action]/{idPlanta}/{Fecha}")]
+        [Authorize]
+        public async Task<JsonResult> ObtenerProduccionDiariaPorFechaYPlanta(int idPlanta, DateTime? Fecha)
+        {
+            try
+            {
+                return Json(await this.servicioEncabezadoProduccion.ObtenerProduccionDiariaPorFechaYPlanta(idPlanta, Fecha));
+            }
+            catch (Exception ex)
+            {
+
+                return Json($"Error: {ex.Message}");
+            }
+
+        }
+
     }
 }

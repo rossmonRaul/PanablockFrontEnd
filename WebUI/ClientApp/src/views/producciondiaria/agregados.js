@@ -55,8 +55,8 @@ const Agregados = () => {
                 <Form noValidate validated={validated} onSubmit={onClickAgregarAgregado} >
                     <Row>
                         <Col>
-                            <InputText id='txt-agregado' type='text' placeholder='Ingrese un tipo' value={nuevoElementoTipos}
-                                onChange={onChangeNuevoElementoTipos} label="Tipos:" mensajeValidacion="Ingrese un tipo"/>
+                            <InputText id='txt-agregado' type='text' placeholder='Ingrese un agregado' value={nuevoElementoTipos}
+                                onChange={onChangeNuevoElementoTipos} label="Agregado:" mensajeValidacion="Ingrese un tipo"/>
                             
                         </Col>
                         <Col className="col-md-6">                           

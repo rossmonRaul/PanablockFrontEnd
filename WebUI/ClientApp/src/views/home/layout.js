@@ -42,9 +42,9 @@ const Layout = ({ CerrarSession }) => {
                                 <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>user</span></Link>
                             </li>
                         </div>
-                        <li className={linkActive === 'home' ? 'active' : ''}>
+                        {/* }<li className={linkActive === 'home' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Observacion de mantenimiento</span></Link>
-                        </li>
+                        </li>*/}
                         <li className={linkActive === 'planta' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/planta" onClick={() => ActivarLink('planta')}>{' '}<span>Plantas</span></Link>
                         </li>

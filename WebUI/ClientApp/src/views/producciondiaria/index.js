@@ -39,11 +39,16 @@ const ProduccionDiaria = () => {
                 <Agregados />            
             </Row>
             <br />
-            <br />
-            <div className="btn-section">  
-                <Button variant="primary" type="submit" size="md">Guardar </Button>
-                <Button variant="success" type="submit" size="md">Finalizar </Button>
-                </div>    
+                <br />
+                <br />
+                <div className="d-grid gap-2" id="buttons-end">
+                    <Button variant="primary" size="lg">
+                        Guardar parcialmente
+                    </Button>
+                    <Button variant="success" size="lg">
+                        Finalizar totalmente
+                    </Button>
+                </div>
             <br />
             <br />
         </div>
