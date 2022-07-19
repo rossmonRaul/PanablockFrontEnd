@@ -61,7 +61,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
             event.preventDefault();
             event.stopPropagation();
         } else {
-
             const data = {
                 idPlanta: idPlanta == 0 ? listaPlantas[0].idPlanta : idPlanta,
                 coreoElectronico: correo,
@@ -111,7 +110,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
                 <Row>
                     <InputSelect className="form-control custom-select-sm" controlId="sel-tipoIdentificacion" label="Tipo de Identificación" data={listaTiposIdentificacion}
-                        onChange={() => onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />
+                        onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />
 
                     <InputText id='txt-identificacion' label='Identificación:' type='text' placeholder='Ingrese la identificación' value={identificacion}
                         text='Identificación.' onChange={onChangeIdentificacion} mensajeValidacion="La identificación es requerida" className="col-md-4" readOnly={proceso == 2} />
@@ -136,8 +135,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
                         text='Dirección exacta.' onChange={onChangeDireccion} mensajeValidacion="El campo es requerido" className="col-md-10" />
                 </Row>
                 <Row>
-                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={() => onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />
-                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Rol" data={listaRoles} onChange={() => onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
+                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />
+                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Rol" data={listaRoles} onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
                 </Row>
                 <br />
                 <Row>

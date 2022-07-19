@@ -11,7 +11,7 @@ import ControlDeCalidad from './views/controldecalidad';
 import Producto from './views/producto';
 import Contrasena from './views/actualizarcontrasena';
 import ProduccionDiaria from './views/producciondiaria';
-
+import Reportes from './views/reportes';
 import { ObtenerTokenUsuario } from './utils/utilidades';
 import { ObtenerDatosDeUsuario } from './utils/utilidades';
 

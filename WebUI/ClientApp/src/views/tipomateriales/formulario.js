@@ -10,7 +10,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMaterial, m
     const [descripcion, setDescripcion] = useState(proceso == 2 ? data.descripcion : '');
     //const [estado, setEstado] = useState(proceso == 2 ? data.estado : '');
     const [unidadMedida, setUnidadMedida] = useState(proceso == 2 ? data.unidadMedida : '');
-    const [grupoMaterial, setgrupoMaterial] = useState(proceso == 2 ? data.grupoTipoMaterial : '');
+    const [grupoMaterial, setgrupoMaterial] = useState(proceso == 2 ? data.idGrupoTipoMaterial : '');
 
     const [validated, setValidated] = useState(false);
 
@@ -63,6 +63,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMaterial, m
                 descripcion: descripcion,
                 //estado: estado,
                 unidadMedida: unidadMedida
+                //falta grupo tipo de material
             }
             onClickProcesarTipoMaterial(data);
         }

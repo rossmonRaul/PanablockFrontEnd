@@ -9,9 +9,9 @@ namespace Dominio.Dto
     //SE REALIZA UN Dto para cada  reporte pensando en que cada uno púede retornar cosas diferentes en un futuro
     public class DtoReporteCementoPorPlacasProductos
     {
-        public int nombreProducto { get; set; }
+        public string nombreProducto { get; set; }
 
-        public int cantidad { get; set; }
+        public decimal cantidad { get; set; }
         public int dia { get; set; }
     }
 }

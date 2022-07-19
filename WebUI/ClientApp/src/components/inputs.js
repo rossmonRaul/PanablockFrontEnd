@@ -12,7 +12,7 @@ export const InputText = ({ id, label, type, placeholder, value, text, onChange,
     )
 }
 
-export const InputSelect = ({ className, controlId, label, data, onChange, value, optionValue, optionLabel, classGroup }) => {
+export const InputSelect = ({ className, controlId, label, data, onChange, value, optionValue, optionLabel, classGroup, disabled }) => {
     const ObtenerOptions = () => {
         return data.map((option, index) => {
             return <option key={index} value={option[optionValue]}>{option[optionLabel]}</option>
@@ -22,8 +22,8 @@ export const InputSelect = ({ className, controlId, label, data, onChange, value
     return (
         <Form.Group controlId={controlId} className={classGroup}>
             <Form.Label>{label}</Form.Label>
-            <Form.Select className={className} size="sm" onChange={onChange} defaultValue={value}>
-                {ObtenerOptions()}
+            <Form.Select className={className} size="sm" onChange={onChange} defaultValue={value} disabled={disabled}>
+                {ObtenerOptions() }
             </Form.Select>
         </Form.Group>
     )

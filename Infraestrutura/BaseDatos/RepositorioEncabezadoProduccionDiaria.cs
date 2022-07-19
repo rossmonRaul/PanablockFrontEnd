@@ -57,7 +57,7 @@ namespace Infraestrutura.BaseDatos
         }
 
 
-        public async Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
+        public async Task<List<DtoEncabezadoProduccionDiaria>> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("Fecha", Fecha);
                 string query = "SPObtenerEncabezadoProduccionDiaria";
 
-                return await this.contextoBD.ObtenerDato<DtoEncabezadoProduccionDiaria>(query, data);
+                return await this.contextoBD.ObtenerListaDeDatos<DtoEncabezadoProduccionDiaria>(query, data);
             }
             catch (Exception)
             {

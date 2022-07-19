@@ -7,8 +7,10 @@ import {
     Title,
     Tooltip,
     Legend,
+    PointElement,
+    LineElement
   } from 'chart.js';
-  import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -16,10 +18,12 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    PointElement,
+    LineElement
 ); 
 
-export const BarChart = ({title, labels, datasets}) => {
+export const BarChart = ({title, data}) => {
     const options = {
         responsive: true,
         plugins: {
@@ -33,14 +37,46 @@ export const BarChart = ({title, labels, datasets}) => {
         },
     };
 
-    const data = {
+    /*const data = {
         labels,
         datasets
-    }
+    }*/
 
     return(
         <>
-        <Bar id="grafico" options={options} data={data} />
+            <Bar id="grafico" options={options} data={data} />
+        </>
+    )
+}
+
+export const LineChart = ({ title, label, values }) => {
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: title,
+            },
+        },
+    };
+
+    const data = {
+        labels: label,
+        datasets: [{
+            label: 'Dias',
+            backgroundColor: "rgb(133, 193, 233)",
+            borderColor: "rgb(46, 134, 193)",
+            data: values
+        }]
+    }
+
+    return (
+        <>
+            
+            <Line id="graficoCemento" options={options} data={data} />
         </>
     )
 }

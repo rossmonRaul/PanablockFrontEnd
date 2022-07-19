@@ -39,7 +39,7 @@ namespace WebUI.Controllers
         }
 
 
-        [HttpGet("[action]/{idPlanta}/{Fecha}")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<JsonResult> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
         {
