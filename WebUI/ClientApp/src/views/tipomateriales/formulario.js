@@ -10,7 +10,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMaterial, m
     const [descripcion, setDescripcion] = useState(proceso == 2 ? data.descripcion : '');
     //const [estado, setEstado] = useState(proceso == 2 ? data.estado : '');
     const [unidadMedida, setUnidadMedida] = useState(proceso == 2 ? data.unidadMedida : '');
-    const [grupoMaterial, setgrupoMaterial] = useState(proceso == 2 ? data.idGrupoTipoMaterial : '');
+    const [grupoMaterial, setgrupoMaterial] = useState(proceso == 2 ? data.idGrupoMaterial : '');
 
     const [validated, setValidated] = useState(false);
 
@@ -26,7 +26,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMaterial, m
         const grupos = await ObtenerGrupoMateriales();
         if (grupos !== undefined) {
             setListaGrupoMaterial(grupos);
-            setgrupoMaterial(grupos[0].IdGrupoMaterial);
+            setgrupoMaterial(grupos[0].idGrupoMaterial);
         }
     }
     const ObtenerListadoDeUnidades = async () => {
@@ -62,7 +62,9 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMaterial, m
                 nombre: nombre,
                 descripcion: descripcion,
                 //estado: estado,
-                unidadMedida: unidadMedida
+                unidadMedida: unidadMedida,
+                idGrupoTipoMaterial: grupoMaterial
+
                 //falta grupo tipo de material
             }
             onClickProcesarTipoMaterial(data);

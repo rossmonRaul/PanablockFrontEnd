@@ -10,6 +10,8 @@ import user from '../../images/user.png';
 const Layout = ({ CerrarSession }) => {
     const [linkActive, setLinkActive] = useState(window.location.pathname.replace('/', ''));
     const [nombreUsuario, setnombreUsuario] = useState("");
+    const [rol, setRol] = useState("");
+
 
     const ActivarLink = (to) => {
         setLinkActive(to);
@@ -17,11 +19,19 @@ const Layout = ({ CerrarSession }) => {
 
     useEffect(() => {
         ObtenerNombreUsuario();
+        ObtenerRol();
     }, []);
 
     const ObtenerNombreUsuario = () => {
         let usuario = JSON.parse(sessionStorage.getItem("data_usuario"));
         setnombreUsuario(usuario.nombre + " " + usuario.primerApellido);
+
+    }
+
+    const ObtenerRol= () => {
+        let rol = JSON.parse(sessionStorage.getItem("data_usuario"));
+        setRol(rol.descripcion);
+
     }
 
 
@@ -34,9 +44,12 @@ const Layout = ({ CerrarSession }) => {
                         <h3><img src={logo} className="img-fluid" style={{ width: "150px" }} /><span></span></h3>
                     </div>
                     <ul className="list-unstyled components">
-                        <li className={linkActive === 'producciondiaria' ? 'active' : ''}>
-                            <Link className={`dashboard`} to="/producciondiaria" onClick={() => ActivarLink('producciondiaria')}>{' '}<span>Producción Diaria</span></Link>
-                        </li>
+                        {rol === "Inspector" || rol === "Administrador" ?
+                            <li className={linkActive === 'producciondiaria' ? 'active' : ''}>
+                                <Link className={`dashboard`} to="/producciondiaria" onClick={() => ActivarLink('producciondiaria')}>{' '}<span>Producción Diaria</span></Link>
+                            </li>
+                            : ""
+                        }
                         <div className="small-screen navbar-display">
                             <li className="d-lg-none d-md-block d-xl-none d-sm-block">
                                 <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>user</span></Link>
@@ -45,27 +58,47 @@ const Layout = ({ CerrarSession }) => {
                         {/* }<li className={linkActive === 'home' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Observacion de mantenimiento</span></Link>
                         </li>*/}
-                        <li className={linkActive === 'planta' ? 'active' : ''}>
-                            <Link className={`dashboard`} to="/planta" onClick={() => ActivarLink('planta')}>{' '}<span>Plantas</span></Link>
-                        </li>
-                        <li className={linkActive === 'actividadplanta' ? 'active' : ''}>
-                            <Link className={`dashboard`} to="/actividadplanta" onClick={() => ActivarLink('actividadplanta')}>{' '}<span>Actividad de plantas</span></Link>
-                        </li>
+                        {rol === "Administrador" ?
+                            <li className={linkActive === 'planta' ? 'active' : ''}>
+                                <Link className={`dashboard`} to="/planta" onClick={() => ActivarLink('planta')}>{' '}<span>Plantas</span></Link>
+                            </li>
+                            : ""
+                        }
+                        {rol === "Inspector" || rol === "Administrador" ?
+                            <li className={linkActive === 'actividadplanta' ? 'active' : ''}>
+                                <Link className={`dashboard`} to="/actividadplanta" onClick={() => ActivarLink('actividadplanta')}>{' '}<span>Actividad de plantas</span></Link>
+                            </li>
+                            : ""
+                        }
+                        {rol === "Administrador" ? 
                         <li className={linkActive === 'producto' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/producto" onClick={() => ActivarLink('producto')}>{' '}<span>Productos</span></Link>
                         </li>
+                            : ""
+                        }
+                        {rol === "Administrador" ? 
                         <li className={linkActive === 'controldecalidad' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/controldecalidad" onClick={() => ActivarLink('controldecalidad')}>{' '}<span>Control de calidad</span></Link>
                         </li>
-                        <li className={linkActive === 'tipomaterial' ? 'active' : ''}>
-                            <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>
-                        </li>
+                            : ""
+                        }
+                        {rol === "Administrador" ?
+                            <li className={linkActive === 'tipomaterial' ? 'active' : ''}>
+                                <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>
+                            </li>
+                            : ""
+                        }
+                        {rol === "Administrador" ? 
                         <li className={linkActive === 'usuarios' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/usuarios" onClick={() => ActivarLink('usuarios')}>{' '}<span>Usuarios</span></Link>
                         </li>
-                        <li className={linkActive === 'reportes' ? 'active' : ''}>
-                            <Link className={`dashboard`} to="/reportes" onClick={() => ActivarLink('reportes')}>{' '}<span>Reportes</span></Link>
-                        </li>
+                        : ""
+                        }
+                        {rol === "Administrador" ?
+                            <li className={linkActive === 'reportes' ? 'active' : ''}>
+                                <Link className={`dashboard`} to="/reportes" onClick={() => ActivarLink('reportes')}>{' '}<span>Reportes</span></Link>
+                            </li>
+                            : ""}
                     </ul>
 
                 </nav>

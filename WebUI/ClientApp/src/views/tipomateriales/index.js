@@ -40,6 +40,7 @@ const TipoMaterial = () => {
         if (proceso === 1)
             respuesta = await AgregarTipoMateriales(data);
         else {
+            
             data.idTipoMaterial = filaSeleccionada.idTipoMaterial;   
             data.estado = true;
             respuesta = await ActualizarTipoMateriales(data);
@@ -120,6 +121,8 @@ const TipoMaterial = () => {
             <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className=''>
                 <Formulario labelButton={labelButton} data={data} proceso={proceso} onClickProcesarTipoMaterial={onClickProcesarTipoMaterial} mensaje={mensajeFormulario} />
             </FormularioModal>
+
+
         </>
     )
 }

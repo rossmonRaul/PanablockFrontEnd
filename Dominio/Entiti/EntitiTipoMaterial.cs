@@ -17,6 +17,7 @@ namespace Dominio.Entiti
 
         public string unidadMedida { get; set; }
 
+        public int idGrupoTipoMaterial { get; set; }
         public bool estado { get; set; }
 
     }

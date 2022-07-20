@@ -27,6 +27,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("Descripcion", entitiTipoMaterial.descripcion);
                 data.Add("Estado", entitiTipoMaterial.estado);
                 data.Add("UnidadMedida", entitiTipoMaterial.unidadMedida);
+                data.Add("IdGrupoMaterial", entitiTipoMaterial.idGrupoTipoMaterial);
 
                 string query = "SPInsertarTipoMaterial";
 
@@ -50,6 +51,8 @@ namespace Infraestrutura.BaseDatos
                 data.Add("Descripcion", entitiTipoMaterial.descripcion);
                 data.Add("Estado", entitiTipoMaterial.estado);
                 data.Add("UnidadMedida", entitiTipoMaterial.unidadMedida);
+                data.Add("IdGrupoMaterial", entitiTipoMaterial.idGrupoTipoMaterial);
+
                 string query = "SPActualizarTipoMaterial";
 
                 return await this.contextoBD.EjecutarSP(query, data);

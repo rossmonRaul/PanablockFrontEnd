@@ -17,6 +17,8 @@ namespace Dominio.Dto
 
         public string grupoTipoMaterial { get; set; }
 
+        public int idGrupoMaterial { get; set; }
+
         public string unidadMedida { get; set; }
 
         public string estado { get; set; }
