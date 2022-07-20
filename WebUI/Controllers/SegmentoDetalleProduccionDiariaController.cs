@@ -23,7 +23,15 @@ namespace WebUI.Controllers
         [Authorize]
         public async Task<JsonResult> InsertarSegmentoDetalleProduccionDiaria(EntitiSegmentoDetalleProduccion entitiSegmentoDetalle)
         {
-            return Json(await this.SegmentoDetalleProduccionDiaria.InsertarSegmentoDetalleProduccionDiaria(entitiSegmentoDetalle));
+            try
+            {
+                return Json(await this.SegmentoDetalleProduccionDiaria.InsertarSegmentoDetalleProduccionDiaria(entitiSegmentoDetalle));
+            }
+            catch (Exception ex)
+            {
+
+                return Json(ex.Message);
+            }
         }
 
         [HttpPut("[action]")]
@@ -33,13 +41,22 @@ namespace WebUI.Controllers
 
             return Json(await this.SegmentoDetalleProduccionDiaria.ActualizarSegmentoDetalleProduccionDiaria(entitiSegmentoDetalle));
         }
-       
 
-        [HttpGet("[action]/{idEncabezadoProduccion}")]
+
+        [HttpGet("[action]")]
         [Authorize]
-        public async Task<JsonResult> ObtenerSegementoDetalleProduccionDiaria(int idEncabezadoProduccion)
+        public async Task<JsonResult> ObtenerSegmentoDetalleProduccionDiaria(int idEncabezadoProduccion)
         {
-            return Json(await this.SegmentoDetalleProduccionDiaria.ObtenerSegementoDetalleProduccionDiaria(idEncabezadoProduccion));
+            try
+            {
+                return Json(await this.SegmentoDetalleProduccionDiaria.ObtenerSegementoDetalleProduccionDiaria(idEncabezadoProduccion));
+            }
+            catch (Exception ex)
+            {
+
+                return Json($"Error: {ex.Message}");
+            }
+
         }
     }
 }

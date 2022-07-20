@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 namespace Dominio.Dto
 {
     public class DtoTotalesProduccionDiaria
-
     {
         public int placasTotales { get; set; }
 
@@ -25,5 +23,9 @@ namespace Dominio.Dto
         public int cemento { get; set; }
 
         public int cantidadColor { get; set; }
+
+        public string color { get; set; }
+
+        public string aditivo { get; set; }
     }
 }

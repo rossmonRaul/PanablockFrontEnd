@@ -1,13 +1,14 @@
-﻿import React, { useEffect, useState } from 'react';
-import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
+﻿import React, { useState } from 'react';
+import { Table } from "react-bootstrap";
 import { InputText } from '../../components/inputs';
 import totales from '../../images/checklist.png';
 import '../../styles/producciondiaria.css';
 
 
-const Totales = ({ listaTotales }) => { //lista con los datos de turnos
+const Totales = ({ placasTotales, setPlacasTotales, unidadesTotales, setUnidadesTotales, cubosTotales, setCubosTotales, mermaTotal, setMermaTotal, mezclasPerdidas, setMezclasPerdidas,
+    numeroMezclas, setNumeroMezclas, cemento, setCemento, aditivo, setAditivo, color, setColor, cantidadColor, setCantidadColor }) => { //lista con los datos de turnos
 
-    const [placasTotales, setPlacasTotales] = useState(0);
+    /*const [placasTotales, setPlacasTotales] = useState(0);
     const [unidadesTotales, setUnidadesTotales] = useState(0);
     const [cubosTotales, setCubosTotales] = useState(0);
     const [mermaTotal, setMermaTotal] = useState(0);
@@ -16,12 +17,7 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
     const [cemento, setCemento] = useState(0);
     const [aditivo, setAditivo] = useState("");
     const [color, setColor] = useState("");
-    const [cantidadColor, setCantidadColor] = useState(0);
-
-
-    useEffect(() => {
-
-    }, []);
+    const [cantidadColor, setCantidadColor] = useState(0);*/
 
     const onChangePlacasTotales = (e) => setPlacasTotales(e.target.value);
     const onChangeUnidadesTotales = (e) => setUnidadesTotales(e.target.value);
@@ -33,6 +29,7 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
     const onChangeAditivo = (e) => setAditivo(e.target.value);
     const onChangeColor = (e) => setColor(e.target.value);
     const onChangeCantidadColor = (e) => setCantidadColor(e.target.value);
+
 
     return (
 
@@ -65,7 +62,7 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
                     <tbody>
                         <tr>
                             <td>
-                                <InputText type='number' 
+                                <InputText type='number'
                                     value={placasTotales} onChange={onChangePlacasTotales} />
                             </td>
                             <td>
@@ -82,15 +79,15 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
                             </td>
                             <td>
                                 <InputText type='number'
-                                    value={mezclasPerdidas} onChange={onChangeMezclasPerdidas} /> 
+                                    value={mezclasPerdidas} onChange={onChangeMezclasPerdidas} />
                             </td>
                             <td>
                                 <InputText type='number'
-                                value={numeroMezclas} onChange={onChangeNumeroMezclas} />
+                                    value={numeroMezclas} onChange={onChangeNumeroMezclas} />
                             </td>
                             <td>
                                 <InputText type='number'
-                                value={cemento} onChange={onChangeCemento} />
+                                    value={cemento} onChange={onChangeCemento} />
                             </td>
                             <td><InputText type='text'
                                 value={aditivo} onChange={onChangeAditivo} />
@@ -102,8 +99,8 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
                             <td>
                                 <InputText type='number'
                                     value={cantidadColor} onChange={onChangeCantidadColor} />
-                            
-                        </td>
+
+                            </td>
                         </tr>
                     </tbody>
                 </Table>
@@ -112,4 +109,4 @@ const Totales = ({ listaTotales }) => { //lista con los datos de turnos
     );
 }
 
-export default Totales; 
+export default Totales;

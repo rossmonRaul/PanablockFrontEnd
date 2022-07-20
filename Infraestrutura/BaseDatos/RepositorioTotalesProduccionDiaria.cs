@@ -32,7 +32,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("NumeroMezclas", entitiTotalesProduccionDiaria.numeroMezclas);
                 data.Add("Cemento", entitiTotalesProduccionDiaria.cemento);
                 data.Add("CantidadColor", entitiTotalesProduccionDiaria.cantidadColor);
-                data.Add("IdObservacionesMantenimiento", entitiTotalesProduccionDiaria.idObservacionesMantenimiento);
+                //data.Add("IdObservacionesMantenimiento", entitiTotalesProduccionDiaria.idObservacionesMantenimiento);
                 data.Add("Color", entitiTotalesProduccionDiaria.color);
                 data.Add("Aditivo", entitiTotalesProduccionDiaria.aditivo);
 
@@ -60,7 +60,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("NumeroMezclas", entitiTotalesProduccionDiaria.numeroMezclas);
                 data.Add("Cemento", entitiTotalesProduccionDiaria.cemento);
                 data.Add("CantidadColor", entitiTotalesProduccionDiaria.cantidadColor);
-                data.Add("IdObservacionesMantenimiento", entitiTotalesProduccionDiaria.idObservacionesMantenimiento);
+                //data.Add("IdObservacionesMantenimiento", entitiTotalesProduccionDiaria.idObservacionesMantenimiento);
                 data.Add("Color", entitiTotalesProduccionDiaria.color);
                 data.Add("Aditivo", entitiTotalesProduccionDiaria.aditivo);
 
@@ -72,6 +72,23 @@ namespace Infraestrutura.BaseDatos
             {
                 throw;
             }
+        }
+
+        public async Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("fecha", fecha);
+                string query = "SPObtenerTotalesProduccionDiaria";
+
+                return await this.contextoBD.ObtenerListaDeDatos<DtoTotalesProduccionDiaria>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

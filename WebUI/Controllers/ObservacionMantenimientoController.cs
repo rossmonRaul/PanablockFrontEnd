@@ -3,6 +3,7 @@ using Dominio.Interfaces.Aplicacion.ObservacionMantenimiento;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebUI.Controllers
@@ -19,13 +20,13 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<JsonResult> InsertarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento)
+        public async Task<JsonResult> InsertarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento)
         {
             return Json(await this.servicioObservacionMantenimiento.InsertarObservacionMantenimiento(entitiObservacionMantenimiento));
         }
 
         [HttpPut("[action]")]
-        public async Task<JsonResult> ActualizarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento)
+        public async Task<JsonResult> ActualizarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento)
         {
 
             return Json(await this.servicioObservacionMantenimiento.ActualizarObservacionMantenimiento(entitiObservacionMantenimiento));
@@ -37,7 +38,7 @@ namespace WebUI.Controllers
             return Json(await this.servicioObservacionMantenimiento.EliminarObservacionMantenimiento(idObservacionesMantenimiento));
         }
 
-        [HttpGet("[action]/{idObservacionesMantenimiento}")]
+        [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
         {
             try

@@ -20,12 +20,12 @@ namespace Aplicacion.ObservacionMantenimiento
             this.repositorioObservacionMantenimiento = repositorioObservacionMantenimiento;
         }
 
-        public async Task<DtoDatosSP> InsertarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento)
+        public async Task<DtoDatosSP> InsertarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento)
         {
             return await this.repositorioObservacionMantenimiento.InsertarObservacionMantenimiento(entitiObservacionMantenimiento);
         }
 
-        public async Task<DtoDatosSP> ActualizarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento)
+        public async Task<DtoDatosSP> ActualizarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento)
         {
             return await this.repositorioObservacionMantenimiento.ActualizarObservacionMantenimiento(entitiObservacionMantenimiento);
         }
@@ -35,7 +35,7 @@ namespace Aplicacion.ObservacionMantenimiento
             return await this.repositorioObservacionMantenimiento.EliminarObservacionMantenimiento(idObservacionesMantenimiento);
         }
 
-        public async Task<DtoObservacionMantenimiento> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        public async Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
         {
             return await this.repositorioObservacionMantenimiento.ObtenerDetalleObservacionMantenimiento(idObservacionesMantenimiento);
         }

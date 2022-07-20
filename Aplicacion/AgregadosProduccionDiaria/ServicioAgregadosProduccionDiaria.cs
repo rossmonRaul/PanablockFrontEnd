@@ -20,7 +20,7 @@ namespace Aplicacion.AgregadosProduccionDiaria
             this.repositorioAgregadosProduccionDiaria = repositorioAgregadosProduccionDiaria;
         }
 
-        public async Task<DtoDatosSP> InsertarAgregados(EntitiAgregados entitiAgregados)
+        public async Task<DtoDatosSP> InsertarAgregados(List<EntitiAgregados> entitiAgregados)
         {
             return await this.repositorioAgregadosProduccionDiaria.InsertarAgregados(entitiAgregados);
         }

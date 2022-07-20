@@ -10,7 +10,7 @@ namespace Infraestrutura.BaseDatos
 {
     public interface IRepositorioAgregadosProduccionDiaria
     {
-        Task<DtoDatosSP> InsertarAgregados(EntitiAgregados entitiAgregados);
+        Task<DtoDatosSP> InsertarAgregados(List<EntitiAgregados> entitiAgregados);
 
         Task<DtoDatosSP> EliminarAgregados(int idAgregadoProduccionDiaria);
 

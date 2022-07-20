@@ -9,7 +9,7 @@ using Dominio.Interfaces.Infraestrutura.BaseDatos;
 
 namespace Infraestrutura.BaseDatos
 {
-    
+
     public class RepositorioSegmentoDetalleProduccion : IRepositorioSegmentoDetalleProduccion
     {
         private readonly IContextoBD contextoBD;
@@ -28,6 +28,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("PlacaInicio", entitiSegmentoDetalle.PlacaInicio);
                 data.Add("PlacaFinal", entitiSegmentoDetalle.PlacaFinal);
                 data.Add("Conteo", entitiSegmentoDetalle.Conteo);
+                data.Add("IdTurno", entitiSegmentoDetalle.IdTurno);
                 string query = "SPInsertarsConteoPlacasPorTurno";
 
                 return await this.contextoBD.EjecutarSP(query, data);
@@ -57,7 +58,7 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<List<DtoSegmentoDetalleProduccion>>ObtenerSegementoDetalleProduccionDiaria(int idEncabezadoProduccion)
+        public async Task<List<DtoSegmentoDetalleProduccion>> ObtenerSegementoDetalleProduccionDiaria(int idEncabezadoProduccion)
         {
             try
             {

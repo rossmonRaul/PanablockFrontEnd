@@ -19,12 +19,12 @@ namespace Aplicacion.DetalleProduccionDiaria
             this.repositorioDetalleProduccionDiaria = repositorioDetalleProduccionDiaria;
         }
 
-        public async Task<DtoDatosSP> InsertarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria)
+        public async Task<DtoDatosSP> InsertarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria)
         {
             return await this.repositorioDetalleProduccionDiaria.InsertarDetalleProduccionDiaria(entitiDetalleProduccionDiaria);
         }
 
-        public async Task<DtoDatosSP> ActualizarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria)
+        public async Task<DtoDatosSP> ActualizarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria)
         {
             return await this.repositorioDetalleProduccionDiaria.ActualizarDetalleProduccionDiaria(entitiDetalleProduccionDiaria);
         }
