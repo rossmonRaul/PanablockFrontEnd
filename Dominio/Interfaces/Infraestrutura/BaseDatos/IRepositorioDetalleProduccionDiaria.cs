@@ -10,9 +10,9 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 {
     public interface IRepositorioDetalleProduccionDiaria
     {
-        Task<DtoDatosSP> InsertarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria);
+        Task<DtoDatosSP> InsertarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria);
 
-        Task<DtoDatosSP> ActualizarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria);
+        Task<DtoDatosSP> ActualizarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria);
 
         Task<List<DtoDetalleProduccionDiaria>> ObtenerDetalleProduccionDiaria(int idEncabezadoProduccionDiaria);
     }

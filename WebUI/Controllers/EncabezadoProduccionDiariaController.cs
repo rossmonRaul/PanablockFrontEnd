@@ -28,7 +28,15 @@ namespace WebUI.Controllers
         [Authorize]
         public async Task<JsonResult> InsertarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion)
         {
-            return Json(await this.servicioEncabezadoProduccion.InsertarEncabezadoProduccionDiaria(entitiEncabezadoProduccion));
+            try
+            {
+                return Json(await this.servicioEncabezadoProduccion.InsertarEncabezadoProduccionDiaria(entitiEncabezadoProduccion));
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+
         }
 
         [HttpPut("[action]")]
@@ -45,7 +53,7 @@ namespace WebUI.Controllers
         {
             try
             {
-                return Json(await this.servicioEncabezadoProduccion.ObtenerEncabezadoProduccionDiaria(idPlanta,Fecha));
+                return Json(await this.servicioEncabezadoProduccion.ObtenerEncabezadoProduccionDiaria(idPlanta, Fecha));
             }
             catch (Exception ex)
             {
@@ -55,7 +63,7 @@ namespace WebUI.Controllers
 
         }
 
-        [HttpGet("[action]/{idPlanta}/{Fecha}")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<JsonResult> ObtenerProduccionDiariaPorFechaYPlanta(int idPlanta, DateTime? Fecha)
         {

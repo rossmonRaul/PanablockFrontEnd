@@ -10,13 +10,13 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 {
     public interface IRepositorioObservacionMantenimiento
     {
-        Task<DtoDatosSP> InsertarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento);
+        Task<DtoDatosSP> InsertarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento);
 
-        Task<DtoDatosSP> ActualizarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento);
+        Task<DtoDatosSP> ActualizarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento);
 
         Task<DtoDatosSP> EliminarObservacionMantenimiento(int idObservacionesMantenimiento);
 
-        Task<DtoObservacionMantenimiento> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento);
+        Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento);
 
         Task<List<DtoObservacionMantenimiento>> ObtenerObservacionesMantenimiento();
     }

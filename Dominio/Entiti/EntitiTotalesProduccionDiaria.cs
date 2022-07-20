@@ -28,7 +28,6 @@ namespace Dominio.Entiti
 
         public int cantidadColor { get; set; }
 
-        public int idObservacionesMantenimiento { get; set; }
 
         public string color { get; set; }
 

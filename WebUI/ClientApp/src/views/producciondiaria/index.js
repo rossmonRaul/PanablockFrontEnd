@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
+import { Row, Button } from "react-bootstrap";
 import Encabezado from "./encabezado";
 import DesgloseProduccion from './desgloseProduccion';
 import TotalesProduccion from './totalesProduccion';
@@ -7,51 +7,319 @@ import Agregados from './agregados';
 import Turnos from './turnos'
 import ObservacionesMantenimiento from './observacionesMantenimiento';
 import '../../styles/producciondiaria.css';
+import { ObtenerDatosDeUsuario } from '../../utils/utilidades';
+import {
+    AgregarDetalleProduccionDiaria, AgregarEncabezadoProduccionDiaria, AgregarSegmentoDetalleProduccionDiaria, InsertarAgregados,
+    InsertarObservacionMantenimiento, InsertarTotalesProduccionDiaria, ObtenerDetalleAgregados, ObtenerDetalleObservacionMantenimiento,
+    ObtenerDetalleProduccionDiaria, ObtenerEncabezadoProduccionDiaria, ObtenerHorarios, ObtenerSegmentoDetalleProduccionDiaria, ObtenerTotalProduccionDiaria
+} from '../../servicios/ServicioProduccionDiaria';
+import { ObtenerProductos } from '../../servicios/ServicioProducto';
 
 
 const ProduccionDiaria = () => {
+    //const [data, setData] = useState([]);
+    //const [idPlanta, setidPlanta] = useState(0);
+    //const [fechaRegistro, setfechaRegistro] = useState("");
+    const [idEncabezadoProduccionDiaria, setIdEncabezadoProduccionDiaria] = useState(0)
+    const [horaInicio, sethoraInicio] = useState("");
+    const [horaFinal, sethoraFinal] = useState("");
+    const [idProducto, setidProducto] = useState(0);
+    const [listaHorarios, setListaHorarios] = useState([]);
+    const [listaProductos, setListaProductos] = useState([]);
+    const [desgloseProduccion, setDesgloseProduccion] = useState([]);
 
-    const [data, setData] = useState([]);
+    const [placaInicioTurno1, setPlacaInicioTurno1] = useState("");
+    const [placaFinalTurno1, setPlacaFinalTurno1] = useState("");
+    const [placaInicioTurno2, setPlacaInicioTurno2] = useState("");
+    const [placaFinalTurno2, setPlacaFinalTurno2] = useState("");
+
+    const [listaObservaciones, setListaObservaciones] = useState([]);
+    const [listaAgregados, setListaAgregados] = useState([]);
+
+    const [placasTotales, setPlacasTotales] = useState("");
+    const [unidadesTotales, setUnidadesTotales] = useState("");
+    const [cubosTotales, setCubosTotales] = useState("");
+    const [mermaTotal, setMermaTotal] = useState("");
+    const [mezclasPerdidas, setMezclasPerdidas] = useState("");
+    const [numeroMezclas, setNumeroMezclas] = useState("");
+    const [cemento, setCemento] = useState("");
+    const [aditivo, setAditivo] = useState("");
+    const [color, setColor] = useState("");
+    const [cantidadColor, setCantidadColor] = useState("");
+    const [mensaje, setMensaje] = useState("");
 
     useEffect(() => {
-        
+        ObtenerListadoDeHorarios();
+        ObtenerListadoDeProductos();
+
     }, []);
 
+    useEffect(() => {
+        ObtenerProduccionDiaria();
+    });
+
+
+    const ObtenerListadoDeHorarios = async () => {
+        const horarios = await ObtenerHorarios();
+        if (horarios !== undefined && horarios.indicador === undefined) {
+            horarios.forEach(element => {
+                element.label = `${element.horaInicio}-${element.horaFinal}`
+            });
+            setListaHorarios(horarios);
+        }
+
+    }
+
+    const ObtenerListadoDeProductos = async () => {
+        const productos = await ObtenerProductos();
+        if (productos !== undefined) {
+            setListaProductos(productos);
+        }
+    }
+
+    const ObtenerDesgloseProduccionDiaria = (idEncabezadoProduccionDiaria) => {
+        const tempDesglose = []
+        desgloseProduccion.forEach((desglose, index) => {
+            tempDesglose.push({
+                idEncabezadoProduccionDiaria,
+                idHorario: desglose.idHorario,
+                placas: Number(desglose.placas),
+                observacion: desglose.observacion || ""
+            })
+        });
+        return tempDesglose;
+    }
+
+    const ObtenerPrimerSegmentoDetalleProduccionDiaria = (idEncabezadoProduccionDiaria) => {
+        return {
+            IdEncabezadoProduccionDiaria: Number(idEncabezadoProduccionDiaria),
+            IdSegmentosDetallesProduccionesDiarias: 0,
+            IdTurno: 1,
+            PlacaInicio: Number(placaInicioTurno1),
+            PlacaFinal: Number(placaFinalTurno1),
+            Conteo: Number(placaFinalTurno1) - Number(placaInicioTurno1)
+        }
+    }
+
+    const ObtenerSegundoSegmentoDetalleProduccionDiaria = (idEncabezadoProduccionDiaria) => {
+        return {
+            idEncabezadoProduccionDiaria,
+            IdTurno: 2,
+            PlacaInicio: Number(placaInicioTurno2),
+            PlacaFinal: Number(placaFinalTurno2),
+            Conteo: Number(placaFinalTurno2) - Number(placaInicioTurno2)
+        }
+    }
+
+    const ObtenerTotalesProduccionDiaria = (idEncabezadoProduccionDiaria) => {
+        return {
+            idEncabezadoProduccionDiaria,
+            placasTotales: placasTotales == "" ? 0 : placasTotales,
+            unidadesTotales: unidadesTotales == "" ? 0 : unidadesTotales,
+            cubosTotales: cubosTotales == "" ? 0 : cubosTotales,
+            mermaTotal: mermaTotal == "" ? 0 : mermaTotal,
+            mezclasPerdidas: mezclasPerdidas == "" ? 0 : mezclasPerdidas,
+            numeroMezclas: numeroMezclas == "" ? 0 : numeroMezclas,
+            cemento: cemento == "" ? 0 : cemento,
+            cantidadColor: cantidadColor == "" ? 0 : cantidadColor,
+            color,
+            aditivo
+        }
+    }
+
+    const ObtenerObservacionesDeMantenimiento = (idEncabezadoProduccionDiaria) => {
+        const tempLista = [];
+        listaObservaciones.forEach(element => {
+            if (element.idObservacionesMantenimiento === undefined) {
+                tempLista.push({
+                    idEncabezadoProduccionDiaria,
+                    descripcion: element.descripcion
+                })
+            }
+        });
+        return tempLista;
+    }
+
+    const ObtenerAgregados = (idEncabezadoProduccionDiaria, nombre) => {
+        const tempLista = [];
+        listaAgregados.forEach(element => {
+            if (element.idAgregadoProduccionDiaria === undefined) {
+                tempLista.push({
+                    idEncabezadoProduccionDiaria,
+                    descripcion: "",
+                    tipoAgregado: element.tipoAgregado,
+                    vueltas: element.vueltas,
+                    usuarioIngreso: nombre
+                })
+            }
+        });
+        console.log(tempLista, listaAgregados);
+        return tempLista;
+    }
+
+    const onClickGuardar = async () => {
+        const { idPlanta, nombre } = await ObtenerDatosDeUsuario();
+        const data = {
+            idEncabezadoProduccionDiaria,
+            idPlanta,
+            horaInicio,
+            horaFinal,
+            idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+            fecha: ObtenerFecha(),
+            estatus: 1
+        }
+
+        const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+
+        if (respuesta.indicador == 0) {
+            const Desglose = ObtenerDesgloseProduccionDiaria(respuesta.mensaje);
+            if (Desglose.length > 0) {
+                const respDetalle = await AgregarDetalleProduccionDiaria(Desglose);
+            }
+            const respsegmento1 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerPrimerSegmentoDetalleProduccionDiaria(respuesta.mensaje))
+            const respsegmento2 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerSegundoSegmentoDetalleProduccionDiaria(respuesta.mensaje))
+            const resptotales = await InsertarTotalesProduccionDiaria(ObtenerTotalesProduccionDiaria(respuesta.mensaje));
+
+            const respObservacion = await InsertarObservacionMantenimiento(ObtenerObservacionesDeMantenimiento(respuesta.mensaje));
+            const respAgregados = await InsertarAgregados(ObtenerAgregados(respuesta.mensaje, nombre));
+            setMensaje({
+                indicador: 0,
+                mensaje: "Proceso completado: Producción diaria guardada con éxito."
+            });
+            ObtenerProduccionDiaria()
+        }
+    }
+
+    const onClickFinalizar = async () => {
+        const { idPlanta, nombre } = await ObtenerDatosDeUsuario();
+        const data = {
+            idEncabezadoProduccionDiaria,
+            idPlanta,
+            horaInicio,
+            horaFinal,
+            idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+            fecha: ObtenerFecha(),
+            estatus: 2
+        }
+        const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+    }
+
+    const ObtenerProduccionDiaria = async () => {
+
+        if (idEncabezadoProduccionDiaria == 0) {
+
+            const { idPlanta } = await ObtenerDatosDeUsuario();
+            const data = {
+                idPlanta,
+                fecha: ObtenerFecha()
+            }
+            const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
+            if (encabezado !== null) {
+                sethoraInicio(encabezado.horaInicio.split(".")[0]);
+                sethoraFinal(encabezado.horaFinal.split(".")[0]);
+                setIdEncabezadoProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                setidProducto(encabezado.idProducto);
+                ObtenerListaDesgloseProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                ObtenerListaConteoPlacasProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
+                ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
+                ObtenerListaTotalProduccionDiaria();
+            }
+        }
+    }
+
+    const ObtenerListaDesgloseProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
+        const detalleProduccion = await ObtenerDetalleProduccionDiaria(idEncabezadoProduccionDiaria);
+        setDesgloseProduccion(detalleProduccion);
+    }
+
+    const ObtenerListaConteoPlacasProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
+        const conteoPlacas = await ObtenerSegmentoDetalleProduccionDiaria(idEncabezadoProduccionDiaria);
+        setPlacaInicioTurno1(conteoPlacas[0].placaInicio);
+        setPlacaFinalTurno1(conteoPlacas[0].placaFinal);
+        setPlacaInicioTurno2(conteoPlacas[1].placaInicio);
+        setPlacaFinalTurno2(conteoPlacas[1].placaFinal);
+    }
+
+    const ObtenerListaDetalleObservacion = async (idEncabezadoProduccionDiaria) => {
+        let detalleObservacion = await ObtenerDetalleObservacionMantenimiento(idEncabezadoProduccionDiaria);
+        detalleObservacion = detalleObservacion == null ? [] : detalleObservacion;
+        setListaObservaciones(detalleObservacion)
+    }
+
+    const ObtenerListaTotalProduccionDiaria = async () => {
+        const listaTotal = await ObtenerTotalProduccionDiaria(ObtenerFecha());
+        if (listaTotal.length > 0) {
+            const detalle = listaTotal[0];
+            setPlacasTotales(detalle.placasTotales == 0 ? "" : detalle.placasTotales)
+            setUnidadesTotales(detalle.unidadesTotales == 0 ? "" : detalle.unidadesTotales)
+            setCubosTotales(detalle.cubosTotales == 0 ? "" : detalle.cubosTotales)
+            setMermaTotal(detalle.mermaTotal == 0 ? "" : detalle.mermaTotal)
+            setMezclasPerdidas(detalle.mezclasPerdidas == 0 ? "" : detalle.mezclasPerdidas)
+            setNumeroMezclas(detalle.numeroMezclas == 0 ? "" : detalle.numeroMezclas)
+            setCemento(detalle.cemento == 0 ? "" : detalle.cemento)
+            setCantidadColor(detalle.cantidadColor == 0 ? "" : detalle.cantidadColor)
+            setColor(detalle.color || "")
+            setAditivo(detalle.aditivo || "")
+        }
+
+    }
+
+    const ObtenerListaAgregados = async (idEncabezadoProduccionDiaria) => {
+        let agregados = await ObtenerDetalleAgregados(idEncabezadoProduccionDiaria);
+        agregados = agregados == null ? [] : agregados;
+        setListaAgregados(agregados);
+    }
+
+    const ObtenerFecha = () => {
+        const today = new Date();
+        const dia = today.getDate().toString().padStart(2, '0');
+        const mes = (today.getMonth() + 1).toString().padStart(2, '0');
+        return `${today.getFullYear()}-${mes}-${dia}`;
+    }
+
     return (
-       <>
-        <div className="container">
-            <br />
-            <br />
-                <Encabezado/>
-            <br />
-                <DesgloseProduccion/>
-            <br />
-            <br />
-                <Turnos/>
-            <br />
-            <br />
-                <TotalesProduccion/>
-            <br />
-            <hr/>
-            <br />
-            <Row>
-                <ObservacionesMantenimiento />
-                <Agregados />            
-            </Row>
-            <br />
+        <>
+            <div className="container">
+                <br />
+                {mensaje !== "" ?
+                    <>
+                        <span className={mensaje.indicador === 0 ? "text-success" : "text-danger"}>{mensaje.mensaje}</span>
+                        <br />
+                    </>
+                    : ''}
+                <br />
+                <Encabezado listaProductos={listaProductos} horaInicio={horaInicio} sethoraInicio={sethoraInicio} horaFinal={horaFinal} sethoraFinal={sethoraFinal}
+                    idProducto={idProducto} setidProducto={setidProducto} />
+                <br />
+                <DesgloseProduccion listaHorarios={listaHorarios} setListaHorarios={setListaHorarios} desgloseProduccion={desgloseProduccion} setDesgloseProduccion={setDesgloseProduccion} />
                 <br />
                 <br />
-                <div className="d-grid gap-2" id="buttons-end">
-                    <Button variant="primary" size="lg">
-                        Guardar parcialmente
-                    </Button>
-                    <Button variant="success" size="lg">
-                        Finalizar totalmente
-                    </Button>
+                <Turnos placaInicioTurno1={placaInicioTurno1} setPlacaInicioTurno1={setPlacaInicioTurno1} placaFinalTurno1={placaFinalTurno1}
+                    setPlacaFinalTurno1={setPlacaFinalTurno1} placaInicioTurno2={placaInicioTurno2} setPlacaInicioTurno2={setPlacaInicioTurno2} placaFinalTurno2={placaFinalTurno2}
+                    setPlacaFinalTurno2={setPlacaFinalTurno2} />
+                <br />
+                <br />
+                <TotalesProduccion placasTotales={placasTotales} setPlacasTotales={setPlacasTotales} unidadesTotales={unidadesTotales} setUnidadesTotales={setUnidadesTotales}
+                    cubosTotales={cubosTotales} setCubosTotales={setCubosTotales} mermaTotal={mermaTotal} setMermaTotal={setMermaTotal} mezclasPerdidas={mezclasPerdidas}
+                    setMezclasPerdidas={setMezclasPerdidas} numeroMezclas={numeroMezclas} setNumeroMezclas={setNumeroMezclas} cemento={cemento} setCemento={setCemento}
+                    aditivo={aditivo} setAditivo={setAditivo} color={color} setColor={setColor} cantidadColor={cantidadColor} setCantidadColor={setCantidadColor} />
+                <br />
+                <hr />
+                <br />
+                <Row>
+                    <ObservacionesMantenimiento listaObservaciones={listaObservaciones} setListaObservaciones={setListaObservaciones} />
+                    <Agregados listaAgregados={listaAgregados} setListaAgregados={setListaAgregados} />
+                </Row>
+                <br />
+                <br />
+                <div className="btn-section">
+                    <Button variant="primary" type="submit" size="md" onClick={() => onClickGuardar()}>Guardar </Button>
+                    <Button variant="success" type="submit" size="md" onClick={() => onClickFinalizar()}>Finalizar </Button>
                 </div>
-            <br />
-            <br />
-        </div>
+                <br />
+                <br />
+            </div>
 
         </>
 

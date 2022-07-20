@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
 import { InputText } from '../../components/inputs';
 import '../../styles/producciondiaria.css';
@@ -6,16 +6,11 @@ import add from '../../images/add.png';
 
 
 
-const Agregados = () => { 
+const Agregados = ({ listaAgregados, setListaAgregados }) => {
 
     const [nuevoElementoTipos, setnuevoElementoTipos] = useState("");
     const [nuevoElementoVueltas, setnuevoElementoVueltas] = useState(0);
-    const [listaAgregados, setListaAgregados] = useState([]);
     const [validated, setValidated] = useState(false);
-
-    useEffect(() => {
-     
-    }, []);
 
     const ObtenerListaAgregados = () => {
         /* obtener si hay agregados a este encabezado para precargarlos*/
@@ -28,16 +23,22 @@ const Agregados = () => {
             e.preventDefault();
             e.stopPropagation();
         } else {
-            let agregado =
+            const agregado =
             {
-                tipo: nuevoElementoTipos,
-                vuelta: nuevoElementoVueltas
+                tipoAgregado: nuevoElementoTipos,
+                vueltas: Number(nuevoElementoVueltas)
             };
             setListaAgregados(listaAgregados => [...listaAgregados, agregado]);
-           
+
         }
         setValidated(true);
         e.preventDefault();
+        if (form.checkValidity()) {
+            setnuevoElementoTipos("");
+            setnuevoElementoVueltas("");
+            e.currentTarget.reset();
+            setValidated(false);
+        }
     }
 
     const onChangeNuevoElementoTipos = (e) => setnuevoElementoTipos(e.target.value);
@@ -56,13 +57,12 @@ const Agregados = () => {
                     <Row>
                         <Col>
                             <InputText id='txt-agregado' type='text' placeholder='Ingrese un agregado' value={nuevoElementoTipos}
-                                onChange={onChangeNuevoElementoTipos} label="Agregado:" mensajeValidacion="Ingrese un tipo"/>
-                            
+                                onChange={onChangeNuevoElementoTipos} label="Agregado:" mensajeValidacion="Ingrese un tipo" />
                         </Col>
-                        <Col className="col-md-6">                           
+                        <Col className="col-md-6">
                             <InputText id='txt-vueltas' type='number' placeholder='Ingrese las vueltas' value={nuevoElementoVueltas}
-                                onChange={onChangeNuevoElementoVueltas} label="Vueltas:" mensajeValidacion="Ingrese las vueltas"/>
-                        </Col>                      
+                                onChange={onChangeNuevoElementoVueltas} label="Vueltas:" mensajeValidacion="Ingrese las vueltas" />
+                        </Col>
                     </Row>
                     <Button variant="primary" type="submit" size="md" className="btn-agregados">Agregar <img src={add} /> </Button>
                 </Form>
@@ -70,7 +70,7 @@ const Agregados = () => {
                 <br />
                 <hr />
 
-                { listaAgregados.length > 0 ?
+                {listaAgregados.length > 0 ?
 
                     <Table >
                         <thead className="tabla-header">
@@ -82,19 +82,17 @@ const Agregados = () => {
                         </thead>
                         <tbody>
                             {
-
                                 listaAgregados.map((item, index) => (
-
-                                    <tr>
+                                    <tr key={index}>
                                         <td className="tabla-horarios">#{
                                             index + 1
                                         }
                                         </td>
                                         <td>
-                                            {item.tipo}
+                                            {item.tipoAgregado}
                                         </td>
                                         <td>
-                                            {item.vuelta}
+                                            {item.vueltas}
                                         </td>
                                     </tr>
 
@@ -110,4 +108,4 @@ const Agregados = () => {
     );
 }
 
-export default Agregados; 
+export default Agregados;

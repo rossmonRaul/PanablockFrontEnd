@@ -18,17 +18,20 @@ namespace Infraestrutura.BaseDatos
             this.contextoBD = contextoBD;
         }
 
-        public async Task<DtoDatosSP> InsertarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento)
+        public async Task<DtoDatosSP> InsertarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento)
         {
             try
             {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdEncabezado_ProduccionDiaria", entitiObservacionMantenimiento.idEncabezadoProduccionDiaria);
-                data.Add("Descripcion", entitiObservacionMantenimiento.descripcion);
-
                 string query = "SPInsertarObservaciondeMantenimiento";
-
-                return await this.contextoBD.EjecutarSP(query, data);
+                DtoDatosSP dtoDatosSP = new DtoDatosSP();
+                foreach (EntitiObservacionMantenimiento observacion in entitiObservacionMantenimiento)
+                {
+                    Dictionary<string, object> data = new Dictionary<string, object>();
+                    data.Add("IdEncabezado_ProduccionDiaria", observacion.idEncabezadoProduccionDiaria);
+                    data.Add("Descripcion", observacion.descripcion);
+                    dtoDatosSP = await this.contextoBD.EjecutarSP(query, data);
+                }
+                return dtoDatosSP;
             }
             catch (Exception)
             {
@@ -36,19 +39,21 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<DtoDatosSP> ActualizarObservacionMantenimiento(EntitiObservacionMantenimiento entitiObservacionMantenimiento)
+        public async Task<DtoDatosSP> ActualizarObservacionMantenimiento(List<EntitiObservacionMantenimiento> entitiObservacionMantenimiento)
         {
 
             try
             {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-
-                data.Add("IdObservacionesMantenimiento", entitiObservacionMantenimiento.idObservacionesMantenimiento  );
-                data.Add("Descripcion", entitiObservacionMantenimiento.descripcion);
-              
                 string query = "SPActualizarObservaciondeMantenimiento";
-
-                return await this.contextoBD.EjecutarSP(query, data);
+                DtoDatosSP dtoDatosSP = new DtoDatosSP();
+                foreach (EntitiObservacionMantenimiento observacion in entitiObservacionMantenimiento)
+                {
+                    Dictionary<string, object> data = new Dictionary<string, object>();
+                    data.Add("IdObservacionesMantenimiento", observacion.idObservacionesMantenimiento);
+                    data.Add("Descripcion", observacion.descripcion);
+                    dtoDatosSP = await this.contextoBD.EjecutarSP(query, data);
+                }
+                return dtoDatosSP;
             }
             catch (Exception)
             {
@@ -73,7 +78,7 @@ namespace Infraestrutura.BaseDatos
         }
 
 
-        public async Task<DtoObservacionMantenimiento> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        public async Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
         {
             try
             {
@@ -81,7 +86,7 @@ namespace Infraestrutura.BaseDatos
                 data.Add("IdObservacionesMantenimiento", idObservacionesMantenimiento);
                 string query = "SPObtenerDetalleObservacionMantenimiento";
 
-                return await this.contextoBD.ObtenerDato<DtoObservacionMantenimiento>(query, data);
+                return await this.contextoBD.ObtenerListaDeDatos<DtoObservacionMantenimiento>(query, data);
             }
             catch (Exception)
             {
@@ -89,7 +94,7 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-      
+
 
         public async Task<List<DtoObservacionMantenimiento>> ObtenerObservacionesMantenimiento()
         {

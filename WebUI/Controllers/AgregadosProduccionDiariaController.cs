@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebUI.Controllers
@@ -22,19 +23,27 @@ namespace WebUI.Controllers
 
         [HttpPost("[action]")]
         [Authorize]
-        public async Task<JsonResult> InsertarAgregados(EntitiAgregados entitiAgregados)
+        public async Task<JsonResult> InsertarAgregados(List<EntitiAgregados> entitiAgregados)
         {
-            return Json(await this.servicioAgregadosProduccionDiaria.InsertarAgregados(entitiAgregados));
+            try
+            {
+                return Json(await this.servicioAgregadosProduccionDiaria.InsertarAgregados(entitiAgregados));
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+
         }
 
-        [HttpDelete("[action]/{idAgregadoProduccionDiaria}")]
+        [HttpDelete("[action]")]
         [Authorize]
         public async Task<JsonResult> EliminarAgregados(int idAgregadoProduccionDiaria)
         {
             return Json(await this.servicioAgregadosProduccionDiaria.EliminarAgregados(idAgregadoProduccionDiaria));
         }
 
-        [HttpGet("[action]/{idEncabezadoProduccionDiaria}")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<JsonResult> ObtenerAgregados(int idEncabezadoProduccionDiaria)
         {

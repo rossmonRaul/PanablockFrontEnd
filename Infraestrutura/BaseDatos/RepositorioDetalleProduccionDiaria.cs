@@ -19,19 +19,24 @@ namespace Infraestrutura.BaseDatos
             this.contextoBD = contextoBD;
         }
 
-        public async Task<DtoDatosSP> InsertarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria)
+        public async Task<DtoDatosSP> InsertarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria)
         {
             try
             {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdEncabezadoProduccionDiaria", entitiDetalleProduccionDiaria.idEncabezadoProduccionDiaria);
-                data.Add("IdHorario", entitiDetalleProduccionDiaria.idHorario);
-                data.Add("Placas", entitiDetalleProduccionDiaria.placas);
-                data.Add("Observacion", entitiDetalleProduccionDiaria.observacion);
-          
-                string query = "SPInsertarDetalleProduccionDiaria";
+                DtoDatosSP dtoDatosSP = new DtoDatosSP();
+                foreach (EntitiDetalleProduccionDiaria detalle in entitiDetalleProduccionDiaria)
+                {
+                    Dictionary<string, object> data = new Dictionary<string, object>();
+                    data.Add("IdEncabezadoProduccionDiaria", detalle.idEncabezadoProduccionDiaria);
+                    data.Add("IdHorario", detalle.idHorario);
+                    data.Add("Placas", detalle.placas);
+                    data.Add("Observacion", detalle.observacion);
 
-                return await this.contextoBD.EjecutarSP(query, data);
+                    string query = "SPInsertarDetalleProduccionDiaria";
+
+                    dtoDatosSP = await this.contextoBD.EjecutarSP(query, data);
+                }
+                return dtoDatosSP;
             }
             catch (Exception)
             {
@@ -39,18 +44,24 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<DtoDatosSP> ActualizarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria)
+        public async Task<DtoDatosSP> ActualizarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria)
         {
             try
             {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdEncabezadoProduccionDiaria", entitiDetalleProduccionDiaria.idEncabezadoProduccionDiaria);
-                data.Add("IdHorario", entitiDetalleProduccionDiaria.idHorario);
-                data.Add("Placas", entitiDetalleProduccionDiaria.placas);
-                data.Add("Observacion", entitiDetalleProduccionDiaria.observacion);
-                string query = "SPActualizarDetalleProduccionDiaria";
+                DtoDatosSP dtoDatosSP = new DtoDatosSP();
+                foreach (EntitiDetalleProduccionDiaria detalle in entitiDetalleProduccionDiaria)
+                {
+                    Dictionary<string, object> data = new Dictionary<string, object>();
+                    data.Add("IdEncabezadoProduccionDiaria", detalle.idEncabezadoProduccionDiaria);
+                    data.Add("IdHorario", detalle.idHorario);
+                    data.Add("Placas", detalle.placas);
+                    data.Add("Observacion", detalle.observacion);
 
-                return await this.contextoBD.EjecutarSP(query, data);
+                    string query = "SPActualizarDetalleProduccionDiaria";
+
+                    dtoDatosSP = await this.contextoBD.EjecutarSP(query, data);
+                }
+                return dtoDatosSP;
             }
             catch (Exception)
             {

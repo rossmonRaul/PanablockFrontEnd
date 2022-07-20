@@ -14,7 +14,7 @@ namespace Dominio.Interfaces.Aplicacion.EncabezadoProduccionDiaria
 
         Task<DtoDatosSP> ActualizarEncabezadoProduccionDiaria(EntitiEncabezadoProduccionDiaria entitiEncabezadoProduccion);
 
-        Task<List<DtoEncabezadoProduccionDiaria>> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha);
+        Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha);
         Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta(int idPlanta, DateTime? Fecha);
 
     }

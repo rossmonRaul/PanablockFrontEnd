@@ -3,6 +3,7 @@ using Dominio.Interfaces.Aplicacion.DetalleProduccionDiaria;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebUI.Controllers
@@ -21,19 +22,29 @@ namespace WebUI.Controllers
 
         [HttpPost("[action]")]
         [Authorize]
-        public async Task<JsonResult> InsertarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria)
+        public async Task<JsonResult> InsertarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria)
         {
-            return Json(await this.servicioDetalleProduccionDiaria.InsertarDetalleProduccionDiaria(entitiDetalleProduccionDiaria));
+            try
+            {
+                return Json(await this.servicioDetalleProduccionDiaria.InsertarDetalleProduccionDiaria(entitiDetalleProduccionDiaria));
+            }
+            catch (System.Exception ex)
+            {
+
+                return Json(ex.Message);
+            }
+
+
         }
 
         [HttpPut("[action]")]
         [Authorize]
-        public async Task<JsonResult> ActualizarDetalleProduccionDiaria(EntitiDetalleProduccionDiaria entitiDetalleProduccionDiaria)
+        public async Task<JsonResult> ActualizarDetalleProduccionDiaria(List<EntitiDetalleProduccionDiaria> entitiDetalleProduccionDiaria)
         {
             return Json(await this.servicioDetalleProduccionDiaria.ActualizarDetalleProduccionDiaria(entitiDetalleProduccionDiaria));
         }
 
-        [HttpGet("[action]/{idEncabezadoProduccionDiaria}")]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<JsonResult> ObtenerDetalleProduccionDiaria(int idEncabezadoProduccionDiaria)
         {

@@ -13,5 +13,6 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
         Task<DtoDatosSP> InsertarTotalesProduccionDiaria(EntitiTotalesProduccionDiaria entitiTotalesProduccionDiaria);
 
         Task<DtoDatosSP> ActualizarTotalesProduccionDiaria(EntitiTotalesProduccionDiaria entitiTotalesProduccionDiaria);
+        Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha);
     }
 }

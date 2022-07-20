@@ -11,7 +11,7 @@ namespace Dominio.Interfaces.Aplicacion.AgregadosProduccionDiaria
     public interface IServicioAgregadosProduccionDiaria
     {
 
-        Task<DtoDatosSP> InsertarAgregados(EntitiAgregados entitiAgregados);
+        Task<DtoDatosSP> InsertarAgregados(List<EntitiAgregados> entitiAgregados);
 
         Task<DtoDatosSP> EliminarAgregados(int idAgregadoProduccionDiaria);
 

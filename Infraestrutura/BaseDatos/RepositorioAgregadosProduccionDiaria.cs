@@ -19,19 +19,25 @@ namespace Infraestrutura.BaseDatos
             this.contextoBD = contextoBD;
         }
 
-        public async Task<DtoDatosSP> InsertarAgregados(EntitiAgregados entitiAgregados)
+        public async Task<DtoDatosSP> InsertarAgregados(List<EntitiAgregados> entitiAgregados)
         {
             try
             {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdEncabezadoProduccionDiaria", entitiAgregados.idEncabezadoProduccionDiaria);
-                data.Add("Descripcion", entitiAgregados.descripcion);
-                data.Add("TipoAgregado", entitiAgregados.tipoAgregado);
-                data.Add("Vueltas", entitiAgregados.vueltas);
-                data.Add("UsuarioIngreso", entitiAgregados.usuarioIngreso);
                 string query = "SPInsertarAgregados";
+                DtoDatosSP dtoDatosSP = new DtoDatosSP();
+                foreach (EntitiAgregados agregado in entitiAgregados)
+                {
+                    Dictionary<string, object> data = new Dictionary<string, object>();
+                    data.Add("IdEncabezadoProduccionDiaria", agregado.idEncabezadoProduccionDiaria);
+                    data.Add("Descripcion", agregado.descripcion);
+                    data.Add("TipoAgregado", agregado.tipoAgregado);
+                    data.Add("Vueltas", agregado.vueltas);
+                    data.Add("UsuarioIngreso", agregado.usuarioIngreso);
 
-                return await this.contextoBD.EjecutarSP(query, data);
+
+                    dtoDatosSP = await this.contextoBD.EjecutarSP(query, data);
+                }
+                return dtoDatosSP;
             }
             catch (Exception)
             {

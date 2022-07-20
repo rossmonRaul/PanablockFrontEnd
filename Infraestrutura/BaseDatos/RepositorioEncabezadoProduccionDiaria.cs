@@ -23,10 +23,13 @@ namespace Infraestrutura.BaseDatos
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdEncabezadoProduccionDiaria", entitiEncabezadoProduccion.IdEncabezadoProduccionDiaria);
                 data.Add("HoraInicio", entitiEncabezadoProduccion.HoraInicio);
                 data.Add("HoraFinal", entitiEncabezadoProduccion.HoraFinal);
                 data.Add("IdPLanta", entitiEncabezadoProduccion.IdPlanta);
                 data.Add("IdProducto", entitiEncabezadoProduccion.IdProducto);
+                data.Add("Fecha", entitiEncabezadoProduccion.Fecha);
+                data.Add("Estatus", entitiEncabezadoProduccion.estatus);
                 string query = "SPInsertarEncabezadoProduccionDiaria";
 
                 return await this.contextoBD.EjecutarSP(query, data);
@@ -57,24 +60,24 @@ namespace Infraestrutura.BaseDatos
         }
 
 
-        public async Task<List<DtoEncabezadoProduccionDiaria>> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
+        public async Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdPlanta", idPlanta);
                 data.Add("Fecha", Fecha);
-                string query = "SPObtenerEncabezadoProduccionDiaria";
+                string query = "SPObtenerEncabezadoProduccionDiariaActivos";
 
-                return await this.contextoBD.ObtenerListaDeDatos<DtoEncabezadoProduccionDiaria>(query, data);
+                return await this.contextoBD.ObtenerDato<DtoEncabezadoProduccionDiaria>(query, data);
             }
             catch (Exception)
             {
-                throw;                                                                                                                                                                                                                                                                                                                                            
+                throw;
             }
         }
 
-        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta (int idPlanta, DateTime? Fecha)
+        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta(int idPlanta, DateTime? Fecha)
         {
             try
             {
