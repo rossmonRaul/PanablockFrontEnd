@@ -28,23 +28,20 @@ const DesgloseProduccionReporte = ({ listaDatos}) => {
        
                             <th className="tabla-header-top" >Hora</th>
                             <th>Placas</th>
-                            <th className="tabla-header-bottom">Observacion</th>
+                            <th className="tabla-header-bottom">Observación</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             listaDatos.map((item, index) => (
-                                <tr key={item.id}>
-                                    <td className="tabla-horarios">{
-
-                                        item.horaInicio.replace(':00.0000000', '') + " - " + item.horaFinal.replace(':00.0000000', '')
-                                    }
+                                <tr key={index}>
+                                    <td className="tabla-horarios">{item.hora}
                                     </td>
                                     <td>
                                         <InputText type='text' value={item.placas} disabled="disabled" />
                                     </td>
                                     <td>
-                                        {<TextArea value={item.observacion === " " ? "No hay observaciones" : item.observacion  } disabled="disabled" />}
+                                        {<TextArea value={item.observacion || "No hay observaciones"   } disabled="disabled" />}
                                     </td>
                                 </tr>
 

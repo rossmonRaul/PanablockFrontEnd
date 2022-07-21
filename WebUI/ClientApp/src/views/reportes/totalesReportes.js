@@ -67,11 +67,11 @@ const TotalesReportes = ({ data }) => { //lista con los datos de turnos
                                     value={data[0].cemento} disabled="disabled" />
                             </td>
                             <td><InputText type='text'
-                                value={data[0].aditivo} disabled="disabled" />
+                                value={data[0].aditivo || ""} disabled="disabled" />
                             </td>
                             <td>
                                 <InputText type='text'
-                                    value={data[0].color} disabled="disabled" />
+                                    value={data[0].color || ""} disabled="disabled" />
                             </td>
                             <td>
                                 <InputText type='number'

@@ -14,11 +14,6 @@ const AgregadosReporte = ({ listaAgregados }) => {
 
             <Col id="agregados-container" className="col-md-5 offset-1">
                 <h3 className="agregados-title">Agregados</h3>
-                <br />
-                <hr />
-               
-                <br />
-                <br />
                 <hr />
 
                 {listaAgregados.length > 0 ?

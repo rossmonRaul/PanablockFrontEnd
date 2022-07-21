@@ -10,10 +10,6 @@ const EncabezadoReporte = ({ data }) => {
     const [planta, setPlanta] = useState("");
 
 
-    useEffect(() => {
-    }, []);
-
-
     return (
         <>
             <Row >

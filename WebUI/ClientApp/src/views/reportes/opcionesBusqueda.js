@@ -57,14 +57,12 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     const [datos, setDatos] = useState({});
 
     //reporte produccion
-    const [datosEncabezado, setDatosEncabezado] = useState([]);
+    const [datosEncabezado, setDatosEncabezado] = useState({});
     const [datosDetalleProduccion, setDetalleProduccion] = useState([]);
     const [turnos, setTurnos] = useState([]);
     const [datosTotales, setTotalesProduccion] = useState([]);
     const [datosObservaciones, setObservaciones] = useState([]);
     const [datosAgregados, setAgregados] = useState([]);
-
-
 
 
     const onChangeFechaInicio = (e) => setFechaInicio(e.target.value);
@@ -193,10 +191,6 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     }
 
     const onClickGenerarReporteProduccion = async() => {
-
-
-
-
         ObtenerEncabezadoProduccionDiaria(idProduccion);
         ObtenerDetalleProduccionDiaria(idProduccion);
         ObtenerTurnos(idProduccion);
@@ -242,6 +236,10 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
         
     }, []);
 
+    const onClickPrueba = () => {
+        console.log(datosEncabezado);
+    }
+
 
     const ProduccionDiaria = () => {
         return (<div>
@@ -267,7 +265,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             <Row>
                 <Col>
                     {listaProduccion.length > 0 ?
-                        <InputSelect className="form-control" controlId="sel-idProduccion" label="Producción diaria" data={listaProduccion} onChange={onChangeIdProduccion} value={idProduccion} optionValue="idEncabezadoProduccionDiaria" optionLabel="idEncabezadoProduccionDiaria" />
+                        <InputSelect className="form-control" controlId="sel-idProduccion" label="Producción diaria" data={listaProduccion} onChange={onChangeIdProduccion} value={idProduccion} optionValue="idEncabezadoProduccionDiaria" optionLabel="producto" />
 
                         : <p>Sin datos</p>}
                 </Col> 
@@ -342,7 +340,8 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             </div>
             <br />
 
-            {Number(reporteBusqueda) === 1 && Number(idTipoReporte) === 1 /*&& datosEncabezado.length > 0 && datosDetalleProduccion.length > 0
+            {Number(reporteBusqueda) === 1 && Number(idTipoReporte) === 1 && datosEncabezado.idEncabezadoProduccionDiaria !== undefined && datosTotales.length > 0 && datosDetalleProduccion.length > 0
+                 /*&& datosEncabezado.length > 0 && datosDetalleProduccion.length > 0
                 &&  turnos.length > 0*/ ?
                 <div className="container">
                     <br />
@@ -352,7 +351,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
                     <DesgloseProduccionReporte listaDatos={datosDetalleProduccion} />
                     <br />
                     <br />
-                    { /*TurnosReportes data={turnos} />*/}
+                    <TurnosReportes data={turnos} />
                     <br />
                     <br />
                      <TotalesReportes data={datosTotales} />
