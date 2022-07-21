@@ -16,8 +16,7 @@ namespace Dominio.Interfaces.Infraestrutura.BaseDatos
 
         Task<DtoDatosSP> EliminarObservacionMantenimiento(int idObservacionesMantenimiento);
 
-        Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento);
-
+        Task<List<DtoObservacionMantenimiento>> ObtenerObservacionMantenimientoPorEncabezado(int idEncabezadoProduccionDiaria);
         Task<List<DtoObservacionMantenimiento>> ObtenerObservacionesMantenimiento();
     }
 }

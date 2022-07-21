@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace WebUI.Controllers
 {
@@ -39,11 +41,12 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<JsonResult> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        [Authorize]
+        public async Task<JsonResult> ObtenerObservacionMantenimientoPorEncabezado(int idEncabezadoProduccionDiaria)
         {
             try
             {
-                return Json(await this.servicioObservacionMantenimiento.ObtenerDetalleObservacionMantenimiento(idObservacionesMantenimiento));
+                return Json(await this.servicioObservacionMantenimiento.ObtenerObservacionMantenimientoPorEncabezado(idEncabezadoProduccionDiaria));
             }
             catch (Exception ex)
             {

@@ -35,9 +35,14 @@ namespace Aplicacion.EncabezadoProduccionDiaria
             return await this.repositorioEncabezadoProduccion.ObtenerEncabezadoProduccionDiaria( idPlanta,  Fecha);
         }
 
-        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta (int idPlanta, DateTime? Fecha)
+        public async Task<List<DtoEncabezadoProduccionDiaria>> ObtenerProducciones(int idPlanta, DateTime? Fecha)
         {
-            return await this.repositorioEncabezadoProduccion.ObtenerProduccionDiariaPorFechaYPlanta(idPlanta, Fecha);
+            return await this.repositorioEncabezadoProduccion.ObtenerProducciones(idPlanta, Fecha);
+        }
+
+        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorID(int idEncabezadoProduccionDiaria)
+        {
+            return await this.repositorioEncabezadoProduccion.ObtenerProduccionDiariaPorID(idEncabezadoProduccionDiaria);
         }
 
     }

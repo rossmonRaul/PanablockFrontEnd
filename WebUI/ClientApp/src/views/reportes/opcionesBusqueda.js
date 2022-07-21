@@ -12,6 +12,13 @@ import ReporteCementoPorUnidad from './cementoPorUnidad'
 import ReporteAcumuladoPlacas from './acumuladoPlacas'
 import { ReporteAcumulativoMensual } from '../../servicios/ServicioReporte';
 import { ReporteProductos } from '../../servicios/ServicioReporte';
+import { ObtenerEncabezadoReporte, ObtenerDetalleProduccionReporte, ObtenerSegmentoDetalleProduccionDiaria, ObtenerDetalleAgregados, ObtenerDetalleObservacionMantenimiento, ObtenerTotalProduccionDiaria } from '../../servicios/ServicioReporte';
+import EncabezadoReporte from "./encabezadoReporte";
+import DesgloseProduccionReporte from './desgloseProduccionReporte';
+import TurnosReportes from './turnosReportes';
+import TotalesReportes from './totalesReportes';
+import AgregadosReporte from './agregadosReporte';
+import ObservacionesMantenimientoReporte from './observacionesReporte';
 
 
 const OpcionesBusqueda = ({ idTipoReporte }) => {
@@ -22,6 +29,9 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
         , { id: 10, mes: "Octubre" }, { id: 11, mes: "Noviembre" }, { id: 12, mes: "Diciembre" }];
 
     const listaAnnios = [{ id: 2011 }, { id: 2012 }, { id: 2013 }, { id: 2014 }, { id: 2015 }, { id: 2016 }, { id: 2017 }, { id: 2018 }, { id: 2019 }, { id: 2020 }, { id: 2021 }, { id: 2022 }, { id: 2023 }, { id: 2024 }, { id: 2025 }, { id: 2026 }, { id: 2027 }, { id: 2028 }, { id: 2029 }, { id: 2030 }, { id: 2031 }, { id: 2032 }];
+
+
+    const [loading, setLoading] = useState(true);
 
     const [mes, setMes] = useState(listaMeses[0].id);
     const [fechaInicio, setFechaInicio] = useState("");
@@ -45,6 +55,17 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     const [labels, setLabels] = useState([]);
     const [datasets, setDatasets] = useState([]);
     const [datos, setDatos] = useState({});
+
+    //reporte produccion
+    const [datosEncabezado, setDatosEncabezado] = useState([]);
+    const [datosDetalleProduccion, setDetalleProduccion] = useState([]);
+    const [turnos, setTurnos] = useState([]);
+    const [datosTotales, setTotalesProduccion] = useState([]);
+    const [datosObservaciones, setObservaciones] = useState([]);
+    const [datosAgregados, setAgregados] = useState([]);
+
+
+
 
     const onChangeFechaInicio = (e) => setFechaInicio(e.target.value);
     const onChangeFechaFinal = (e) => setFechaFinal(e.target.value);
@@ -74,7 +95,6 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
 
     const ObtenerListadoDeProducciones = async (idPlanta, fecha) => {
         const producciones = await ObtenerProduccionesDiarias(parseInt(idPlanta), fecha);
-        console.log(producciones)
         if (producciones !== undefined && producciones !== null) {
             setListaProduccion(producciones);
             setidProduccion(producciones[0].idEncabezadoProduccionDiaria);
@@ -134,8 +154,6 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             data.datasets.push(dataset)
         })
 
-
-        console.log(data)
         setDatos(data)
 
         setreporteBusqueda(idTipoReporte);
@@ -143,18 +161,55 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
         /* Obtener los datos para el gráfico*/
     }
 
-    const onClickGenerarReporteProduccion = (valor) => {
+    const ObtenerEncabezadoProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
+        let dataEncabezado = await ObtenerEncabezadoReporte(idEncabezadoProduccionDiaria)
+        setDatosEncabezado(dataEncabezado);
+    }
 
-      
-            let datosProduccion = ({
-                idEncabezadoProduccionDiaria: idProduccion
-        });
+    const ObtenerDetalleProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
+        let dataDetalle = await ObtenerDetalleProduccionReporte(idEncabezadoProduccionDiaria)
+        setDetalleProduccion(dataDetalle);
+    }
+
+    const ObtenerTurnos =  async (idEncabezadoProduccionDiaria) => {
+        let dataTurnos =  await ObtenerSegmentoDetalleProduccionDiaria(idEncabezadoProduccionDiaria)
+        setTurnos(dataTurnos);   
+    }
+
+
+    const ObtenerTotales = async (fecha) => {
+        let dataTotales = await ObtenerTotalProduccionDiaria(fecha)
+        setTotalesProduccion(dataTotales);
+    }
+
+    const ObtenerObservaciones= async (idEncabezadoProduccionDiaria) => {
+        let dataObservaciones = await ObtenerDetalleObservacionMantenimiento(idEncabezadoProduccionDiaria)
+        setObservaciones(dataObservaciones);
+    }
+
+    const ObtenerAgregados = async (idEncabezadoProduccionDiaria) => {
+        let dataAgregados = await ObtenerDetalleAgregados(idEncabezadoProduccionDiaria)
+        setAgregados(dataAgregados);
+    }
+
+    const onClickGenerarReporteProduccion = async() => {
+
+
+
+
+        ObtenerEncabezadoProduccionDiaria(idProduccion);
+        ObtenerDetalleProduccionDiaria(idProduccion);
+        ObtenerTurnos(idProduccion);
+        ObtenerTotales(fechaProduccion);
+        ObtenerObservaciones(idProduccion);
+        ObtenerAgregados(idProduccion);
+
 
         setreporteBusqueda(idTipoReporte);
-
-           
-          
     }
+
+
+    
     const onClickGenerarReporteCemento = () => {
 
         let datosCemento = ({
@@ -184,6 +239,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     useEffect(() => {
         ObtenerListadoDeProductos();
         ObtenerListadoDePlantas();
+        
     }, []);
 
 
@@ -223,6 +279,8 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
                 {listaProduccion.length > 0 ?
                     <Button variant="primary" type="submit" size="md" onClick={onClickGenerarReporteProduccion}>Buscar </Button> : ""}
             </div>
+            
+
         </div>)
     }
 
@@ -284,10 +342,34 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             </div>
             <br />
 
-            {Number(reporteBusqueda) === 1 && Number(idTipoReporte) === 1 ? <ReporteProduccionDiaria data={datos} /> : ""}
+            {Number(reporteBusqueda) === 1 && Number(idTipoReporte) === 1 /*&& datosEncabezado.length > 0 && datosDetalleProduccion.length > 0
+                &&  turnos.length > 0*/ ?
+                <div className="container">
+                    <br />
+                    <br />
+                    { <EncabezadoReporte data={datosEncabezado} />}
+                    <br />
+                    <DesgloseProduccionReporte listaDatos={datosDetalleProduccion} />
+                    <br />
+                    <br />
+                    { /*TurnosReportes data={turnos} />*/}
+                    <br />
+                    <br />
+                     <TotalesReportes data={datosTotales} />
+                <br />
+                <hr />
+                <br />
+                <Row>
+                    <ObservacionesMantenimientoReporte listaObservaciones={datosObservaciones} />
+                    <AgregadosReporte listaAgregados={datosAgregados} />
+                </Row>
+                <br />
+                <br />
+                </div>
+
+                /*<ReporteProduccionDiaria datosEncabezado={datosEncabezado} datosDesglose={datosDetalleProduccion} datosTurnos={turnos} /> */: ""}
             {Number(reporteBusqueda) === 2 && Number(idTipoReporte) === 2 ? <ReporteCementoPorUnidad labels={labels} datasets={datasets} /> : ""}
             {Number(reporteBusqueda) === 3 && Number(idTipoReporte) === 3 ? <ReporteAcumuladoPlacas data={datos }  />: ""}
-
         </>
     )
 }

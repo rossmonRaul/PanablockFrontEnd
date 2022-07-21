@@ -78,13 +78,13 @@ namespace Infraestrutura.BaseDatos
         }
 
 
-        public async Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        public async Task<List<DtoObservacionMantenimiento>> ObtenerObservacionMantenimientoPorEncabezado(int idEncabezadoProduccionDiaria)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdObservacionesMantenimiento", idObservacionesMantenimiento);
-                string query = "SPObtenerDetalleObservacionMantenimiento";
+                data.Add("IdEncabezado_ProduccionDiaria", idEncabezadoProduccionDiaria);
+                string query = "SPObtenerObservacionesMantenimientoPorEncabezado";
 
                 return await this.contextoBD.ObtenerListaDeDatos<DtoObservacionMantenimiento>(query, data);
             }

@@ -1,66 +1,52 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
-import Encabezado from "../producciondiaria/encabezado";
-import DesgloseProduccion from '../producciondiaria/desgloseProduccion';
-import TotalesProduccion from '../producciondiaria/totalesProduccion';
-import Agregados from '../producciondiaria/agregados';
-import Turnos from '../producciondiaria/turnos'
-import ObservacionesMantenimiento from '../producciondiaria/observacionesMantenimiento';
+import EncabezadoReporte from "./encabezadoReporte";
+import DesgloseProduccionReporte from './desgloseProduccionReporte';
+import TurnosReportes from './turnosReportes';
+import TotalesReportes from './totalesReportes';
+import AgregadosReporte from './agregadosReporte';
+import ObservacionesMantenimientoReporte from './observacionesReporte';
 import '../../styles/producciondiaria.css';
 
-const ProduccionDiaria = ({ data }) => {
+const ProduccionDiaria = ({ datosEncabezado, datosDesglose, datosTurnos, datosTotales, datosObservaciones, datosAgregados }) => {
 
-    const [idEncabezadoProduccionDiaria, setidEncabezadoProduccionDiaria] = useState(data.idEncabezadoProduccionDiaria);
+
+    /*const [Encabezado, setEncabezado] = useState([]);
+    const [Desglose, setDesglose] = useState([]);
+    const [Turno, setTurno] = useState([]);*/
+
+
 
     useEffect(() => {
-
+       
     }, []);
 
-    const ObtenerEncabezadoProduccionDiaria = async () => {      
-           /*Obtener id}*/
-    }
-
-    const ObtenerDetalleProduccionDiaria = async () => {
-        /*Obtener id}*/
-    }
-
-    const ObtenerTotalesProduccionDiaria = async () => {
-        /*Obtener id, falta el SP}*/
-    }
-
-    const ObtenerObservacionesMantenimiento = async () => {
-        /*Obtener id}*/
-    }
-
-    const ObtenerAgregados = async () => {
-        /*Obtener id}*/
-    }
 
     return (
         <>
-            <div className="container">
-                <br />
-                <br />
-                <Encabezado />
-                <br />
-                <DesgloseProduccion />
-                <br />
-                <br />
-                <Turnos />
-                <br />
-                <br />
-                <TotalesProduccion />
+
+                <div className="container">
+                    <br />
+                    <br />
+                    <EncabezadoReporte data={datosEncabezado} />
+                    <br />
+                    <DesgloseProduccionReporte listaDatos={datosDesglose} />
+                    <br />
+                    <br />
+                    <TurnosReportes data={datosTurnos} />
+                    <br />
+                    <br />
+                    {/* <TotalesReportes data={datosTotales} />
                 <br />
                 <hr />
                 <br />
                 <Row>
-                    <ObservacionesMantenimiento />
-                    <Agregados />
+                    <ObservacionesMantenimientoReporte listaObservaciones={datosObservaciones} />
+                    <AgregadosReporte listaAgregados={datosAgregados} />
                 </Row>
                 <br />
-                <br />
-            </div>
-
+                <br />*/}
+                </div>
         </>
 
     );

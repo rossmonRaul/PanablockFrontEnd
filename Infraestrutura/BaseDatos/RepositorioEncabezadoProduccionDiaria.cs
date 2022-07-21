@@ -77,14 +77,30 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorFechaYPlanta(int idPlanta, DateTime? Fecha)
+        public async Task<List<DtoEncabezadoProduccionDiaria>> ObtenerProducciones(int idPlanta, DateTime? Fecha)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdPLanta", idPlanta);
                 data.Add("Fecha", Fecha);
-                string query = "SPObtenerProduccionDiariaPorFechaYPlanta";
+                string query = "SPObtenerEncabezadoProduccionDiaria";
+
+                return await this.contextoBD.ObtenerListaDeDatos<DtoEncabezadoProduccionDiaria>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<DtoEncabezadoProduccionDiaria> ObtenerProduccionDiariaPorID(int idEncabezadoProduccionDiaria)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdEncabezadoProduccionDiaria", idEncabezadoProduccionDiaria);
+                string query = "SPObtenerEncabezadoProduccionDiariaPorID";
 
                 return await this.contextoBD.ObtenerDato<DtoEncabezadoProduccionDiaria>(query, data);
             }

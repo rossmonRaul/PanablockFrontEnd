@@ -35,9 +35,9 @@ namespace Aplicacion.ObservacionMantenimiento
             return await this.repositorioObservacionMantenimiento.EliminarObservacionMantenimiento(idObservacionesMantenimiento);
         }
 
-        public async Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        public async Task<List<DtoObservacionMantenimiento>> ObtenerObservacionMantenimientoPorEncabezado(int idEncabezadoProduccionDiaria)
         {
-            return await this.repositorioObservacionMantenimiento.ObtenerDetalleObservacionMantenimiento(idObservacionesMantenimiento);
+            return await this.repositorioObservacionMantenimiento.ObtenerObservacionMantenimientoPorEncabezado(idEncabezadoProduccionDiaria);
         }
 
 

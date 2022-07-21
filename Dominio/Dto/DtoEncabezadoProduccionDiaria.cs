@@ -14,6 +14,8 @@ namespace Dominio.Dto
         public string HoraFinal { get; set; }
         public int IdPlanta { get; set; }
         public int IdProducto { get; set; }
+        public string Planta { get; set; }
+        public string Producto { get; set; }
 
         public int estatus { get; set; }
     }
