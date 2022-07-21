@@ -18,5 +18,6 @@ namespace Dominio.Interfaces.Aplicacion.ObservacionMantenimiento
 
         Task<List<DtoObservacionMantenimiento>> ObtenerObservacionMantenimientoPorEncabezado(int idEncabezadoProduccionDiaria);
         Task<List<DtoObservacionMantenimiento>> ObtenerObservacionesMantenimiento();
+        Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento);
     }
 }

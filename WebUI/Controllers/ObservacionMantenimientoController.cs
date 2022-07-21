@@ -62,5 +62,20 @@ namespace WebUI.Controllers
         {
             return Json(await this.servicioObservacionMantenimiento.ObtenerObservacionesMantenimiento());
         }
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        {
+            try
+            {
+                return Json(await this.servicioObservacionMantenimiento.ObtenerDetalleObservacionMantenimiento(idObservacionesMantenimiento));
+            }
+            catch (Exception ex)
+            {
+
+                return Json($"Error: {ex.Message}");
+            }
+
+        }
     }
 }

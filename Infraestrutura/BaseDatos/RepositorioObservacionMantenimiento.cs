@@ -110,5 +110,21 @@ namespace Infraestrutura.BaseDatos
                 throw;
             }
         }
+
+        public async Task<List<DtoObservacionMantenimiento>> ObtenerDetalleObservacionMantenimiento(int idObservacionesMantenimiento)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdObservacionesMantenimiento", idObservacionesMantenimiento);
+                string query = "SPObtenerDetalleObservacionMantenimiento";
+
+                return await this.contextoBD.ObtenerListaDeDatos<DtoObservacionMantenimiento>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

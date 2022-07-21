@@ -14,6 +14,7 @@ import {
     ObtenerDetalleProduccionDiaria, ObtenerEncabezadoProduccionDiaria, ObtenerHorarios, ObtenerSegmentoDetalleProduccionDiaria, ObtenerTotalProduccionDiaria
 } from '../../servicios/ServicioProduccionDiaria';
 import { ObtenerProductos } from '../../servicios/ServicioProducto';
+import { MensajeModal, MensajeModalAceptar } from '../../components/ventanaModal';
 
 
 const ProduccionDiaria = () => {
@@ -47,6 +48,12 @@ const ProduccionDiaria = () => {
     const [color, setColor] = useState("");
     const [cantidadColor, setCantidadColor] = useState("");
     const [mensaje, setMensaje] = useState("");
+
+    const [showMensaje, setShowMensaje] = useState(false);
+    const [mensajeModal, setMensajeModal] = useState('');
+
+    const [showMensajeAceptar, setShowMensajeAceptar] = useState(false);
+    const [mensajeModalAceptar, setMensajeModalAceptar] = useState('');
 
     useEffect(() => {
         ObtenerListadoDeHorarios();
@@ -153,7 +160,6 @@ const ProduccionDiaria = () => {
                 })
             }
         });
-        console.log(tempLista, listaAgregados);
         return tempLista;
     }
 
@@ -182,15 +188,22 @@ const ProduccionDiaria = () => {
 
             const respObservacion = await InsertarObservacionMantenimiento(ObtenerObservacionesDeMantenimiento(respuesta.mensaje));
             const respAgregados = await InsertarAgregados(ObtenerAgregados(respuesta.mensaje, nombre));
-            setMensaje({
+            setMensajeModalAceptar("Proceso completado: Producción diaria guardada con éxito.")
+            setShowMensajeAceptar(true)
+            /*setMensaje({
                 indicador: 0,
                 mensaje: "Proceso completado: Producción diaria guardada con éxito."
-            });
+            });*/
             ObtenerProduccionDiaria()
         }
     }
 
-    const onClickFinalizar = async () => {
+    const onClickFinalizar = () => {
+        setShowMensaje(true);
+        setMensajeModal('¿Esta seguro de que quiere Eliminar el registro?');        
+    }
+
+    const onClickConfirmarFinalizar = async () => {
         const { idPlanta, nombre } = await ObtenerDatosDeUsuario();
         const data = {
             idEncabezadoProduccionDiaria,
@@ -202,6 +215,9 @@ const ProduccionDiaria = () => {
             estatus: 2
         }
         const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+        /*console.log(respuesta);
+        setShowMensaje(false);*/
+        window.location.reload();
     }
 
     const ObtenerProduccionDiaria = async () => {
@@ -243,7 +259,7 @@ const ProduccionDiaria = () => {
 
     const ObtenerListaDetalleObservacion = async (idEncabezadoProduccionDiaria) => {
         let detalleObservacion = await ObtenerDetalleObservacionMantenimiento(idEncabezadoProduccionDiaria);
-        detalleObservacion = detalleObservacion == null ? [] : detalleObservacion;
+        detalleObservacion = detalleObservacion == null || detalleObservacion.indicador > 0 ? [] : detalleObservacion;
         setListaObservaciones(detalleObservacion)
     }
 
@@ -277,6 +293,9 @@ const ProduccionDiaria = () => {
         const mes = (today.getMonth() + 1).toString().padStart(2, '0');
         return `${today.getFullYear()}-${mes}-${dia}`;
     }
+
+    const handleCloseMensaje = () => setShowMensaje(false);
+    const handleCloseMensajeAceptar = () => setShowMensajeAceptar(false);
 
     return (
         <>
@@ -320,7 +339,11 @@ const ProduccionDiaria = () => {
                 <br />
                 <br />
             </div>
-
+            <MensajeModal show={showMensaje} handleClose={handleCloseMensaje} 
+            titulo="Mensaje de confirmación" mensaje={mensajeModal} 
+            handleAceptar={onClickConfirmarFinalizar} />
+            <MensajeModalAceptar show={showMensajeAceptar} handleClose={handleCloseMensajeAceptar} 
+            titulo="Mensaje de confirmación" mensaje={mensajeModalAceptar} />
         </>
 
     );

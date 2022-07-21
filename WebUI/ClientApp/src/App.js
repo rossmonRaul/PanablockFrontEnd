@@ -14,7 +14,6 @@ import ProduccionDiaria from './views/producciondiaria';
 import Reportes from './views/reportes';
 import { ObtenerTokenUsuario } from './utils/utilidades';
 import { ObtenerDatosDeUsuario } from './utils/utilidades';
-import Reportes from './views/reportes';
 
 import Login from './views/login';
 import './custom.css'
