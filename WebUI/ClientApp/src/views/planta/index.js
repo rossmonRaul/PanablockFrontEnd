@@ -98,7 +98,7 @@ const Planta = () => {
 
     const ValidarSiFilaFueSeleccionada = (fila) => Object.entries(fila).length === 0 ? false : true;    
 
-    const onChangeIdBuscar = (e) => {
+    /*const onChangeIdBuscar = (e) => {
         ObtenerBuscarPersonalizada(e.target.value);
     }
 
@@ -117,7 +117,7 @@ const Planta = () => {
 
             idBuscar === " " ? setListaRespaldo(listaPlantas) : setListaRespaldo([]);
         }
-    }
+    }*/
 
 
     return (
@@ -125,22 +125,13 @@ const Planta = () => {
             <div className="container-fluid text-no">
                 <h1>Catálogo de Ubicaciones de Plantas</h1>
                 <hr />
-                <Row >
                 
-                    <Col lg={1} >
+                  
                         <Button variant="primary" type="submit" size="sm" onClick={() => onClickNuevaPlanta()}>Registrar</Button>{' '}
-                    </Col>
-                    <Col lg={1}>
+      
                         <Button variant="primary" type="submit" size="sm" onClick={() => onClickActualizarPlanta()} disabled={bloquearBoton}>Actualizar</Button>{' '}
-                    </Col>
-                    <Col lg={1}>
                 <Button variant="primary" type="submit" size="sm" onClick={() => onClickInactivarPlanta()} disabled={bloquearBoton}>{textoBotonInactivar}
                         </Button>
-                    </Col>
-                    <Col lg={2 }>
-                <InputText type="text" placeholder="Buscar..." onChange={onChangeIdBuscar} />
-                </Col>
-                </Row>
                 <br />
                 {mensajeRespuesta.mensaje !== "" ? 
                 <>                   

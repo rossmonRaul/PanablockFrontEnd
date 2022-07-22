@@ -13,7 +13,7 @@ namespace Dominio.Dto
 
         public int idHorario { get; set; }
 
-        public string hora { get; set; 
+        public string hora { get; set; } 
 
         public int placas { get; set; }
         public string observacion { get; set; }
