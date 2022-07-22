@@ -63,42 +63,51 @@ const Totales = ({ placasTotales, setPlacasTotales, unidadesTotales, setUnidades
                         <tr>
                             <td>
                                 <InputText type='number'
-                                    value={placasTotales} onChange={onChangePlacasTotales} />
+                                    value={placasTotales} onChange={onChangePlacasTotales} text={placasTotales === ""? "*Obligatorio": <br/>} />
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={unidadesTotales} onChange={onChangeUnidadesTotales} />
+                                <br/>
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={cubosTotales} onChange={onChangeCubosTotales} />
+                                <br />
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={mermaTotal} onChange={onChangeMermaTotal} />
+                                <br />
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={mezclasPerdidas} onChange={onChangeMezclasPerdidas} />
+                                <br />
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={numeroMezclas} onChange={onChangeNumeroMezclas} />
+                                <br />
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={cemento} onChange={onChangeCemento} />
+                                <br />
                             </td>
                             <td><InputText type='text'
                                 value={aditivo} onChange={onChangeAditivo} />
+                                <br />
                             </td>
                             <td>
                                 <InputText type='text'
                                     value={color} onChange={onChangeColor} />
+                                <br />
                             </td>
                             <td>
                                 <InputText type='number'
                                     value={cantidadColor} onChange={onChangeCantidadColor} />
+                                <br />
 
                             </td>
                         </tr>

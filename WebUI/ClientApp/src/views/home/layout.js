@@ -43,6 +43,7 @@ const Layout = ({ CerrarSession }) => {
                     <div className="sidebar-header">
                         <h3><img src={logo} className="img-fluid" style={{ width: "150px" }} /><span></span></h3>
                     </div>
+                    <div className="menu-list">
                     <ul className="list-unstyled components">
                         {rol === "Inspector" || rol === "Administrador" ?
                             <li className={linkActive === 'producciondiaria' ? 'active' : ''}>
@@ -50,11 +51,11 @@ const Layout = ({ CerrarSession }) => {
                             </li>
                             : ""
                         }
-                        <div className="small-screen navbar-display">
+                        { /*<div className="small-screen navbar-display">
                             <li className="d-lg-none d-md-block d-xl-none d-sm-block">
                                 <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>user</span></Link>
                             </li>
-                        </div>
+                        </div>*/}
                         {/* }<li className={linkActive === 'home' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/" onClick={() => ActivarLink('home')}>{' '}<span>Observacion de mantenimiento</span></Link>
                         </li>*/}
@@ -100,19 +101,79 @@ const Layout = ({ CerrarSession }) => {
                             </li>
                             : ""}
                     </ul>
-
+                    </div>
                 </nav>
 
 
                 <div id="content">
-                    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "#005CB8" }} >
-                        <Container fluid>
+                    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "#005CB8" }} >                    
+                        <Container fluid>                          
                             <Navbar.Toggle aria-controls="navbarScroll" style={{ backgroundColor: "#005CB8" }} />
+                            <div className="user-info">
+                                <h1 style={{ fontWeight: "700", color: "white" }} href="#">{nombreUsuario}</h1>
+                                <Nav.Link href="#" ><Button id="logout" onClick={() => CerrarSession()}>Cerrar Sesión</Button></Nav.Link>
+                            </div>
                             <Navbar.Collapse className="justify-content-end">
                                 <Nav>
-                                    <Nav.Link href="#"><img src={user} style={{ objectFit: "contain" }} /> </Nav.Link>
+                                   
+                                    <div className="menu-responsive">
+                                        <ul className="list-unstyled components">
+                                            {rol === "Inspector" || rol === "Administrador" ?
+                                                <li className={linkActive === 'producciondiaria' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/producciondiaria" onClick={() => ActivarLink('producciondiaria')}>{' '}<span>Producción Diaria</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                        
+                                            {rol === "Administrador" ?
+                                                <li className={linkActive === 'planta' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/planta" onClick={() => ActivarLink('planta')}>{' '}<span>Plantas</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                            {rol === "Inspector" || rol === "Administrador" ?
+                                                <li className={linkActive === 'actividadplanta' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/actividadplanta" onClick={() => ActivarLink('actividadplanta')}>{' '}<span>Actividad de plantas</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                            {rol === "Administrador" ?
+                                                <li className={linkActive === 'producto' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/producto" onClick={() => ActivarLink('producto')}>{' '}<span>Productos</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                            {rol === "Administrador" ?
+                                                <li className={linkActive === 'controldecalidad' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/controldecalidad" onClick={() => ActivarLink('controldecalidad')}>{' '}<span>Control de calidad</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                            {rol === "Administrador" ?
+                                                <li className={linkActive === 'tipomaterial' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/tipomaterial" onClick={() => ActivarLink('tipomaterial')}>{' '}<span>Tipos de materiales</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                            {rol === "Administrador" ?
+                                                <li className={linkActive === 'usuarios' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/usuarios" onClick={() => ActivarLink('usuarios')}>{' '}<span>Usuarios</span></Link>
+                                                </li>
+                                                : ""
+                                            }
+                                            {rol === "Administrador" ?
+                                                <li className={linkActive === 'reportes' ? 'active' : ''}>
+                                                    <Link className={`dashboard`} to="/reportes" onClick={() => ActivarLink('reportes')}>{' '}<span>Reportes</span></Link>
+                                                </li>
+                                                : ""}
+                                        </ul>
+                                    </div>
+                                    <hr/>
+                                    <div className="user-responsive">
+                                    <Nav.Link href="#"><img src={user} style={{ objectFit: "contain" }} className="img-user" /> </Nav.Link>                            
                                     <Nav.Link style={{ fontWeight: "700", color: "white" }} href="#">{nombreUsuario}</Nav.Link>
                                     <Nav.Link href="#" ><Button id="logout" onClick={() => CerrarSession()}>Cerrar Sesión</Button></Nav.Link>
+                                    </div>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>

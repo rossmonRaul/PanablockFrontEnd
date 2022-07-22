@@ -17,7 +17,7 @@ const Turnos = ({ placaInicioTurno1, setPlacaInicioTurno1, placaFinalTurno1, set
             <div className="section-container">
                 <div>
                     <div className="turno-left" >
-                        <h2>Conteo de placas por turno</h2>
+                        <h2>Conteo de placas por mezcla</h2>
                     </div>
                     <div className="turno-right">
                         <img src={turno} />

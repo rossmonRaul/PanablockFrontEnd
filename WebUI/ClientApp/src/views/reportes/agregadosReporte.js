@@ -13,7 +13,7 @@ const AgregadosReporte = ({ listaAgregados }) => {
         <>
 
             <Col id="agregados-container" className="col-md-5 offset-1">
-                <h3 className="agregados-title">Agregados</h3>
+                <h3 className="agregados-title">Materiales</h3>
                 <hr />
 
                 {listaAgregados.length > 0 ?
@@ -21,8 +21,8 @@ const AgregadosReporte = ({ listaAgregados }) => {
                     <Table >
                         <thead className="tabla-header">
                             <tr>
-                                <th className="tabla-header-top"># Agregado</th>
-                                <th>Tipos</th>
+                                <th className="tabla-header-top"># Material</th>
+                                <th>Material</th>
                                 <th className="tabla-header-bottom">Vueltas</th>
                             </tr>
                         </thead>

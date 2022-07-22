@@ -8,6 +8,7 @@ import Turnos from './turnos'
 import ObservacionesMantenimiento from './observacionesMantenimiento';
 import '../../styles/producciondiaria.css';
 import { ObtenerDatosDeUsuario } from '../../utils/utilidades';
+import { ObtenerTipoMateriales } from '../../servicios/ServicioTipoMateriales';
 import {
     AgregarDetalleProduccionDiaria, AgregarEncabezadoProduccionDiaria, AgregarSegmentoDetalleProduccionDiaria, InsertarAgregados,
     InsertarObservacionMantenimiento, InsertarTotalesProduccionDiaria, ObtenerDetalleAgregados, ObtenerDetalleObservacionMantenimiento,
@@ -28,6 +29,8 @@ const ProduccionDiaria = () => {
     const [listaHorarios, setListaHorarios] = useState([]);
     const [listaProductos, setListaProductos] = useState([]);
     const [desgloseProduccion, setDesgloseProduccion] = useState([]);
+    const [listaMateriales, setListaMateriales] = useState([]);
+
 
     const [placaInicioTurno1, setPlacaInicioTurno1] = useState("");
     const [placaFinalTurno1, setPlacaFinalTurno1] = useState("");
@@ -58,7 +61,7 @@ const ProduccionDiaria = () => {
     useEffect(() => {
         ObtenerListadoDeHorarios();
         ObtenerListadoDeProductos();
-
+        ObtenerListadoDeMateriales();
     }, []);
 
     useEffect(() => {
@@ -73,6 +76,14 @@ const ProduccionDiaria = () => {
                 element.label = `${element.horaInicio}-${element.horaFinal}`
             });
             setListaHorarios(horarios);
+        }
+    }
+
+    const ObtenerListadoDeMateriales = async () => {
+        const materiales = await ObtenerTipoMateriales();
+        if (materiales !== undefined ) {
+           
+            setListaMateriales(materiales);
         }
 
     }
@@ -328,22 +339,34 @@ const ProduccionDiaria = () => {
                 <br />
                 <Row>
                     <ObservacionesMantenimiento listaObservaciones={listaObservaciones} setListaObservaciones={setListaObservaciones} />
-                    <Agregados listaAgregados={listaAgregados} setListaAgregados={setListaAgregados} />
+                    <Agregados listaAgregados={listaAgregados} setListaAgregados={setListaAgregados} listaMateriales={listaMateriales } />
                 </Row>
                 <br />
                 <br />
-                <div className="btn-section">
-                    <Button variant="primary" type="submit" size="md" onClick={() => onClickGuardar()}>Guardar </Button>
-                    <Button variant="success" type="submit" size="md" onClick={() => onClickFinalizar()}>Finalizar </Button>
-                </div>
+                {placasTotales === "" || placasTotales === 0 ?
+                    <p style={{ textAlign: "right", marginBottom: "2vh" }}>Debe llenar los campos obligatorio para finalizar</p>
+                    : ""}
+                {placasTotales === "" || placasTotales === 0 ?                    
+                    <div className="btn-section">                      
+                        <Button disabled variant="primary" type="submit" size="md" onClick={() => onClickGuardar()}>Guardar </Button>
+                        <Button disabled variant="success" type="submit" size="md" onClick={() => onClickFinalizar()}>Finalizar </Button>
+                    </div>
+
+                     :
+                    <div className="btn-section">
+                        <Button variant="primary" type="submit" size="md" onClick={() => onClickGuardar()}>Guardar </Button>
+                        <Button variant="success" type="submit" size="md" onClick={() => onClickFinalizar()}>Finalizar </Button>
+                    </div>
+                }
                 <br />
                 <br />
-            </div>
-            <MensajeModal show={showMensaje} handleClose={handleCloseMensaje} 
-            titulo="Mensaje de confirmación" mensaje={mensajeModal} 
-            handleAceptar={onClickConfirmarFinalizar} />
-            <MensajeModalAceptar show={showMensajeAceptar} handleClose={handleCloseMensajeAceptar} 
-            titulo="Mensaje de confirmación" mensaje={mensajeModalAceptar} />
+            </div>          
+                <MensajeModal show={showMensaje} handleClose={handleCloseMensaje}
+                    titulo="Mensaje de confirmación" mensaje={mensajeModal}
+                    handleAceptar={onClickConfirmarFinalizar} />           
+           
+                <MensajeModalAceptar show={showMensajeAceptar} handleClose={handleCloseMensajeAceptar}
+                    titulo="Mensaje de confirmación" mensaje={mensajeModalAceptar} />
         </>
 
     );

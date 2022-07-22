@@ -1,12 +1,12 @@
 ﻿import React, { useState } from 'react';
 import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
-import { InputText } from '../../components/inputs';
+import { InputText, InputSelect } from '../../components/inputs';
 import '../../styles/producciondiaria.css';
 import add from '../../images/add.png';
 
 
 
-const Agregados = ({ listaAgregados, setListaAgregados }) => {
+const Agregados = ({ listaAgregados, setListaAgregados, listaMateriales }) => {
 
     const [nuevoElementoTipos, setnuevoElementoTipos] = useState("");
     const [nuevoElementoVueltas, setnuevoElementoVueltas] = useState(0);
@@ -17,12 +17,13 @@ const Agregados = ({ listaAgregados, setListaAgregados }) => {
     }
 
     const onClickAgregarAgregado = (e) => {
-
+        
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
         } else {
+           
             const agregado =
             {
                 tipoAgregado: nuevoElementoTipos,
@@ -44,20 +45,19 @@ const Agregados = ({ listaAgregados, setListaAgregados }) => {
     const onChangeNuevoElementoTipos = (e) => setnuevoElementoTipos(e.target.value);
     const onChangeNuevoElementoVueltas = (e) => setnuevoElementoVueltas(e.target.value);
 
-
     return (
 
         <>
-
             <Col id="agregados-container" className="col-md-5 offset-1">
-                <h3 className="agregados-title">Agregados</h3>
+                <h3 className="agregados-title">Materiales</h3>
                 <br />
                 <hr />
                 <Form noValidate validated={validated} onSubmit={onClickAgregarAgregado} >
                     <Row>
                         <Col>
-                            <InputText id='txt-agregado' type='text' placeholder='Ingrese un agregado' value={nuevoElementoTipos}
-                                onChange={onChangeNuevoElementoTipos} label="Agregado:" mensajeValidacion="Ingrese un tipo" />
+                            { /*<InputText id='txt-agregado' type='text' placeholder='Ingrese un agregado' value={nuevoElementoTipos}
+                                onChange={onChangeNuevoElementoTipos} label="Agregado:" mensajeValidacion="Ingrese un tipo" />*/}
+                            <InputSelect className="form-control" controlId="sel-unidadMedida" label="Material" data={listaMateriales} onChange={onChangeNuevoElementoTipos} value={nuevoElementoTipos} optionValue={nuevoElementoTipos === "" && listaMateriales.length > 0 ? setnuevoElementoTipos(listaMateriales[0].nombre) : "nombre"} optionLabel="nombre" />     
                         </Col>
                         <Col className="col-md-6">
                             <InputText id='txt-vueltas' type='number' placeholder='Ingrese las vueltas' value={nuevoElementoVueltas}
@@ -75,8 +75,8 @@ const Agregados = ({ listaAgregados, setListaAgregados }) => {
                     <Table >
                         <thead className="tabla-header">
                             <tr>
-                                <th className="tabla-header-top"># Agregado</th>
-                                <th>Tipos</th>
+                                <th className="tabla-header-top"># Material</th>
+                                <th>Material</th>
                                 <th className="tabla-header-bottom">Vueltas</th>
                             </tr>
                         </thead>
