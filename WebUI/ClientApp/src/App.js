@@ -20,9 +20,12 @@ import './custom.css'
 
 const App = () => {
     const [sesionActiva, setSesionActiva] = useState(false);
+    const [rol, setRol] = useState("");
+
 
     useEffect(() => {
         ValidarSesionActiva();
+
     }, []);
 
     const ValidarSesionActiva = () => {
@@ -31,10 +34,13 @@ const App = () => {
         const usuario = ObtenerDatosDeUsuario();
         const tokenExpiration = new Date(expiracion);
         let usuarioValido = true;
+        
         if (usuario !== null && usuario !== undefined)
             if (usuario.esPrimeraSesion == 1)
                 usuarioValido = false;
         setSesionActiva(usuarioValido && token !== null && fecha <= tokenExpiration ? true : false);
+        setRol(usuario.descripcion);
+
     }
 
     const CerrarSession = () => {
@@ -47,17 +53,19 @@ const App = () => {
             {sesionActiva ?
                 <BrowserRouter>
                     <Routes>
+                      
                         <Route path="/" element={<Layout CerrarSession={CerrarSession} />}>
                             <Route index element={<Home />} />
-                            <Route path="planta" element={<Planta />} />
-                            <Route path="tipomaterial" element={<TipoMaterial />} />
+                            { rol=== "Administrador" ? <Route path="planta" element={<Planta />} /> : ""}
+                            {rol === "Administrador" ? <Route path="tipomaterial" element={<TipoMaterial />} /> : ""}
+
                             <Route path="actividadplanta" element={<ActividadPlanta />} />
-                            <Route path="usuarios" element={<Usuarios />} />
-                            <Route path="controldecalidad" element={<ControlDeCalidad />} />
-                            <Route path="producto" element={<Producto />} />
+                            {rol === "Administrador" ? <Route path="usuarios" element={<Usuarios />} /> : ""}
+                            {rol === "Administrador" ? <Route path="controldecalidad" element={<ControlDeCalidad />} /> : ""}
+                            {rol === "Administrador" ? <Route path="producto" element={<Producto />} /> : ""}
                             <Route path="contrasena" element={<Contrasena />} />
                             <Route path="producciondiaria" element={<ProduccionDiaria />} />
-                            <Route path="reportes" element={<Reportes />} />
+                            {rol === "Administrador" ? <Route path="reportes" element={<Reportes />} /> : ""}
                             <Route path="*" element={<Navigate to="/" replace />} />
                         </Route>
                     </Routes>
