@@ -34,12 +34,16 @@ const App = () => {
         const usuario = ObtenerDatosDeUsuario();
         const tokenExpiration = new Date(expiracion);
         let usuarioValido = true;
-        
-        if (usuario !== null && usuario !== undefined)
-            if (usuario.esPrimeraSesion == 1)
+
+        if (usuario !== null && usuario !== undefined) {
+            if (usuario.esPrimeraSesion == 1) {
                 usuarioValido = false;
+            }
+            setRol(usuario.descripcion);
+        }
         setSesionActiva(usuarioValido && token !== null && fecha <= tokenExpiration ? true : false);
-        setRol(usuario.descripcion);
+       
+      
 
     }
 
