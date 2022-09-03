@@ -211,7 +211,7 @@ const ProduccionDiaria = () => {
 
     const onClickFinalizar = () => {
         setShowMensaje(true);
-        setMensajeModal('¿Esta seguro de que quiere Eliminar el registro?');        
+        setMensajeModal('¿Esta seguro de que quiere finalizar la producción diaria? una vez terminada no podrá realizar cambios');
     }
 
     const onClickConfirmarFinalizar = async () => {
@@ -226,11 +226,36 @@ const ProduccionDiaria = () => {
             estatus: 2
         }
         const respuesta = await AgregarEncabezadoProduccionDiaria(data);
-        /*console.log(respuesta);
-        setShowMensaje(false);*/
-        window.location.reload();
+        /*console.log(respuesta);*/
+        setShowMensaje(false);
+        if (respuesta.indicador == 0) {
+            setShowMensajeAceptar(true);
+            setMensajeModalAceptar('Produccion Diaria Finalizada y guardada exitosamente');
+            LimpiarCampos();
+
+        }
+
+        //window.location.reload();
     }
 
+    const LimpiarCampos = async () => {
+        setPlacaInicioTurno1("");
+        setPlacaFinalTurno1("");
+        setPlacaInicioTurno2("");
+        setPlacaFinalTurno2("");
+        setPlacasTotales("")
+        setUnidadesTotales("")
+        setCubosTotales("")
+        setMermaTotal("")
+        setMezclasPerdidas("")
+        setNumeroMezclas("")
+        setCemento("")
+        setCantidadColor("")
+        setColor("")
+        setAditivo("")
+        const detalleProduccion = await ObtenerDetalleProduccionDiaria(0);
+        setDesgloseProduccion(detalleProduccion);
+    }
     const ObtenerProduccionDiaria = async () => {
 
         if (idEncabezadoProduccionDiaria == 0) {
