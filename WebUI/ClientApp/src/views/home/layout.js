@@ -77,7 +77,7 @@ const Layout = ({ CerrarSession }) => {
                         </li>
                             : ""
                         }
-                        {rol === "Administrador" ? 
+                            {rol === "Administrador" || rol === "Inspector" ? 
                         <li className={linkActive === 'controldecalidad' ? 'active' : ''}>
                             <Link className={`dashboard`} to="/controldecalidad" onClick={() => ActivarLink('controldecalidad')}>{' '}<span>Control de calidad</span></Link>
                         </li>
@@ -143,7 +143,7 @@ const Layout = ({ CerrarSession }) => {
                                                 </li>
                                                 : ""
                                             }
-                                            {rol === "Administrador" ?
+                                            {rol === "Inspector" || rol === "Administrador" ?
                                                 <li className={linkActive === 'controldecalidad' ? 'active' : ''}>
                                                     <Link className={`dashboard`} to="/controldecalidad" onClick={() => ActivarLink('controldecalidad')}>{' '}<span>Control de calidad</span></Link>
                                                 </li>

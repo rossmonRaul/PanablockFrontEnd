@@ -65,7 +65,7 @@ const App = () => {
 
                             <Route path="actividadplanta" element={<ActividadPlanta />} />
                             {rol === "Administrador" ? <Route path="usuarios" element={<Usuarios />} /> : ""}
-                            {rol === "Administrador" ? <Route path="controldecalidad" element={<ControlDeCalidad />} /> : ""}
+                             <Route path="controldecalidad" element={<ControlDeCalidad />} /> 
                             {rol === "Administrador" ? <Route path="producto" element={<Producto />} /> : ""}
                             <Route path="contrasena" element={<Contrasena />} />
                             <Route path="producciondiaria" element={<ProduccionDiaria />} />
