@@ -97,7 +97,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
 
     const onChangeCorreo = (e) => setCorreo(e.target.value);
     const onChangeContrasenha = (e) => setContrasenaTemporal(e.target.value);
-    const onChangeIdentificacion = (e) => setIdentificacion(e.target.value);
+    const onChangeIdentificacion = (e) => setIdentificacion(e.target.value.replace(/[^0-9]/g, ""));
     const onChangeNombre = (e) => setNombre(e.target.value);
     const onChangePrimerApellido = (e) => setPrimerApellido(e.target.value);
     const onChangeSegundoApellido = (e) => setSegundoApellido(e.target.value);
@@ -109,11 +109,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
                 <Row>
-                    <InputSelect className="form-control custom-select-sm" controlId="sel-tipoIdentificacion" label="Tipo de Identificación" data={listaTiposIdentificacion}
+                    <InputSelect className="form-control custom-select-sm"  controlId="sel-tipoIdentificacion" label="Tipo de Identificación"  data={listaTiposIdentificacion}
                         onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />
 
-                    <InputText id='txt-identificacion' label='Identificación:' type='text' placeholder='Ingrese la identificación' value={identificacion}
-                        text='Identificación.' onChange={onChangeIdentificacion} mensajeValidacion="La identificación es requerida" className="col-md-4" readOnly={proceso == 2} />
+                    <InputText id='txt-identificacion' label='Identificación:' type='text'  placeholder='Ingrese la identificación' value={identificacion}
+                        text='Identificación.' onChange={onChangeIdentificacion} mensajeValidacion="La identificación es requerida" className="col-md-4" readOnly={proceso == 2}  />
                 </Row>
                 <Row>
                     <InputText id='txt-nombre' label='Nombre:' type='text' placeholder='Ingrese el nombre' value={nombre}
