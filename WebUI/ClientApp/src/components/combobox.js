@@ -2,20 +2,23 @@
 import React from 'react';
 
 
-export const ComboBox = ({ data, indicacion, label, id, text,value, onChange, mensajeValidacion }) => {
+export const ComboBox = ({ data, indicacion,label, id, text, value, onChange, mensajeValidacion, optionValue, optionLabel , classGroup  }) => {
 
+    const ObtenerOptions = () => {
+        return data.map((option, index) => {
+            return <option key={index} value={option[optionValue]}>{option[optionLabel]}</option>
+        })
+    }
 
     return (
         <>
-         <Form.Group className="mb-3" controlId={id}>
+            <Form.Group className={classGroup} controlId={id}>
                 <Form.Label>{label}</Form.Label>
                 <br/>
                 <Form.Control as="select" value={value} onChange={onChange}  size="sm"  required >
-                    <option value="">{indicacion}</option>
+                   
                     {
-                        data.map(item => (
-                            <option value={item.idPlanta} key={item.idPlanta} > {item.idPlanta}{" - "}{item.nombrePlanta} </option>
-                        ))
+                        ObtenerOptions()  
                 } 
              </Form.Control>
                 <Form.Text className="text-muted">{text}</Form.Text>

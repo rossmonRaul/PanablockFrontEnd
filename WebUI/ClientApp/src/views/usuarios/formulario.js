@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Row } from 'react-bootstrap';
 import { InputSelect, InputText } from '../../components/inputs';
+import { ComboBox } from '../../components/combobox';
 import { ObtenerPlantas, ObtenerRoles, ObtenerTiposIdentificacion } from '../../servicios/ServicioUsuarios';
 
 const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaje }) => {
@@ -21,7 +22,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
 
     //variables de combo box
     const [idPlanta, setIdPlanta] = useState(proceso == 2 ? data.idPlanta : 0);
-    const [idRol, setIdRol] = useState(proceso == 2 ? data.idRol : 0);
+    const [idRol, setIdRol] = useState(proceso == 2 ?data.idRol : 0);
     const [idTiposIdentificacion, setidTiposIdentificacion] = useState(proceso == 2 ? data.idTipoIdentificacion : 0);
 
     const [validated, setValidated] = useState(false);
@@ -109,8 +110,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
                 <Row>
-                    <InputSelect className="form-control custom-select-sm"  controlId="sel-tipoIdentificacion" label="Tipo de Identificación"  data={listaTiposIdentificacion}
-                        onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />
+                    <ComboBox data={listaTiposIdentificacion} label="Tipo de Identificación" controlId="sel-tipoIdentificacion" onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion}
+                        optionValue="idTiposIdentificacion" optionLabel="descripcion" indicacion="Seleccione el tipo de identificacion" classGroup="col-md-5" />
+                    {/*<InputSelect className="form-control custom-select-sm"  controlId="sel-tipoIdentificacion" label="Tipo de Identificación"  data={listaTiposIdentificacion}*/}
+                    {/*    onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />*/}
 
                     <InputText id='txt-identificacion' label='Identificación:' type='text'  placeholder='Ingrese la identificación' value={identificacion}
                         text='Identificación.' onChange={onChangeIdentificacion} mensajeValidacion="La identificación es requerida" className="col-md-4" readOnly={proceso == 2}  />
@@ -135,8 +138,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
                         text='Dirección exacta.' onChange={onChangeDireccion} mensajeValidacion="El campo es requerido" className="col-md-10" />
                 </Row>
                 <Row>
-                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />
-                    <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Rol" data={listaRoles} onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
+                    <ComboBox data={listaPlantas} label="Plantas" controlId="sel-idPlanta" onChange={onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" indicacion="Seleccione la planta" classGroup="col-md-5" />
+                    {/*<InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />*/}
+                    
+                  {/*  <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Rol" data={listaRoles} onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />*/}
+                    <ComboBox data={listaRoles} label="Rol" controlId="sel-rol" onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
                 </Row>
                 <br />
                 <Row>
