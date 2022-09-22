@@ -16,7 +16,7 @@ export const ComboBox = ({ data, indicacion,label, id, text, value, onChange, me
                 <Form.Label>{label}</Form.Label>
                 <br/>
                 <Form.Control as="select" value={value} onChange={onChange}  size="sm"  required >
-                   
+                    <option value="">{indicacion}</option>
                     {
                         ObtenerOptions()  
                 } 

@@ -1,21 +1,26 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
 import { InputSelect, InputText } from '../../components/inputs';
+import { ComboBox } from '../../components/combobox';
 import logo from '../../images/logo.webp';
 import brick from '../../images/brick.png';
 import '../../styles/producciondiaria.css';
+
+
 
 import { ObtenerProductos } from '../../servicios/ServicioProducto';
 import { ObtenerDatosDeUsuario } from '../../utils/utilidades';
 
 
-const Encabezado = ({ listaProductos, horaInicio, sethoraInicio, horaFinal, sethoraFinal, idProducto, setidProducto }) => {
-    const [planta, setPlanta] = useState("");
 
+const Encabezado = ({ listaProductos, listaPlantas, horaInicio, sethoraInicio, horaFinal, sethoraFinal, idProducto, setidProducto, idPlanta, setidPlanta, fecha, setfecha }) => {
+    const [planta, setPlanta] = useState("");
+    const [rol, setRol] = useState("");
+    
     /*const [idPlanta, setidPlanta] = useState(0);
     const [horaInicio, sethoraInicio] = useState("");
     const [horaFinal, sethoraFinal] = useState(""); */
-
+   
     //const [idProducto, setidProducto] = useState(0);
     //const [listaProductos, setListaProductos] = useState([]);
     const [fechaActual, setFechaActual] = useState("");
@@ -28,6 +33,9 @@ const Encabezado = ({ listaProductos, horaInicio, sethoraInicio, horaFinal, seth
         }
     }*/
 
+   
+   
+
     const ObtenerFechaActual = () => {
         const today = new Date();
         const dia = today.getDate().toString().padStart(2, '0');
@@ -36,13 +44,28 @@ const Encabezado = ({ listaProductos, horaInicio, sethoraInicio, horaFinal, seth
         //onst date = (1).toString().padStart(2, '0')
         //validar si ya hay un encabezado de produccion ese día sin terminar
         setFechaActual(date);
+        
+       
+    }
+
+    const ObtenerFechaMaxima = () => {
+        const today = new Date();
+        const dia = today.getDate().toString().padStart(2, '0');
+        const mes = (today.getMonth() + 1).toString().padStart(2, '0');
+        const date = `${today.getFullYear()}-${mes}-${dia}`;
+      
+    
+        return date;
     }
 
     const ObtenerPlanta = async () => {
         let usuario = await ObtenerDatosDeUsuario();
         setPlanta(usuario.nombrePlanta);
+        setRol(usuario.descripcion);
+       
     }
 
+ 
     useEffect(() => {
         //ObtenerListadoDeProductos();
         ObtenerFechaActual();
@@ -52,6 +75,9 @@ const Encabezado = ({ listaProductos, horaInicio, sethoraInicio, horaFinal, seth
     const onChangeHoraInicio = (e) => sethoraInicio(e.target.value);
     const onChangeHoraFinal = (e) => sethoraFinal(e.target.value);
     const onChangeIdProducto = (e) => setidProducto(e.target.value);
+    const onChangePlanta = (e) => setPlanta(e.target.value);
+    const onChangeIdPlanta = (e) => setidPlanta(e.target.value);
+    const onChangeFecha = (e) => setfecha(e.target.value );
 
     return (
         <>
@@ -69,13 +95,31 @@ const Encabezado = ({ listaProductos, horaInicio, sethoraInicio, horaFinal, seth
             <div className="encabezado-container">
                 <Row>
                     <Col>
-                        <InputText id='txt-planta' label='Planta:' type='text' placeholder={planta} disabled="disabled" />
+                        {rol === "Administrador" ?
+                            <ComboBox data={listaPlantas} label="Planta" controlId="sel-idPlanta" onChange={onChangeIdPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta"  indicacion="Seleccione la planta" />
+                            //<InputSelect className="form-control" controlId="sel-idPlanta" label="Plantas" data={listaPlantas} onChange={onChangeIdPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" 
+                            ///>
+                            : <InputText id='txt-planta' label='Planta:' type='text' placeholder={planta} disabled="disabled" />
+                        }
+                     
+                       
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <InputText id='txt-fecha' label='Fecha:' type='text' value={fechaActual}
-                            disabled="disabled" />
+                        
+                        {rol === "Administrador" ?
+                            <InputText id='txt-fecha' label='Fecha:' type='date' placeholder='Ingrese la fecha' value={fecha}
+                                onChange={onChangeFecha} max={ObtenerFechaMaxima()}  />
+                           
+                          
+                           
+                            : <InputText id='txt-fecha' label='Fecha:' type='text' value={fechaActual}
+                                disabled="disabled" />
+                        }
+
+                        
+                        
                     </Col>
                     <Col>
                         <InputText id='txt-horaInicio' label='Hora Inicio:' type='time' placeholder='Digite la fecha de inicio'

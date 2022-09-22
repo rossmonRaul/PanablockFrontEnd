@@ -47,6 +47,8 @@ export const ObtenerDetalleProduccionDiaria = async (idEncabezadoProduccionDiari
     return await ProcesarDatosApi('GET', url);
 }
 
+
+
 /**
  * desglose 
  */
@@ -86,8 +88,8 @@ export const ActualizarTotalesProduccionDiaria = async (data) => {
     return await ProcesarDatosApi('PUT', url, data);
 }
 
-export const ObtenerTotalProduccionDiaria = async (fecha) => {
-    const url = `TotalProduccionDiaria/ObtenerTotalProduccionDiaria?fecha=${fecha}`;
+export const ObtenerTotalProduccionDiaria = async (data) => {
+    const url = `TotalProduccionDiaria/ObtenerTotalProduccionDiaria?fecha=${data.fecha}&idPlanta=${data.idPlanta}`;
     return await ProcesarDatosApi('GET', url);
 }
 

@@ -110,10 +110,9 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
                 <Row>
-                    <ComboBox data={listaTiposIdentificacion} label="Tipo de Identificación" controlId="sel-tipoIdentificacion" onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion}
-                        optionValue="idTiposIdentificacion" optionLabel="descripcion" indicacion="Seleccione el tipo de identificacion" classGroup="col-md-5" />
-                    {/*<InputSelect className="form-control custom-select-sm"  controlId="sel-tipoIdentificacion" label="Tipo de Identificación"  data={listaTiposIdentificacion}*/}
-                    {/*    onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />*/}
+                   
+                    <InputSelect className="form-control custom-select-sm"  controlId="sel-tipoIdentificacion" label="Tipo de Identificación"  data={listaTiposIdentificacion}
+                        onChange={onChangeTiposIdentificacion} value={idTiposIdentificacion} optionValue="idTipoIdentificacion" optionLabel="descripcion" classGroup="col-md-5" />
 
                     <InputText id='txt-identificacion' label='Identificación:' type='text'  placeholder='Ingrese la identificación' value={identificacion}
                         text='Identificación.' onChange={onChangeIdentificacion} mensajeValidacion="La identificación es requerida" className="col-md-4" readOnly={proceso == 2}  />
@@ -130,6 +129,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
                 <Row>
                     <InputText id='txt-contrasenha' label='Fecha de Nacimiento:' type='date' placeholder='Ingrese la fehca de nacimiento' value={fechaNacimiento}
                         text='Fecha de Nacimiento.' onChange={onChangeFechaNacimiento} mensajeValidacion="El campo es requerido" className="col-md-4" />
+
                     <InputText id='txt-contrasenha' label='Teléfono:' type='tel' placeholder='Ingrese el teléfono' value={telefono}
                         text='Teléfono.' onChange={onChangeTelefono} mensajeValidacion="El campo es requerido" />
                 </Row>
@@ -142,7 +142,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarUsuario, mensaj
                     {/*<InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Planta" data={listaPlantas} onChange={onChangePlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" classGroup="col-md-5" />*/}
                     
                   {/*  <InputSelect className="form-control custom-select-sm" controlId="sel-rol" label="Rol" data={listaRoles} onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />*/}
-                    <ComboBox data={listaRoles} label="Rol" controlId="sel-rol" onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" optionValue="idRol" optionLabel="descripcion" classGroup="col-md-5" />
+                    <ComboBox data={listaRoles} label="Rol" controlId="sel-rol" onChange={onChangeRol} value={idRol} optionValue="idRol" optionLabel="descripcion" optionValue="idRol" optionLabel="descripcion" indicacion="Seleccione el rol" classGroup="col-md-5" />
                 </Row>
                 <br />
                 <Row>

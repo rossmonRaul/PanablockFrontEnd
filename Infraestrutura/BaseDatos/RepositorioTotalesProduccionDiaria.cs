@@ -74,12 +74,13 @@ namespace Infraestrutura.BaseDatos
             }
         }
 
-        public async Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha)
+        public async Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha, int idPlanta)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("fecha", fecha);
+                data.Add("idPlanta", idPlanta);
                 string query = "SPObtenerTotalesProduccionDiaria";
 
                 return await this.contextoBD.ObtenerListaDeDatos<DtoTotalesProduccionDiaria>(query, data);

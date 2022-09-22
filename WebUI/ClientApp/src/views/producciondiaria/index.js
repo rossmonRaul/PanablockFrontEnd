@@ -15,12 +15,14 @@ import {
     ObtenerDetalleProduccionDiaria, ObtenerEncabezadoProduccionDiaria, ObtenerHorarios, ObtenerSegmentoDetalleProduccionDiaria, ObtenerTotalProduccionDiaria
 } from '../../servicios/ServicioProduccionDiaria';
 import { ObtenerProductos } from '../../servicios/ServicioProducto';
+import { ObtenerPlantas } from '../../servicios/ServicioPlanta';
 import { MensajeModal, MensajeModalAceptar } from '../../components/ventanaModal';
 
 
 const ProduccionDiaria = () => {
     //const [data, setData] = useState([]);
-    //const [idPlanta, setidPlanta] = useState(0);
+    const [idPlanta, setidPlanta] = useState(0);
+    const [fecha, setfecha] = useState("");
     //const [fechaRegistro, setfechaRegistro] = useState("");
     const [idEncabezadoProduccionDiaria, setIdEncabezadoProduccionDiaria] = useState(0)
     const [horaInicio, sethoraInicio] = useState("");
@@ -28,6 +30,7 @@ const ProduccionDiaria = () => {
     const [idProducto, setidProducto] = useState(0);
     const [listaHorarios, setListaHorarios] = useState([]);
     const [listaProductos, setListaProductos] = useState([]);
+    const [listaPlantas, setListaPlantas] = useState([]);
     const [desgloseProduccion, setDesgloseProduccion] = useState([]);
     const [listaMateriales, setListaMateriales] = useState([]);
 
@@ -62,10 +65,14 @@ const ProduccionDiaria = () => {
         ObtenerListadoDeHorarios();
         ObtenerListadoDeProductos();
         ObtenerListadoDeMateriales();
+        ObtenerListadoDePlantas();
+       
     }, []);
 
     useEffect(() => {
+      
         ObtenerProduccionDiaria();
+        
     });
 
 
@@ -94,6 +101,14 @@ const ProduccionDiaria = () => {
             setListaProductos(productos);
         }
     }
+
+    const ObtenerListadoDePlantas = async () => {
+        const plantas = await ObtenerPlantas();
+        if (plantas !== undefined) {
+            setListaPlantas(plantas);
+        }
+    }
+
 
     const ObtenerDesgloseProduccionDiaria = (idEncabezadoProduccionDiaria) => {
         const tempDesglose = []
@@ -175,39 +190,86 @@ const ProduccionDiaria = () => {
     }
 
     const onClickGuardar = async () => {
-        const { idPlanta, nombre } = await ObtenerDatosDeUsuario();
-        const data = {
-            idEncabezadoProduccionDiaria,
-            idPlanta,
-            horaInicio,
-            horaFinal,
-            idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
-            fecha: ObtenerFecha(),
-            estatus: 1
-        }
 
-        const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+      
+        const {  nombre,descripcion } = await ObtenerDatosDeUsuario();
 
-        if (respuesta.indicador == 0) {
-            const Desglose = ObtenerDesgloseProduccionDiaria(respuesta.mensaje);
-            if (Desglose.length > 0) {
-                const respDetalle = await AgregarDetalleProduccionDiaria(Desglose);
+        if (descripcion === "Inspector") {
+            const { idPlanta } = await ObtenerDatosDeUsuario();
+            const data = {
+                idEncabezadoProduccionDiaria,
+                idPlanta,
+                horaInicio,
+                horaFinal,
+                idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+                fecha: ObtenerFecha(),
+                estatus: 1
             }
-            const respsegmento1 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerPrimerSegmentoDetalleProduccionDiaria(respuesta.mensaje))
-            const respsegmento2 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerSegundoSegmentoDetalleProduccionDiaria(respuesta.mensaje))
-            const resptotales = await InsertarTotalesProduccionDiaria(ObtenerTotalesProduccionDiaria(respuesta.mensaje));
+        
 
-            const respObservacion = await InsertarObservacionMantenimiento(ObtenerObservacionesDeMantenimiento(respuesta.mensaje));
-            const respAgregados = await InsertarAgregados(ObtenerAgregados(respuesta.mensaje, nombre));
-            setMensajeModalAceptar("Proceso completado: Producción diaria guardada con éxito.")
-            setShowMensajeAceptar(true)
-            /*setMensaje({
-                indicador: 0,
-                mensaje: "Proceso completado: Producción diaria guardada con éxito."
-            });*/
-            ObtenerProduccionDiaria()
+            const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+
+            if (respuesta.indicador == 0) {
+                const Desglose = ObtenerDesgloseProduccionDiaria(respuesta.mensaje);
+                if (Desglose.length > 0) {
+                    const respDetalle = await AgregarDetalleProduccionDiaria(Desglose);
+                }
+                const respsegmento1 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerPrimerSegmentoDetalleProduccionDiaria(respuesta.mensaje))
+                const respsegmento2 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerSegundoSegmentoDetalleProduccionDiaria(respuesta.mensaje))
+                const resptotales = await InsertarTotalesProduccionDiaria(ObtenerTotalesProduccionDiaria(respuesta.mensaje));
+
+                const respObservacion = await InsertarObservacionMantenimiento(ObtenerObservacionesDeMantenimiento(respuesta.mensaje));
+                const respAgregados = await InsertarAgregados(ObtenerAgregados(respuesta.mensaje, nombre));
+                setMensajeModalAceptar("Proceso completado: Producción diaria guardada con éxito.")
+                setShowMensajeAceptar(true)
+                /*setMensaje({
+                    indicador: 0,
+                    mensaje: "Proceso completado: Producción diaria guardada con éxito."
+                });*/
+                ObtenerProduccionDiaria()
+            
+            }
+
+        } else {
+
+            const data = {
+                idEncabezadoProduccionDiaria,
+                idPlanta: idPlanta,
+                horaInicio,
+                horaFinal,
+                idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+                fecha: fecha,
+                estatus: 1
+            }
+
+
+            const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+
+            if (respuesta.indicador == 0) {
+                const Desglose = ObtenerDesgloseProduccionDiaria(respuesta.mensaje);
+                if (Desglose.length > 0) {
+                    const respDetalle = await AgregarDetalleProduccionDiaria(Desglose);
+                }
+                const respsegmento1 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerPrimerSegmentoDetalleProduccionDiaria(respuesta.mensaje))
+                const respsegmento2 = await AgregarSegmentoDetalleProduccionDiaria(ObtenerSegundoSegmentoDetalleProduccionDiaria(respuesta.mensaje))
+                const resptotales = await InsertarTotalesProduccionDiaria(ObtenerTotalesProduccionDiaria(respuesta.mensaje));
+
+                const respObservacion = await InsertarObservacionMantenimiento(ObtenerObservacionesDeMantenimiento(respuesta.mensaje));
+                const respAgregados = await InsertarAgregados(ObtenerAgregados(respuesta.mensaje, nombre));
+                setMensajeModalAceptar("Proceso completado: Producción diaria guardada con éxito.")
+                setShowMensajeAceptar(true)
+                /*setMensaje({
+                    indicador: 0,
+                    mensaje: "Proceso completado: Producción diaria guardada con éxito."
+                });*/
+                ObtenerProduccionDiaria()
+
+            }
+
+
         }
-    }
+     }
+    
 
     const onClickFinalizar = () => {
         setShowMensaje(true);
@@ -215,24 +277,50 @@ const ProduccionDiaria = () => {
     }
 
     const onClickConfirmarFinalizar = async () => {
-        const { idPlanta, nombre } = await ObtenerDatosDeUsuario();
-        const data = {
-            idEncabezadoProduccionDiaria,
-            idPlanta,
-            horaInicio,
-            horaFinal,
-            idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
-            fecha: ObtenerFecha(),
-            estatus: 2
-        }
-        const respuesta = await AgregarEncabezadoProduccionDiaria(data);
-        /*console.log(respuesta);*/
-        setShowMensaje(false);
-        if (respuesta.indicador == 0) {
-            setShowMensajeAceptar(true);
-            setMensajeModalAceptar('Produccion Diaria Finalizada y guardada exitosamente');
-            LimpiarCampos();
+        const {  nombre, descripcion } = await ObtenerDatosDeUsuario();
 
+        if (descripcion === "Inspector") {
+            const { idPlanta, nombre, descripcion } = await ObtenerDatosDeUsuario();
+            const data = {
+                idEncabezadoProduccionDiaria,
+                idPlanta,
+                horaInicio,
+                horaFinal,
+                idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+                fecha: ObtenerFecha(),
+                estatus: 2
+            }
+            const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+            /*console.log(respuesta);*/
+            setShowMensaje(false);
+            if (respuesta.indicador == 0) {
+                setShowMensajeAceptar(true);
+                setMensajeModalAceptar('Produccion Diaria Finalizada y guardada exitosamente');
+                LimpiarCampos();
+
+            }
+        } else {
+            const data = {
+                idEncabezadoProduccionDiaria,
+                idPlanta: idPlanta,
+                horaInicio,
+                horaFinal,
+                idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+                fecha: fecha,
+                estatus: 2
+            }
+            const respuesta = await AgregarEncabezadoProduccionDiaria(data);
+            /*console.log(respuesta);*/
+            setShowMensaje(false);
+            if (respuesta.indicador == 0) {
+                setShowMensajeAceptar(true);
+                setMensajeModalAceptar('Produccion Diaria Finalizada y guardada exitosamente');
+                LimpiarCampos();
+                setfecha([0])
+                setidPlanta([0])
+                setIdEncabezadoProduccionDiaria([0]);
+
+            }
         }
 
         //window.location.reload();
@@ -253,31 +341,87 @@ const ProduccionDiaria = () => {
         setCantidadColor("")
         setColor("")
         setAditivo("")
+        
+        sethoraInicio([0])
+        sethoraFinal([0]);
         const detalleProduccion = await ObtenerDetalleProduccionDiaria(0);
+        ObtenerListaAgregados(0) 
+        ObtenerListaDetalleObservacion(0)
         setDesgloseProduccion(detalleProduccion);
     }
     const ObtenerProduccionDiaria = async () => {
 
+
+        const { descripcion } = await ObtenerDatosDeUsuario();
         if (idEncabezadoProduccionDiaria == 0) {
 
-            const { idPlanta } = await ObtenerDatosDeUsuario();
-            const data = {
-                idPlanta,
-                fecha: ObtenerFecha()
+            if (descripcion === "Inspector") {
+
+                const { idPlanta } = await ObtenerDatosDeUsuario();
+                const data = {
+                    idPlanta,
+                    fecha: ObtenerFecha()
+                }
+                const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
+                if (encabezado !== null) {
+                    sethoraInicio(encabezado.horaInicio.split(".")[0]);
+                    sethoraFinal(encabezado.horaFinal.split(".")[0]);
+                    setIdEncabezadoProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    setidProducto(encabezado.idProducto);
+                    ObtenerListaDesgloseProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaConteoPlacasProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaTotalProduccionDiaria();
+                }
+
+            } else {
+
+                const data = {
+                    idPlanta: idPlanta,
+                    fecha: fecha
+                }
+
+                const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
+                if (encabezado !== null) {
+                    sethoraInicio(encabezado.horaInicio.split(".")[0]);
+                    sethoraFinal(encabezado.horaFinal.split(".")[0]);
+                    setIdEncabezadoProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    setidProducto(encabezado.idProducto);
+                    ObtenerListaDesgloseProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaConteoPlacasProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaTotalProduccionDiaria();
+
+                } 
+
             }
-            const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
-            if (encabezado !== null) {
-                sethoraInicio(encabezado.horaInicio.split(".")[0]);
-                sethoraFinal(encabezado.horaFinal.split(".")[0]);
-                setIdEncabezadoProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
-                setidProducto(encabezado.idProducto);
-                ObtenerListaDesgloseProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
-                ObtenerListaConteoPlacasProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
-                ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
-                ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
-                ObtenerListaTotalProduccionDiaria();
+        } else {
+
+            if (descripcion === "Administrador") {
+                const data = {
+                    idPlanta: idPlanta,
+                    fecha: fecha
+                }
+
+                const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
+                if (encabezado !== null && idEncabezadoProduccionDiaria !== encabezado.idEncabezadoProduccionDiaria) {
+                    sethoraInicio(encabezado.horaInicio.split(".")[0]);
+                    sethoraFinal(encabezado.horaFinal.split(".")[0]);
+                    setIdEncabezadoProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    setidProducto(encabezado.idProducto);
+                    ObtenerListaDesgloseProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaConteoPlacasProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaTotalProduccionDiaria();
+
+                } 
+                    
             }
         }
+        
     }
 
     const ObtenerListaDesgloseProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
@@ -300,21 +444,52 @@ const ProduccionDiaria = () => {
     }
 
     const ObtenerListaTotalProduccionDiaria = async () => {
-        const listaTotal = await ObtenerTotalProduccionDiaria(ObtenerFecha());
-        if (listaTotal.length > 0) {
-            const detalle = listaTotal[0];
-            setPlacasTotales(detalle.placasTotales == 0 ? "" : detalle.placasTotales)
-            setUnidadesTotales(detalle.unidadesTotales == 0 ? "" : detalle.unidadesTotales)
-            setCubosTotales(detalle.cubosTotales == 0 ? "" : detalle.cubosTotales)
-            setMermaTotal(detalle.mermaTotal == 0 ? "" : detalle.mermaTotal)
-            setMezclasPerdidas(detalle.mezclasPerdidas == 0 ? "" : detalle.mezclasPerdidas)
-            setNumeroMezclas(detalle.numeroMezclas == 0 ? "" : detalle.numeroMezclas)
-            setCemento(detalle.cemento == 0 ? "" : detalle.cemento)
-            setCantidadColor(detalle.cantidadColor == 0 ? "" : detalle.cantidadColor)
-            setColor(detalle.color || "")
-            setAditivo(detalle.aditivo || "")
-        }
+        const { descripcion } = await ObtenerDatosDeUsuario();
 
+        if (descripcion === "Inspector") {
+
+            const {  idPlanta } = await ObtenerDatosDeUsuario();
+            const data = {
+                idPlanta,
+                fecha: ObtenerFecha()
+            }
+
+            const listaTotal = await ObtenerTotalProduccionDiaria(data);
+
+            if (listaTotal.length > 0) {
+                const detalle = listaTotal[0];
+                setPlacasTotales(detalle.placasTotales == 0 ? "" : detalle.placasTotales)
+                setUnidadesTotales(detalle.unidadesTotales == 0 ? "" : detalle.unidadesTotales)
+                setCubosTotales(detalle.cubosTotales == 0 ? "" : detalle.cubosTotales)
+                setMermaTotal(detalle.mermaTotal == 0 ? "" : detalle.mermaTotal)
+                setMezclasPerdidas(detalle.mezclasPerdidas == 0 ? "" : detalle.mezclasPerdidas)
+                setNumeroMezclas(detalle.numeroMezclas == 0 ? "" : detalle.numeroMezclas)
+                setCemento(detalle.cemento == 0 ? "" : detalle.cemento)
+                setCantidadColor(detalle.cantidadColor == 0 ? "" : detalle.cantidadColor)
+                setColor(detalle.color || "")
+                setAditivo(detalle.aditivo || "")
+            }
+        } else {
+
+            const data = {
+                idPlanta: idPlanta,
+                fecha: fecha
+            }
+            const listaTotal = await ObtenerTotalProduccionDiaria(data);
+            if (listaTotal.length > 0) {
+                const detalle = listaTotal[0];
+                setPlacasTotales(detalle.placasTotales == 0 ? "" : detalle.placasTotales)
+                setUnidadesTotales(detalle.unidadesTotales == 0 ? "" : detalle.unidadesTotales)
+                setCubosTotales(detalle.cubosTotales == 0 ? "" : detalle.cubosTotales)
+                setMermaTotal(detalle.mermaTotal == 0 ? "" : detalle.mermaTotal)
+                setMezclasPerdidas(detalle.mezclasPerdidas == 0 ? "" : detalle.mezclasPerdidas)
+                setNumeroMezclas(detalle.numeroMezclas == 0 ? "" : detalle.numeroMezclas)
+                setCemento(detalle.cemento == 0 ? "" : detalle.cemento)
+                setCantidadColor(detalle.cantidadColor == 0 ? "" : detalle.cantidadColor)
+                setColor(detalle.color || "")
+                setAditivo(detalle.aditivo || "")
+            }
+        }
     }
 
     const ObtenerListaAgregados = async (idEncabezadoProduccionDiaria) => {
@@ -344,8 +519,10 @@ const ProduccionDiaria = () => {
                     </>
                     : ''}
                 <br />
-                <Encabezado listaProductos={listaProductos} horaInicio={horaInicio} sethoraInicio={sethoraInicio} horaFinal={horaFinal} sethoraFinal={sethoraFinal}
-                    idProducto={idProducto} setidProducto={setidProducto} />
+               
+                <Encabezado listaProductos={listaProductos} listaPlantas={listaPlantas} horaInicio={horaInicio} sethoraInicio={sethoraInicio} horaFinal={horaFinal} sethoraFinal={sethoraFinal}
+                    idProducto={idProducto} setidProducto={setidProducto} idPlanta={idPlanta} setidPlanta={setidPlanta} fecha={fecha} setfecha={setfecha}/>
+
                 <br />
                 <DesgloseProduccion listaHorarios={listaHorarios} setListaHorarios={setListaHorarios} desgloseProduccion={desgloseProduccion} setDesgloseProduccion={setDesgloseProduccion} />
                 <br />

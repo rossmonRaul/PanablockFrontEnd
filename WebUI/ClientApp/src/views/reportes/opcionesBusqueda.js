@@ -175,8 +175,12 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     }
 
 
-    const ObtenerTotales = async (fecha) => {
-        let dataTotales = await ObtenerTotalProduccionDiaria(fecha)
+    const ObtenerTotales = async (fecha, idPlanta) => {
+        const data = {
+            idPlanta,
+            fecha
+        }
+        let dataTotales = await ObtenerTotalProduccionDiaria(data)
         setTotalesProduccion(dataTotales);
     }
 
@@ -194,7 +198,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
         ObtenerEncabezadoProduccionDiaria(idProduccion);
         ObtenerDetalleProduccionDiaria(idProduccion);
         ObtenerTurnos(idProduccion);
-        ObtenerTotales(fechaProduccion);
+        ObtenerTotales(fechaProduccion, idPlanta);
         ObtenerObservaciones(idProduccion);
         ObtenerAgregados(idProduccion);
 
@@ -250,6 +254,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
                         text='Fecha a buscar' onChange={onChangeFechaProduccion} mensajeValidacion="00/00/0000" />
                 </Col>
                 <Col>
+                    
                     <InputSelect className="form-control" controlId="sel-idPlanta" label="Planta" data={listaPlantas} onChange={onChangeIdPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" />
                 </Col>
                 
@@ -274,6 +279,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             </Row>
 
             <div className="btn-section">
+                
                 {listaProduccion.length > 0 ?
                     <Button variant="primary" type="submit" size="md" onClick={onClickGenerarReporteProduccion}>Buscar </Button> : ""}
             </div>

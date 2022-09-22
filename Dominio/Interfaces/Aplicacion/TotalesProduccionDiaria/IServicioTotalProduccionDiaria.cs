@@ -13,6 +13,6 @@ namespace Dominio.Interfaces.Aplicacion.TotalesProduccionDiaria
         Task<DtoDatosSP> InsertarTotalesProduccionDiaria(EntitiTotalesProduccionDiaria entitiTotalesProduccionDiaria);
 
         Task<DtoDatosSP> ActualizarTotalesProduccionDiaria(EntitiTotalesProduccionDiaria entitiTotalesProduccionDiaria);
-        Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha);
+        Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha, int idPlanta);
     }
 }

@@ -29,9 +29,9 @@ namespace Aplicacion.TotalesProduccionDiaria
             return await this.repositorioTotalProduccionDiaria.ActualizarTotalesProduccionDiaria(entitiTotalesProduccionDiaria);
         }
 
-        public async Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha)
+        public async Task<List<DtoTotalesProduccionDiaria>> ObtenerTotalProduccionDiaria(string fecha, int idPlanta)
         {
-            return await this.repositorioTotalProduccionDiaria.ObtenerTotalProduccionDiaria(fecha);
+            return await this.repositorioTotalProduccionDiaria.ObtenerTotalProduccionDiaria(fecha,idPlanta);
         }
 
     }
