@@ -20,7 +20,7 @@ export const ActualizarEncabezadoProduccionDiaria = async (data) => {
 }
 
 export const ObtenerEncabezadoProduccionDiaria = async (data) => {
-    const url = `EncabezadoProduccionDiaria/ObtenerEncabezadoProduccionDiaria?idPlanta=${data.idPlanta}&fecha=${data.fecha}`;
+    const url = `EncabezadoProduccionDiaria/ObtenerEncabezadoProduccionDiaria?idPlanta=${data.idPlanta}&fecha=${data.fecha}&idProducto=${data.idProducto}`;
     return await ProcesarDatosApi('GET', url);
 }
 
@@ -89,7 +89,7 @@ export const ActualizarTotalesProduccionDiaria = async (data) => {
 }
 
 export const ObtenerTotalProduccionDiaria = async (data) => {
-    const url = `TotalProduccionDiaria/ObtenerTotalProduccionDiaria?fecha=${data.fecha}&idPlanta=${data.idPlanta}`;
+    const url = `TotalProduccionDiaria/ObtenerTotalProduccionDiaria?fecha=${data.fecha}&idPlanta=${data.idPlanta}&idProducto=${data.idProducto}`;
     return await ProcesarDatosApi('GET', url);
 }
 

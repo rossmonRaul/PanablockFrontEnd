@@ -60,13 +60,14 @@ namespace Infraestrutura.BaseDatos
         }
 
 
-        public async Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
+        public async Task<DtoEncabezadoProduccionDiaria> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha, int idProducto)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdPlanta", idPlanta);
                 data.Add("Fecha", Fecha);
+                data.Add("IdProducto", idProducto);
                 string query = "SPObtenerEncabezadoProduccionDiariaActivos";
 
                 return await this.contextoBD.ObtenerDato<DtoEncabezadoProduccionDiaria>(query, data);

@@ -35,9 +35,9 @@ namespace WebUI.Controllers
 
         [HttpGet("[action]")]
         [Authorize]
-        public async Task<JsonResult> ObtenerTotalProduccionDiaria(string fecha, int idPlanta)
+        public async Task<JsonResult> ObtenerTotalProduccionDiaria(string fecha, int idPlanta, int idProducto)
         {
-            return Json(await this.servicioTotalProduccionDiaria.ObtenerTotalProduccionDiaria(fecha, idPlanta));
+            return Json(await this.servicioTotalProduccionDiaria.ObtenerTotalProduccionDiaria(fecha, idPlanta, idProducto));
         }
     }
 }

@@ -95,6 +95,8 @@ const Encabezado = ({ listaProductos, listaPlantas, horaInicio, sethoraInicio, h
             <div className="encabezado-container">
                 <Row>
                     <Col>
+                       
+                        
                         {rol === "Administrador" ?
                             <ComboBox data={listaPlantas} label="Planta" controlId="sel-idPlanta" onChange={onChangeIdPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta"  indicacion="Seleccione la planta" />
                             //<InputSelect className="form-control" controlId="sel-idPlanta" label="Plantas" data={listaPlantas} onChange={onChangeIdPlanta} value={idPlanta} optionValue="idPlanta" optionLabel="nombrePlanta" 
@@ -138,9 +140,11 @@ const Encabezado = ({ listaProductos, listaPlantas, horaInicio, sethoraInicio, h
             <hr />
             <div className="producto-container">
                 <div>
+                    
                     <div className="producto-left" >
-                        <InputSelect className="form-control" controlId="sel-idProducto" label="Producto" data={listaProductos} onChange={onChangeIdProducto} value={idProducto} optionValue="idProducto" optionLabel="nombreProducto"
-                        />
+                        <ComboBox className="form-control" controlId="sel-idProducto" data={listaProductos} label="Producto" onChange={onChangeIdProducto} value={idProducto} optionValue="idProducto" optionLabel="nombreProducto" indicacion="Seleccione el producto" />
+                        {/*<InputSelect className="form-control" controlId="sel-idProducto" label="Producto" data={listaProductos} onChange={onChangeIdProducto} value={idProducto} optionValue="idProducto" optionLabel="nombreProducto"*/}
+                        {/*/>*/}
                     </div>
                     <div className="producto-right">
                         <img src={brick} className="producto-icon" />

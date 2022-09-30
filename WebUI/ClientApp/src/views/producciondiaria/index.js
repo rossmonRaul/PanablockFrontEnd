@@ -201,7 +201,7 @@ const ProduccionDiaria = () => {
                 idPlanta,
                 horaInicio,
                 horaFinal,
-                idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+                idProducto: idProducto,
                 fecha: ObtenerFecha(),
                 estatus: 1
             }
@@ -231,7 +231,7 @@ const ProduccionDiaria = () => {
             }
 
         } else {
-
+            
             const data = {
                 idEncabezadoProduccionDiaria,
                 idPlanta: idPlanta,
@@ -286,7 +286,7 @@ const ProduccionDiaria = () => {
                 idPlanta,
                 horaInicio,
                 horaFinal,
-                idProducto: idProducto == 0 ? listaProductos[0].idProducto : idProducto,
+                idProducto: idProducto,
                 fecha: ObtenerFecha(),
                 estatus: 2
             }
@@ -318,7 +318,7 @@ const ProduccionDiaria = () => {
                 LimpiarCampos();
                 setfecha([0])
                 setidPlanta([0])
-                setIdEncabezadoProduccionDiaria([0]);
+                setIdEncabezadoProduccionDiaria(0);
 
             }
         }
@@ -327,10 +327,12 @@ const ProduccionDiaria = () => {
     }
 
     const LimpiarCampos = async () => {
-        setPlacaInicioTurno1("");
-        setPlacaFinalTurno1("");
-        setPlacaInicioTurno2("");
-        setPlacaFinalTurno2("");
+        sethoraInicio([0]);
+        sethoraFinal([0]);
+        setPlacaInicioTurno1([]);
+        setPlacaFinalTurno1([]);
+        setPlacaInicioTurno2([]);
+        setPlacaFinalTurno2([]);
         setPlacasTotales("")
         setUnidadesTotales("")
         setCubosTotales("")
@@ -341,11 +343,9 @@ const ProduccionDiaria = () => {
         setCantidadColor("")
         setColor("")
         setAditivo("")
-        
-        sethoraInicio([0])
-        sethoraFinal([0]);
+
         const detalleProduccion = await ObtenerDetalleProduccionDiaria(0);
-        ObtenerListaAgregados(0) 
+        ObtenerListaAgregados(0)
         ObtenerListaDetalleObservacion(0)
         setDesgloseProduccion(detalleProduccion);
     }
@@ -360,7 +360,8 @@ const ProduccionDiaria = () => {
                 const { idPlanta } = await ObtenerDatosDeUsuario();
                 const data = {
                     idPlanta,
-                    fecha: ObtenerFecha()
+                    fecha: ObtenerFecha(),
+                    idProducto:idProducto
                 }
                 const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
                 if (encabezado !== null) {
@@ -373,13 +374,14 @@ const ProduccionDiaria = () => {
                     ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
                     ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
                     ObtenerListaTotalProduccionDiaria();
-                }
+                } 
 
             } else {
 
                 const data = {
                     idPlanta: idPlanta,
-                    fecha: fecha
+                    fecha: fecha,
+                    idProducto: idProducto
                 }
 
                 const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
@@ -402,7 +404,8 @@ const ProduccionDiaria = () => {
             if (descripcion === "Administrador") {
                 const data = {
                     idPlanta: idPlanta,
-                    fecha: fecha
+                    fecha: fecha,
+                    idProducto: idProducto
                 }
 
                 const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
@@ -417,8 +420,47 @@ const ProduccionDiaria = () => {
                     ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
                     ObtenerListaTotalProduccionDiaria();
 
-                } 
+                } else if (encabezado === null) {
+
+                    sethoraInicio([0]);
+                    setIdEncabezadoProduccionDiaria(0);
+                    sethoraFinal([0]);
+
+                    LimpiarCampos();
+
+
+
+                }
+
+            } else {
+                const { idPlanta } = await ObtenerDatosDeUsuario();
+                const data = {
+                    idPlanta,
+                    fecha: ObtenerFecha(),
+                    idProducto: idProducto
+                }
+
+                const encabezado = await ObtenerEncabezadoProduccionDiaria(data);
+                if (encabezado !== null && idEncabezadoProduccionDiaria !== encabezado.idEncabezadoProduccionDiaria) {
+                    sethoraInicio(encabezado.horaInicio.split(".")[0]);
+                    sethoraFinal(encabezado.horaFinal.split(".")[0]);
+                    setIdEncabezadoProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    setidProducto(encabezado.idProducto);
+                    ObtenerListaDesgloseProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaConteoPlacasProduccionDiaria(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaDetalleObservacion(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaAgregados(encabezado.idEncabezadoProduccionDiaria);
+                    ObtenerListaTotalProduccionDiaria();
+
+                } else if (encabezado === null) {
+                  
+                    setIdEncabezadoProduccionDiaria(0);
+                   
+                    LimpiarCampos();
+                   
+                  
                     
+                }
             }
         }
         
@@ -451,7 +493,8 @@ const ProduccionDiaria = () => {
             const {  idPlanta } = await ObtenerDatosDeUsuario();
             const data = {
                 idPlanta,
-                fecha: ObtenerFecha()
+                fecha: ObtenerFecha(),
+                idProducto: idProducto
             }
 
             const listaTotal = await ObtenerTotalProduccionDiaria(data);
@@ -473,7 +516,8 @@ const ProduccionDiaria = () => {
 
             const data = {
                 idPlanta: idPlanta,
-                fecha: fecha
+                fecha: fecha,
+                idProducto:idProducto
             }
             const listaTotal = await ObtenerTotalProduccionDiaria(data);
             if (listaTotal.length > 0) {
@@ -519,7 +563,6 @@ const ProduccionDiaria = () => {
                     </>
                     : ''}
                 <br />
-               
                 <Encabezado listaProductos={listaProductos} listaPlantas={listaPlantas} horaInicio={horaInicio} sethoraInicio={sethoraInicio} horaFinal={horaFinal} sethoraFinal={sethoraFinal}
                     idProducto={idProducto} setidProducto={setidProducto} idPlanta={idPlanta} setidPlanta={setidPlanta} fecha={fecha} setfecha={setfecha}/>
 

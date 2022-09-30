@@ -49,11 +49,11 @@ namespace WebUI.Controllers
 
         [HttpGet("[action]")]
         [Authorize]
-        public async Task<JsonResult> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha)
+        public async Task<JsonResult> ObtenerEncabezadoProduccionDiaria(int idPlanta, DateTime? Fecha, int idProducto)
         {
             try
             {
-                return Json(await this.servicioEncabezadoProduccion.ObtenerEncabezadoProduccionDiaria(idPlanta, Fecha));
+                return Json(await this.servicioEncabezadoProduccion.ObtenerEncabezadoProduccionDiaria(idPlanta, Fecha, idProducto));
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Row, Button, Col, Form } from "react-bootstrap";
 import { InputSelect, InputText } from "../../components/inputs";
+import { ComboBox } from '../../components/combobox';
 import '../../styles/reportes.css';
 import { ObtenerProductos } from '../../servicios/ServicioProducto';
 import { ObtenerPlantas } from '../../servicios/ServicioPlanta';
@@ -82,7 +83,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             setListaPlantas(plantas);
             setidPlanta(plantas[0].idPlanta);
         }
-    }
+    }   
     const ObtenerListadoDeProductos = async () => {
         const productos = await ObtenerProductos();
         if (productos !== undefined) {
@@ -95,7 +96,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
         const producciones = await ObtenerProduccionesDiarias(parseInt(idPlanta), fecha);
         if (producciones !== undefined && producciones !== null) {
             setListaProduccion(producciones);
-            setidProduccion(producciones[0].idEncabezadoProduccionDiaria);
+           /* setidProduccion(producciones[0].idEncabezadoProduccionDiaria);*/
         }
 
     }
@@ -162,6 +163,8 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     const ObtenerEncabezadoProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
         let dataEncabezado = await ObtenerEncabezadoReporte(idEncabezadoProduccionDiaria)
         setDatosEncabezado(dataEncabezado);
+       
+        
     }
 
     const ObtenerDetalleProduccionDiaria = async (idEncabezadoProduccionDiaria) => {
@@ -175,10 +178,11 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
     }
 
 
-    const ObtenerTotales = async (fecha, idPlanta) => {
+    const ObtenerTotales = async (fecha, idPlanta, idProducto) => {
         const data = {
             idPlanta,
-            fecha
+            fecha,
+            idProducto
         }
         let dataTotales = await ObtenerTotalProduccionDiaria(data)
         setTotalesProduccion(dataTotales);
@@ -194,11 +198,13 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
         setAgregados(dataAgregados);
     }
 
-    const onClickGenerarReporteProduccion = async() => {
+    const onClickGenerarReporteProduccion = async () => {
+        let dataEncabezado = await ObtenerEncabezadoReporte(idProduccion);
+        let idProd = parseInt(dataEncabezado.idProducto);
         ObtenerEncabezadoProduccionDiaria(idProduccion);
         ObtenerDetalleProduccionDiaria(idProduccion);
         ObtenerTurnos(idProduccion);
-        ObtenerTotales(fechaProduccion, idPlanta);
+        ObtenerTotales(fechaProduccion, idPlanta, idProd);
         ObtenerObservaciones(idProduccion);
         ObtenerAgregados(idProduccion);
 
@@ -269,9 +275,11 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
 
             <Row>
                 <Col>
+                    
                     {listaProduccion.length > 0 ?
-                        <InputSelect className="form-control" controlId="sel-idProduccion" label="Producción diaria" data={listaProduccion} onChange={onChangeIdProduccion} value={idProduccion} optionValue="idEncabezadoProduccionDiaria" optionLabel="producto" />
-
+                      
+                        //<InputSelect className="form-control" controlId="sel-idProduccion" label="Producción diaria" data={listaProduccion} onChange={onChangeIdProduccion} value={idProduccion} optionValue="idEncabezadoProduccionDiaria" optionLabel="producto" />
+                        <ComboBox className="form-control" controlId="sel-idProduccion" data={listaProduccion} label="Producción diaria" onChange={onChangeIdProduccion} value={idProduccion} optionValue="idEncabezadoProduccionDiaria" optionLabel="producto"  indicacion="Seleccione el producto" />
                         : <p>Sin datos</p>}
                 </Col> 
                 <Col>
