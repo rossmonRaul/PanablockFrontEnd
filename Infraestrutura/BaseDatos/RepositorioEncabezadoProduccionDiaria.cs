@@ -85,7 +85,7 @@ namespace Infraestrutura.BaseDatos
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdPLanta", idPlanta);
                 data.Add("Fecha", Fecha);
-                string query = "SPObtenerEncabezadoProduccionDiaria";
+                string query = "SPObtenerEncabezadoProduccionDiariaRpt";
 
                 return await this.contextoBD.ObtenerListaDeDatos<DtoEncabezadoProduccionDiaria>(query, data);
             }
