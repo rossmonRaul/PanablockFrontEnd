@@ -106,6 +106,7 @@ const DesgloseProduccion = ({ listaHorarios, desgloseProduccion, setDesgloseProd
                     </tbody>
                 </Table>
                 <hr />
+                <p>{desgloseProduccion.length === 0 ? "*Obligatorio" : ""}</p>
             </div>
             <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo} className=''>
                 <FrmProduccionDiaria listaHorarios={listaHorarios} data={data} proceso={proceso} mensaje={""} labelButton={labelButton} AgregarProduccion={AgregarProduccion} />

@@ -354,7 +354,7 @@ const OpcionesBusqueda = ({ idTipoReporte }) => {
             </div>
             <br />
 
-            {Number(reporteBusqueda) === 1 && Number(idTipoReporte) === 1 && datosEncabezado.idEncabezadoProduccionDiaria !== undefined && datosTotales.length > 0 && datosDetalleProduccion.length > 0
+            {Number(reporteBusqueda) === 1 && Number(idTipoReporte) === 1 && datosEncabezado.idEncabezadoProduccionDiaria !== undefined && datosTotales.length > 0 
                  /*&& datosEncabezado.length > 0 && datosDetalleProduccion.length > 0
                 &&  turnos.length > 0*/ ?
                 <div className="container">

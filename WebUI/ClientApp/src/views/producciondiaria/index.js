@@ -588,10 +588,10 @@ const ProduccionDiaria = () => {
                 </Row>
                 <br />
                 <br />
-                {placasTotales === "" || placasTotales === 0 ?
-                    <p style={{ textAlign: "right", marginBottom: "2vh" }}>Debe llenar los campos obligatorio para finalizar</p>
+                {placasTotales === "" || placasTotales === 0 || desgloseProduccion.length === 0 ?
+                    <p style={{ textAlign: "right", marginBottom: "2vh" }}>Debe llenar los campos obligatorios para finalizar</p>
                     : ""}
-                {placasTotales === "" || placasTotales === 0 ?                    
+                {placasTotales === "" || placasTotales === 0 || desgloseProduccion.length === 0?                    
                     <div className="btn-section">                      
                         <Button disabled variant="primary" type="submit" size="md" onClick={() => onClickGuardar()}>Guardar </Button>
                         <Button disabled variant="success" type="submit" size="md" onClick={() => onClickFinalizar()}>Finalizar </Button>
